@@ -1,0 +1,52 @@
+body {
+  line-height: 5.5px;
+  height: 827px;
+  background-color: #E5E5E5;
+}
+.no-gutters {
+  /* margin-right: 0; */
+  margin-left: -18px;
+  width: 1565px;
+}
+#card{
+  border: 0px;
+}
+.card.bg-dark.text-white{
+  width: 812px;
+  border: 0px;
+  border-radius: 0px;
+}
+.form-group.form-check {
+  padding-left: 0px;
+  float: right;
+}
+#formCard {
+  padding: 95px;
+  margin-top: 138px;
+  border-radius: 15px;
+  height: 564px;
+  background-color: #124814;
+}
+.mb-3, .my-3 {
+  margin-bottom: 1rem!important;
+  height: 750px;
+}
+.buttons {
+  display: grid
+}
+#start {
+  background-color: #124814;
+  color: whitesmoke;
+  border-radius: 1px solid #FFFFFF;
+  margin-bottom: 17px;
+}
+#login {
+  color: #124814;
+  border-radius: 1px solid #124814;
+  background-color: whitesmoke;
+}
+#title {
+  margin-bottom: 106px;
+  color: whitesmoke;
+  text-align: center;
+}

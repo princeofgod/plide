@@ -1,0 +1,80 @@
+<div class="card" id="card" style="max-width: 100%;">
+    <div class="row no-gutters">
+        <div class="col-md-7" style="max-width: 70%;">
+            <div class="card bg-dark text-white">
+                <img src="Group95.svg" class="card-img" alt="Responsive image">
+                <div class="card-img-overlay text-center" style="top: 334px;">
+                    <h5 class="card-title">LET US BUILD A NIGERIA OF OUR DREAM</h5>
+                    <p class="card-text">Together we can build a future for this great nation</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5" style="max-width: 37%;">
+            <div class="card-body" id="formCard">
+                <form id="register" action="users/registerMember" method="POST" enctype="multipart/formdata">
+                    <label for="register" style="color: #124814; line-height: 25px;"><b>We will need some basic informations from you</b></label>
+                    <div class="form-group" id="alignForm">
+                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Firstname">
+                    </div>
+                    <div class="form-group" id="alignForm">
+                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Lastname">
+                    </div>
+                    <div class="form-group" id="alignForm">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    </div>
+                    <div class="form-group" id="alignForm">
+                        <input type="phone" class="form-control" name="phone" id="phone" placeholder="Phone">
+                    </div>
+                    <div class="form-group" id="alignForm">
+                        <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                    </div>
+                    <div class="form-group" id="alignForm">
+                        <input type="text" class="form-control" name="gender" id="gender" placeholder="Gender">
+                    </div>
+                    {{!-- <div class="form-group" id="alignForm">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add your Profile</button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Fill in your Profile</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group" id="alignForm">
+                                    <input type="text" class="form-control" name="country" id="country" placeholder="country">
+                                </div>
+                                <div class="form-group" id="alignForm">
+                                    <input type="state" class="form-control" name="state" id="state" placeholder="state">
+                                </div>
+                                <div class="form-group" id="alignForm">
+                                    <input type="local_govt" class="form-control" name="local_govt" id="local_govt" placeholder="local_govt">
+                                </div>
+                                <div class="form-group" id="alignForm">
+                                    <input type="ward" class="form-control" name="ward" id="ward" placeholder="ward">
+                                </div>
+                                <div class="form-group" id="alignForm">
+                                    <input type="employment_status" class="form-control" name="employment_status" id="employment_status" placeholder="employment_status">
+                                </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" onkeyup="success()" id="check">
+                        <label class="form-check-label" for="check"> Agree to terms and policy.</label>
+                    </div>
+                    <br><button type="submit" class="btn" id="click" data-toggle="modal" data-target="#myModal" disabled>SIGN UP</button> ALREADY HAVE AN ACCOUNT? <a href="login" id="login">LOGIN</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

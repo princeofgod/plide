@@ -1,0 +1,112 @@
+body {
+    height: 826px;
+}
+#leftMenu {
+    background-color: #124814;
+    height: 827px;
+    width: 300px;
+    float: left;
+    margin-left: -30px;
+}
+#verticalmenubutton {
+    color: whitesmoke;    
+    text-align: center;
+    margin-left: 50px;
+    line-height: 50px;
+    border-radius: 35px;
+}
+#middleBottom {
+    height: 310px;
+    width: 900px;
+    padding-left: 70px;
+    padding-right: 70px;
+    padding-top: 35px;
+    background: #FAFFF9;
+    box-shadow: 0px 11px 52px -12px rgba(196, 196, 196, 0.3);
+    border-radius: 27px;
+}
+#chart{
+    padding-top: 45px;
+    width: 300px;
+    float: right;
+}
+#myProgress {
+    width: 200px;
+    height: 10px;
+    padding-bottom: 80px;
+}
+#myBar {
+    width: 12%;
+    height: 5px;
+    background-color: #4CAF50;
+}
+#progressFont {
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 24px;
+    color: #000000;
+}
+#dashText {
+    font-family: Sofia Pro;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 33px;
+}
+#c1, #c2, #c3 {
+    display: inline-grid;
+    margin-top: 100px;
+    width: 280px;
+    height: 150px;
+    box-shadow: 0px 11px 52px -12px rgba(196, 196, 196, 0.3);
+    border-radius: 27px;
+    padding-top: 20px;
+    padding-left: 20px;
+
+}
+#middle {
+    padding-left: 117px;
+    padding-right: 117px;
+}
+#search-input {
+    font-family: Sofia Pro;
+    position: relative; 
+    vertical-align: top;
+}
+#top {
+    display: inline-flex;
+    height: 130px;
+}
+#topMenu {
+    padding-left: 58px;
+    padding-right: 49px;
+    display: inline-flex;
+}
+#middleList {
+    display: flex;
+    padding-top: 140px;
+}
+#ml2 {
+    padding-left: 23px;
+    width: 86px;
+    height: 45px;
+}
+#menuA {
+    margin-top: 63px;
+}
+#menuB, #menuC {
+    margin-top: 75px;
+}
+#rightMenu {
+    padding-left: 0px;
+    padding-right: 0px;
+    display: inline-table;
+    float: right;
+    width: 232px;
+    height: 730px;
+}
+#bottomList {
+    display: table-footer-group;
+}

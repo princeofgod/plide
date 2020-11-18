@@ -1,0 +1,52 @@
+body {
+    line-height: 5.5px;
+    height: 827px;
+    background-color: #E5E5E5;
+    text-align: center;
+}
+.no-gutters {
+    /* margin-right: 0; */
+    margin-left: -18px;
+    width: 1565px;
+}
+#card{
+    border: 0px;
+}
+.card-title, .card-text {
+    color: whitesmoke
+}
+.card.bg-dark.text-white{
+    width: 812px;
+    border: 0px;
+    border-radius: 0px;
+}
+.form-group.form-check {
+    padding-left: 0px;
+    float: right;
+}
+#formCard {
+    padding: 90px;
+    margin-top: 138px;
+    border-radius: 15px;
+    height: 554px;
+    border: 2px solid #124814;
+}
+#clickAccount {
+    color: whitesmoke;
+    background-color: #124814;
+    margin-top: -38px;
+}
+.mb-3, .my-3 {
+    margin-bottom: 1rem!important;
+    height: 750px;
+}
+#login {
+    display: contents;
+    color: #124814;
+}
+#confirmAccount {
+    text-align: center;
+    display: inline-grid;
+    display: -moz-inline-grid;
+    display: -ms-inline-grid;
+}

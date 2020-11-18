@@ -1,0 +1,24 @@
+<div class="card" id="card" style="max-width: 100%;">
+    <div class="row no-gutters">
+        <div class="col-md-7" style="max-width: 70%;">
+            <div class="card bg-dark text-white">
+                <img src="Group95.svg" class="card-img" alt="Responsive image">
+                <div class="card-img-overlay text-center" style="top: 334px;">
+                    <h5 class="card-title">LET US BUILD A NIGERIA OF OUR DREAM</h5>
+                    <p class="card-text">Together we can build a future for this great nation</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5" style="max-width: 37%;">
+            <div class="card-body" id="formCard">
+                <form id="confirmAccount" action="/users/confirm_account" method="POST" enctype="multipart/formdata">
+                    <label for="resetPassword" style="color: #124814; line-height: 25px; margin-bottom:50px"><b>Confirm your PLACES' account by clicking on the button below.</b></label>
+                    <div class="form-group" id="alignForm">
+                        <input type="hidden" class="form-control" name="confirmation_token" id="confirmaton_token" value={{message}}>
+                    </div>                   
+                    <br><button type="submit" class="btn" id="clickAccount">CONFIRM ACCOUNT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

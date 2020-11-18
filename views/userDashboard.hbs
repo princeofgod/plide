@@ -1,0 +1,130 @@
+<div class="container-fluid" style="height: 826px;">
+    <div class="container" id="leftMenu" style="padding-left: 0px;">
+        <div class="btn-group-vertical" id="verticalmenu">
+            <a class="btn" id="verticalmenubutton" href="userDashboard" style="margin-top:179px; background-color: whitesmoke; color: #124841">Dashboard</a>
+            <a class="btn" id="verticalmenubutton" href="profile">Profile</a>
+            <a class="btn" id="verticalmenubutton" href="events">Events</a>
+            <a class="btn" id="verticalmenubutton" href="members">Member Groups</a>
+            <a class="btn" id="verticalmenubutton" href="funds">Fund a course</a>
+        </div>
+    </div>
+    <div class="container" id="top">
+        <div class="container" id="topMenu">
+            <div id="menuA" style="width: 380px;">
+                <h3 id="dashText">Dashboard</h3>
+            </div>
+            <div id="menuB" style="width: 330px;">
+                <input type="search" class="form-control ds-input" id="search-input" placeholder="Search..." aria-label="Search for..." autocomplete="off" data-docs-version="4.5" spellcheck="false" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-owns="algolia-autocomplete-listbox-0" dir="auto" style="border: 1px solid #ced4da3d;border-radius: 2.25rem;">
+            </div>
+            <div id="menuC" style="padding-left: 45px; width: 182px; font-family: Sofia Pro;">
+                <img src="calendar.svg">
+                11 november 2020
+            </div>
+        </div>
+        <div class="container" id="rightMenu">
+            <div id="topList">
+                <div id="notification">
+                    <img src="Notification.svg" style="padding-top: 50px;">
+                    <img src="Ellipse 34.svg" style="padding-left: 31px;width: 106px;padding-top: 52px;padding-right: 0px;">
+                    <img src="Group 15.svg" style="padding-left:35px; padding-top:50px">
+                </div>
+            </div>
+            <div id="middleList">
+                <div id="ml1">
+                    <img src="card.svg">
+                </div>
+                <div id="ml2">Main card<br>****2356<img src="cardIcon.svg" style="height: 111px; position: absolute; padding-left: 13px; margin-top: -54px;"></div>
+                <div id="ml3">
+                    
+                </div>
+            </div>
+            <div id="bottomList">
+                <div id="yourVote" style="padding-bottom: 40px;margin-top: -40px;">
+                    <a href="#"><b>Your Vote</b></a><br>cast your vote
+                </div>
+                <div id="nominees" style="padding-bottom: 40px;">
+                    <a href="#"><b>Nominees</b></a><br>select your nominees
+                </div>
+                <div id="invite">
+                    <a href="#"><b>Invite friends</b></a><br>check out friends you have invited
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container" id="middle">
+        <div class="row">
+            <div class="container" id="c1">
+                <p>Total<img src="More Square.svg" style="float: right;"><br>registered</p>
+
+            </div>
+            <div class="container" id="c2">
+                <p>Total events<img src="More Square.svg" style="float: right;"></p>
+            </div>
+            <div class="container" id="c3">
+                <p>Registered<img src="More Square.svg" style="float: right;"><br>today</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="border" id="middleTop" style="height: 84px; border: 0px; display: table"></div>
+
+    <div class="container" id="middleBottom">
+        <b style="padding-top: 10px;">Monthly Statistics</b>
+        <div class="container" id="chart">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div id="progressChart">
+            <div id="myProgress" style="padding-top: 20px;">
+                <p id="progressFont">Total registered</p>
+                <div id="myBar"></div>
+            </div>
+            <div id="myProgress">
+                <p id="progressFont">Total events</p>
+                <div id="myBar"></div>
+            </div>       
+            <div id="myProgress">
+                <p id="progressFont">Fund a course</p>
+                <div id="myBar"></div>
+            </div>       
+        </div>
+    </div>
+</div>
+<script>
+    let myChart = document.getElementById('myChart');
+
+    let massPopChart = new Chart(myChart, {
+        type: 'line',
+        data: {
+            labels: ['','',''],
+            datasets: [{
+                label: 'Population',
+                data: [
+                    100,
+                    300,
+                    200
+                ],
+                borderColor: "#124814"
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            legend: {
+                display: false
+            },
+            scales: {
+                yAxes: [{
+                    stacked: true,
+                    gridLines: {
+                        display: true,
+                        color: "#12481411"
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        display: false
+                    }
+                }]
+            }
+        }
+    })
+</script>
