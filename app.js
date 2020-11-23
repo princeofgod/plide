@@ -7,14 +7,29 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const hbs = require("express-handlebars");
 
 const app = express();
 
 const IN_PROD = process.env.NODE_ENV === 'development'
 
+// registering partials
+// handlebars.registerPartial('userMenu',)
+
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+// app.set('views', path.join(__dirname, 'views'));
+app.engine(
+  "hbs",
+  hbs({
+    partialsDir: ["views/partials"],
+    extname: ".hbs",
+    layoutsDir: "views",
+    defaultLayout: "layout"
+  })
+);
+
 app.set('view engine', 'hbs');
+
 
 app.use(logger('dev'));
 app.use(express.json());

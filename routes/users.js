@@ -27,6 +27,7 @@ router.post('/registerMember', async (req, res, next) => {
   res.redirect('/register', registerMember, req.session);
 });
 
+
 // router.post('/confirm_account', async (req, res, next) => {
 //   console.log("query", req.body.confirmation_token)
 //   const confirm = await controller.confirm_account(req.body.confirmation_token);

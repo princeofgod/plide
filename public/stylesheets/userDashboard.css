@@ -1,20 +1,23 @@
 body {
     height: 826px;
 }
-#leftMenu {
+/* #leftMenu {
     background-color: #124814;
     height: 827px;
     width: 300px;
     float: left;
     margin-left: -30px;
+} */
+#rightDisplay{
+    flex: 1;
 }
-#verticalmenubutton {
+/* #verticalmenubutton {
     color: whitesmoke;    
     text-align: center;
     margin-left: 50px;
     line-height: 50px;
     border-radius: 35px;
-}
+} */
 #middleBottom {
     height: 310px;
     width: 900px;
@@ -74,10 +77,6 @@ body {
     font-family: Sofia Pro;
     position: relative; 
     vertical-align: top;
-}
-#top {
-    display: inline-flex;
-    height: 130px;
 }
 #topMenu {
     padding-left: 58px;
