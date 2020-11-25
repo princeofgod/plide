@@ -1,4 +1,4 @@
-body {
+/* body {
     height: 826px;
 }
 
@@ -62,17 +62,10 @@ body {
 }
 #bottomList {
     display: table-footer-group;
-}
+} */
 
 /* ------------------------------------------------------ */
-.info{
-    padding:30px;
-    height: 160px;
-    background: #FAFFF9;
-    box-shadow: 0px 11px 52px -12px rgba(196, 196, 196, 0.3);
-    border-radius: 27px;
-    width:30%;
-}
+/* 
 .info p {
     width: 104px;
     height: 48px;
@@ -102,7 +95,7 @@ body {
     flex-direction: column;
     align-items: ;
     justify-content: space-between;
-    /* margin:10px 0 0 -80px; */
+
     width:80%;
 }
 #info-holder{
@@ -113,25 +106,17 @@ body {
     margin:10px 0 0 -80px;
     width:100%;
 }
-#user-icon{
-    display:inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-left:90px;
-    width: 40px;
-    height: 40px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 38px -15px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
+*/
 #statistics{
-    margin:30px 0 30px 35px;
-    width:65%;
+    /* width:65%; */
     height: 390px;
     padding:30px;
     background: #FAFFF9;
     box-shadow: 0px 11px 52px -12px rgba(196, 196, 196, 0.3);
     border-radius: 27px;
+}
+#statistics h3{
+
 }
 #statistic-chart{
     display:flex;
@@ -139,56 +124,53 @@ body {
 
 }
 #reg-progress{
-    /* width: 171px; */
     width:60%;
-height: 8px;
-
-background: #34CF4D;
-border-radius: 16px;
+    height: 8px;
+    background: #34CF4D;
+    border-radius: 16px;
 }
 .percent{
     display:inline;
-    margin-left: 150px;
+    margin-left: 20px;
     width: 30px;
-height: 21px;
-font-style: normal;
-font-weight: normal;
-font-size: 16px;
-line-height: 21px;
-color: #C4C4C4;
+    height: 21px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 21px;
+    color: #C4C4C4;
 }
-/* #progress div p{
-    display:inline;
-} */
 #fund-progress{
     height: 8px;
-background: #0099DF;
-border-radius: 16px;
-width:79%;
+    background: #0099DF;
+    border-radius: 16px;
+    width:79%;
 }
 #event-progress{
-height: 8px;
-background: #E0CA3C;
-border-radius: 16px;
-width:45%;
+    height: 8px;
+    background: #E0CA3C;
+    border-radius: 16px;
+    width:45%;
 }
 .progress-title{
     display:inline-block;
+    width:150px;
 }
 .value{
-    margin-top:30px;
+    margin-top:10px;
 }
 .value #d{
     display:inline-block;
-    margin-top:10px;
-    width: 293px;
-height: 8px;
-left: 493px;
-top: 683px;
-background-color: #EFEFFA;
-border-radius: 16px;
+    margin-top:0px;
+    width: 250px;
+    height: 8px;
+    background-color: #EFEFFA;
+    border-radius: 16px;
 }
 .stat-icons{
-    display:inline-block;
-    margin-left:50px;
-}
+    float:right;
+    clear:both;
+    /* display:inline-block; */
+    margin-left:30px;
+    border-radius: 10px;
+} 

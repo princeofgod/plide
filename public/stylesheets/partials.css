@@ -24,13 +24,109 @@
     src:url('../../fonts/SofiaProLight.otf');
     font-weight: 300;
 }
+body{
+    font-family:"Sofia Pro";
+}
+/* Top nav partil styling */
+#dashText {
+    font-size:24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 33px;
+}
 
-#leftMenu {
+#date{
+    height:21px;
+    font-style:normal;
+    font-weight: normal;
+    font-size:16px;
+    line-height:21px;
+    color:#000;
+}
+#search-btn{
+    width:40px;
+    height:30px;
+    border-radius: 28px 0 0 28px;
+    border:none;
+    padding:0;
+    background-color:#fff;
+}
+#search-input{
+    border-radius: 0 28px 28px 0;
+    height:30px;
+    width:170px;
+    padding:10px 0 5px 0;
+    border:none;
+    font-size:16px;
+}
+
+
+#main{
+    background-color:#FAFFF9;
+}
+#leftMenu{
+    background-color:#124814;
+    font-style: normal;
+}
+#notifications, #logout, #card{
+    width:47px;
+    height:47px;
+    box-shadow: 7px 5px 40px rgba(0, 0, 0, 0.1);
+    border-radius:50%;
+    align-items: center;
+}
+/* -------------------------- */
+
+/* --------- USERDASHBOARD --------- */
+.info{
+    padding:20px;
+    background: #FAFFF9;
+    box-shadow: 0px 11px 52px -12px rgba(196, 196, 196, 0.3);
+    border-radius: 27px;
+    font-size: 18px;
+    line-height: 24px;
+    height: 197px;
+    font-style: normal;
+    font-weight: bold;
+}
+.info p {
+    height: 48px;
+    font-family:'Sofia Pro';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 34px;
+    color: #124814;
+}
+
+.user-icon{
+    display:inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left:90px;
+    width: 40px;
+    height: 40px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 38px -15px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+/* ----------------------------------- */
+/* Right  */
+.right-icon{
+    width: 60px;
+    height: 59px;
+    background: rgba(196, 196, 196, 0.15);
+    border-radius: 10px;
+}
+.right-span{
+    color: rgba(0, 0, 0, 0.53);
+}
+/* ----------------- */
+/* #leftMenu {
     display:inline-block;
     background-color: #124814;
     height: 827px;
-    width: 300px;
-    /* float: left; */
+    width: 17%;
     margin-left: -30px;
     font-family: 'Sofia Pro';
 }
@@ -41,43 +137,38 @@
     margin-left: 50px;
     line-height: 50px;
     border-radius: 35px;
-}
+} */
 
 /* -----------------The top partial styling---------------- */
 /* --------------------- Starts here ---------------------- */
-.title {
+/* .title {
     height: 155px;
-    /* left: 388px; */
     top: 97px;
     margin-top: 36px;
     font-family: 'Sofia Pro';
     font-weight: 600;
-    font-size: 24px;
+    font-size: 1em;
     line-height: 33.22px;
     color: #000;
-    /* border: solid 1px #000; */
 }
 #dashText {
-    font-size:20px;
-    margin:0 35px;
+    font-size:1em;
     font-family: 'Sofia Pro';
     font-style: normal;
     font-weight: 600;
-    /* font-size: 24px; */
     line-height: 33px;
 }
 #search{
-    margin:0 100px 0 150px;
-    width:369px;
-    height:53px;
+    width:30%;
+    height:40px;
     box-shadow: 0px 4px 36px -15px rgba(0, 0, 0, 0.25);
     border-radius: 28px;
     background-color:#fff;
+    border:solid 1px red;
 }
 #search-btn{
-    /* display:inline; */
-    width:40px;
-    height:53px;
+    width:12%;
+    height:40px;
     border-radius: 28px 0 0 28px;
     border:none;
     padding:0;
@@ -85,46 +176,36 @@
 }
 #search-input{
     border-radius: 0 28px 28px 0;
-    height:50px;
-    width:328px;
+    height:40px;
+    width:92%;
     margin-left:49px;
-    margin-top: -53.5px;
+    margin-top: -40px;
     padding:10px 0 5px 0;
     border:none;
-    font-size:18px;
+    font-size:.9em;
 }
 #date{
-    /* width:113px; */
     height:21px;
     font-style:normal;
     font-weight: normal;
-    font-size: 16px;
+    font-size:.8em;
     line-height:21px;
     color:#000;
 }
   
-#notifications, #logout, #card{
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    width:47px;
-    height:47px;
-    box-shadow: 7px 5px 40px rgba(0, 0, 0, 0.1);
-    border-radius:50%;
-    align-items: center;
-}
+
 #rightnav{
-    margin-left:auto;
+    margin-left:103px;
     margin-right:61px;
 }
 #userImage{
     margin:0 57px;
-}
+} */
 /* ----------------- Ends here -------------------*/
 
 /* -----------------The right partial styling---------------- */
 /* --------------------- Starts here ---------------------- */
-#middle-right{
+/* #middle-right{
     border:solid 1px #000;
     float:right;
     clear: both;
@@ -132,49 +213,16 @@
     margin-left:auto;
     margin-right:-60px;
 }
-
+ */
 
 
 /* ----------------------- Ends here ------------------------*/
 
-#middle{
-    display:flex;
-    flex-direction: row;
-}
-.info{
-    /* width: 348px; */
-    height: 197px;
-    background: #FAFFF9;
-    box-shadow: 0px 11px 52px -12px rgba(196, 196, 196, 0.3);
-    border-radius: 27px;
-    width:30%;
-}
-#middle-left{
-    display:flex;
-    flex-direction: row;
-    align-items: ;
-    justify-content: space-between;
-    /* margin:10px 0 0 -80px; */
-    width:80%;
-}
-#info-holder{
-    display:flex;
-    flex-direction: row;
-    align-items: ;
-    justify-content: space-between;
-    margin:10px 0 0 -80px;
-    width:100%;
-}
-#middle-right{
+
+/* #middle-right{
     width:300px;
 }
-#user-icon{
-    width: 40px;
-    height: 40px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 38px -15px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
+
 #head{
     border:solid 1px #000;
 }
@@ -192,7 +240,6 @@
     font-family: 'Sofia Pro';
     font-style: normal;
     font-weight: 300;
-    /* font-size: 24px; */
     line-height: 28px;
     color: #124814;
 }
@@ -209,5 +256,4 @@
     float:right;
     clear:both;
     margin:0 390px 0 auto;
-    /* border:solid 1px #000; */
-}
+} */
