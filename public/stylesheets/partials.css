@@ -28,8 +28,9 @@ body{
     font-family:"Sofia Pro";
 }
 /* Top nav partil styling */
+
 #dashText {
-    font-size:24px;
+    font-size:1.2vw;
     font-style: normal;
     font-weight: 600;
     line-height: 33px;
@@ -39,27 +40,26 @@ body{
     height:21px;
     font-style:normal;
     font-weight: normal;
-    font-size:16px;
+    /* font-size:16px; */
+    font-size:.9vw;
     line-height:21px;
     color:#000;
 }
 #search-btn{
-    width:40px;
+    /* width:40px; */
     height:30px;
     border-radius: 28px 0 0 28px;
-    border:none;
-    padding:0;
+    /* border:none; */
     background-color:#fff;
 }
 #search-input{
     border-radius: 0 28px 28px 0;
     height:30px;
-    width:170px;
-    padding:10px 0 5px 0;
-    border:none;
-    font-size:16px;
+    /* width:170px; */
+    padding:5px 10px;
+    font-size:1vw;
+    background-color:#fff;
 }
-
 
 #main{
     background-color:#FAFFF9;
@@ -85,7 +85,7 @@ body{
     border-radius: 27px;
     font-size: 18px;
     line-height: 24px;
-    height: 197px;
+    height: 150px;
     font-style: normal;
     font-weight: bold;
 }
@@ -94,7 +94,7 @@ body{
     font-family:'Sofia Pro';
     font-style: normal;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 1vw;
     line-height: 34px;
     color: #124814;
 }
@@ -113,85 +113,19 @@ body{
 /* ----------------------------------- */
 /* Right  */
 .right-icon{
-    width: 60px;
-    height: 59px;
+    width:40px;
+    height: 40px;
     background: rgba(196, 196, 196, 0.15);
     border-radius: 10px;
 }
 .right-span{
     color: rgba(0, 0, 0, 0.53);
+    font-size: 1vw;
 }
 /* ----------------- */
-/* #leftMenu {
-    display:inline-block;
-    background-color: #124814;
-    height: 827px;
-    width: 17%;
-    margin-left: -30px;
-    font-family: 'Sofia Pro';
-}
-
-.verticalmenubutton {
-    color: whitesmoke;    
-    text-align: center;
-    margin-left: 50px;
-    line-height: 50px;
-    border-radius: 35px;
-} */
 
 /* -----------------The top partial styling---------------- */
 /* --------------------- Starts here ---------------------- */
-/* .title {
-    height: 155px;
-    top: 97px;
-    margin-top: 36px;
-    font-family: 'Sofia Pro';
-    font-weight: 600;
-    font-size: 1em;
-    line-height: 33.22px;
-    color: #000;
-}
-#dashText {
-    font-size:1em;
-    font-family: 'Sofia Pro';
-    font-style: normal;
-    font-weight: 600;
-    line-height: 33px;
-}
-#search{
-    width:30%;
-    height:40px;
-    box-shadow: 0px 4px 36px -15px rgba(0, 0, 0, 0.25);
-    border-radius: 28px;
-    background-color:#fff;
-    border:solid 1px red;
-}
-#search-btn{
-    width:12%;
-    height:40px;
-    border-radius: 28px 0 0 28px;
-    border:none;
-    padding:0;
-    background-color:#fff;
-}
-#search-input{
-    border-radius: 0 28px 28px 0;
-    height:40px;
-    width:92%;
-    margin-left:49px;
-    margin-top: -40px;
-    padding:10px 0 5px 0;
-    border:none;
-    font-size:.9em;
-}
-#date{
-    height:21px;
-    font-style:normal;
-    font-weight: normal;
-    font-size:.8em;
-    line-height:21px;
-    color:#000;
-}
   
 
 #rightnav{
@@ -200,60 +134,107 @@ body{
 }
 #userImage{
     margin:0 57px;
-} */
+}
 /* ----------------- Ends here -------------------*/
 
 /* -----------------The right partial styling---------------- */
 /* --------------------- Starts here ---------------------- */
-/* #middle-right{
-    border:solid 1px #000;
-    float:right;
-    clear: both;
-    width:600px;
-    margin-left:auto;
-    margin-right:-60px;
-}
- */
 
 
 /* ----------------------- Ends here ------------------------*/
 
+/* -----------------USER MENU------------------ */
 
-/* #middle-right{
-    width:300px;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width:100%;
+    background-color:#124814;
+    border: none;
+    /* background: #FAFFF9; */
+border-radius: 35px;
+  }
+  
+  li a {
+    display: block;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  
+  li {
+    text-align: center;
+    width:80%;
+    margin:0 10%;
+  } 
+  li:last-child {
+    border-bottom: none;
+  }
+  
+  li a.active {
+    background-color: #fff;
+    color: #124814;
+    border-radius: 35px;
+  }
+  
+  li a:hover:not(.active) {
+    background-color: #fff;
+    color: #124814;
+    border-radius: 35px;
+    text-decoration: none;
+  }
+  /*-------------------- PROFILE ---------------------*/
+#profile{
+    background: rgba(196, 196, 196, 0.27);
+    border-radius: 20px;
+    height: 170px;
 }
-
-#head{
-    border:solid 1px #000;
-}
-#categories{
-    margin-left:auto;
-    border:solid 1px #000;
-    margin-top:20px;
-}
-
-#cat-text{
-    display: inline;
-    margin:0 35px;
-    font-size:18px;
-    margin:0 35px;
-    font-family: 'Sofia Pro';
+.profile-head{
+    font-size:1vw;
+    color:#124814;
     font-style: normal;
-    font-weight: 300;
-    line-height: 28px;
-    color: #124814;
+    font-weight: 600;
+    /* font-size: 18px; */
+    line-height: 25px;
 }
-#see-all{
-    width: 118px;
-    height: 40px;
-    border: 2px solid #124814;
-    box-sizing: border-box;
-    border-radius: 6.07944px;
-    color: #124814;
-    line-height:25px;
-    font-size:18px;
-    font-weight:600;
-    float:right;
-    clear:both;
-    margin:0 390px 0 auto;
-} */
+.profile-input{
+    width:55%;
+    border-bottom: solid 1px rgba(18, 72, 20, 0.5);
+    background-color:#fafffb;
+    font-size:1vw;
+    padding:0 0 5px 5px;
+}
+.profile-input:focus{
+    outline:none;
+}
+label{
+    width:20%;
+}
+.profile-button{
+    width: 110px;
+    height: 36px;
+    background-color: #124814;
+    border:none;
+    /* float:right; */
+    /* clear:both; */
+    color:#fff;
+    margin-right:30px;
+}
+.img-holder{
+    width :107px;
+    height :107px;
+    border:solid 1px black;
+    border-radius:50%;
+    background:url(../../images/img.png);
+}
+#edit-btn{
+    background-color: #124814;
+    color:#fff;
+    border:none;
+    font-size:1vw;
+    width: 90px;
+    height: 36px;
+}
+
+  /* ------------------------------------------------ */

@@ -1,11 +1,157 @@
-<div class="container-fluid" style="height: 826px;">
-    <div class="container" id="leftMenu" style="padding-left: 0px;">
-        <div class="btn-group-vertical" id="verticalmenu">
-            <a class="btn" id="verticalmenubutton" href="userDashboard" style="margin-top:179px; background-color: whitesmoke; color: #124841">Dashboard</a>
-            <a class="btn" id="verticalmenubutton" href="profile">Profile</a>
-            <a class="btn" id="verticalmenubutton" href="events">Events</a>
-            <a class="btn" id="verticalmenubutton" href="members">Member Groups</a>
-            <a class="btn" id="verticalmenubutton" href="funds">Fund a course</a>
+<div class="row" style="height:100vh;">
+    <div class="col-2 p-0 m-0" style="border:solid 1px black;">
+        {{>userMenu}}
+    </div>
+    {{!--  --}}
+    <div class="col-10 overflow-scroll" style="border:solid 1px black;">
+        <div class="row">
+            <div class="col-12">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-6 mt-4 mb-5 d-flex flex-row align-items-center px-5 mx-3" id="profile" style="">
+                        <div class="mx-3">
+                            <div class="img-holder" style="">
+                                <img src="../images/img.png" alt="">
+                            </div>
+                        </div>
+                        <div class="ml-2">
+                            <p class="mb-0 mt-3 font-weight-bolder" style="font-size: .9vw;width:150px;"> Ife Oreoluwa
+                                Cynthia</p>
+                            <p class="mt-2" style="font-size:.9vw;color:rgba(0, 0, 0, 0.7)">ifeoluwa@gmail.com</p>
+                        </div>
+                        <div class="" id="" style="margin-left:70px;margin-top:100px;">
+                            <button id="edit-btn" class="" type="">Edit data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        {{!--  --}}
+        <div class="row">
+            <div class="col-12 px-5">
+                <form action="" method="post">
+                    <div class="row p-0 m-0 mb-4">
+                        <div class="col-6 px-0">
+                            <h4 class="profile-head font-weight-bolder">BASIC INFORMATION</h4>
+                        </div>
+                        <div class="col-6">
+                            <h4 class="profile-head font-weight-bolder">ADDITIONAL INFORMATION</h4>
+                        </div>
+                    </div>
+                    {{!--  --}}
+                    <div class="row my-3">
+                        <div class="col-6">
+                            <label for="firstname" class="mr-5 ">First name:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="firstname" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-6">
+                            <label for="country" class="mr-5">Country:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="country" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-6">
+                            <label for="lastname" class="mr-5">Last name:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="lastname" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col-6 ">
+                            <label for="state" class="mr-5">State:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="state" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <label for="email" class="mr-5">E-mail:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="email" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col">
+                            <label for="lga" class="mr-5">Local govt:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="lga" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <label for="phone" class="mr-5">Phone:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="phone" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col">
+                            <label for="address" class="mr-5">Address:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="address" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <label for="gender" class="mr-5">Gender:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="gender" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col">
+                            <label for="ward" class="mr-5">Ward:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="ward" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col">
+                            <label for="password" class="mr-5">Password:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="password"
+                                    name="password" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                        <div class="col">
+                            <label for="job-stat" class="mr-5">Employment stat:</label>
+                            <div class="d-inline">
+                                <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                    name="job-stat" id="" placeholder="" style="border">
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="row m-0 d-flex justify-content-end mr-5 mt-5">
+                        <button class="profile-button" type="submit">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
