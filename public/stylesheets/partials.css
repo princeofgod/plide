@@ -26,6 +26,7 @@
 }
 body{
     font-family:"Sofia Pro";
+    height:100%;
 }
 /* Top nav partil styling */
 
@@ -63,6 +64,7 @@ body{
 
 #main{
     background-color:#FAFFF9;
+    height:inherit;
 }
 #leftMenu{
     background-color:#124814;
@@ -128,10 +130,10 @@ body{
 /* --------------------- Starts here ---------------------- */
   
 
-#rightnav{
+/* #rightnav{
     margin-left:103px;
-    margin-right:61px;
-}
+    margin-right:61px; 
+} */
 #userImage{
     margin:0 57px;
 }
@@ -238,3 +240,107 @@ label{
 }
 
   /* ------------------------------------------------ */
+  /* ------------ EVENTS --------------- */
+.event-head{
+    font-size:1vw;
+    color:#124814;
+
+}
+.event-label{
+    font-size:.8vw;
+    color:#124814;
+    width:40%;
+}
+#name{
+    background-image: url('../../images/img1.png');
+    background-size: contain;
+}
+.event-managers p{
+     font-size:.5vw;
+     width:90%;
+}
+.event-managers span{
+     font-size:.5vw;
+     color:rgba(18, 72, 20, 0.5);
+}
+.i{
+    border:solid 1px black;
+}
+.show-more{
+    box-shadow: 0px 6.98077px 27.9231px rgba(159, 159, 159, 0.25);
+border-radius: 4.65385px;
+text-align:center;
+height: 40px;
+margin:45px 0px;
+background-color:#fff;
+border:none;
+}
+.show-more a{
+    color:#124814;
+    font-size:1vw;
+    text-decoration:none;
+    text-align:center;
+    border:none;
+
+}
+.show-more a:hover{
+    text-decoration: #124814;
+}
+.event-name{
+    background: #FAFFF9;
+box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
+border-radius: 9.52381px;
+
+}
+
+  /* ----------------------------------- */
+
+  /* ---------------------------- */
+.event-activities, .schedule{
+    background-color: #124814;
+    color:#fff;
+    font-size:1vw;
+    /* background: #124814; */
+    box-shadow: 0px 4px 40px -8px rgba(18, 72, 20, 0.3);
+    border-radius: 10px
+}
+.view-btn{
+    background: #FFFFFF;
+    box-shadow: 0px 3.95577px 15.8231px rgba(159, 159, 159, 0.25);
+    border-radius: 2.63718px;
+}
+.see-more{
+    background: #FFFFFF;
+    box-shadow: 0px 3.95577px 15.8231px rgba(159, 159, 159, 0.25);
+    border-radius: 2.63718px;
+    color:#124814;
+    width:40%;
+    height:30px;
+}
+.event-update-btn{
+    background: #FFFFFF;
+    box-shadow: 0px 3.95577px 15.8231px rgba(159, 159, 159, 0.25);
+    border-radius: 2.63718px;
+    color:#124814;
+    border:none;
+    height:30px;
+    width:30%;
+}
+.event-delete-btn{
+    background: #124814;
+    border-radius: 2.63718px;
+    color:#fff;
+    border:none;
+    height:30px;
+    width:30%;
+}
+.time-schedule{
+    color:rgba(255, 255, 255, 0.63);
+    font-size:.7vw;
+}
+.th-div{
+    background: #FFFFFF;
+    box-shadow: 0px 6.98077px 27.9231px rgba(159, 159, 159, 0.25);
+    border-radius: 4.65385px;
+}
+  /* ---------------------------- */
