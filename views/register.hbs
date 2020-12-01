@@ -1,78 +1,51 @@
-<div class="card" id="card" style="max-width: 100%;">
-    <div class="row no-gutters">
-        <div class="col-md-7" style="max-width: 70%;">
-            <div class="card bg-dark text-white">
-                <img src="Group95.svg" class="card-img" alt="Responsive image">
-                <div class="card-img-overlay text-center" style="top: 334px;">
-                    <h5 class="card-title">LET US BUILD A NIGERIA OF OUR DREAM</h5>
-                    <p class="card-text">Together we can build a future for this great nation</p>
-                </div>
-            </div>
+<div class="row h-100">
+    <div class="col-7 h-100 w-100 px-0"
+        style="background-image: url(bg-main.png);background-size:cover;border:solid 1px;">
+        <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100">
+            <h2 class="font-weight-bold">LET US BUILD A NIGERIA OF OUR DREAM</h2>
+            <p class="">Together we can build a future for this great nation</p>
         </div>
-        <div class="col-md-5" style="max-width: 37%;">
-            <div class="card-body" id="formCard">
-                <form id="register" action="users/registerMember" method="POST" enctype="multipart/formdata">
-                    <label for="register" style="color: #124814; line-height: 25px;"><b>We will need some basic informations from you</b></label>
-                    <div class="form-group" id="alignForm">
-                        <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Firstname">
+    </div>
+    <div class="col-5 px-4 d-flex justify-content-center align-items-center ">
+        <div class="py-5 d-flex flex-column justify-content-center align-items-center" id="reg">
+            <div class="">
+                <p class="font-weight-bold mx-3 mt-5 px-5">We will need some basic information from you
+                </p>
+            </div>
+            <div class="">
+                <form id="reg-form" action="users/registerMember" method="POST" enctype="multipart/formdata">
+                    <div class="form-group" id="">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="EMAIL">
                     </div>
-                    <div class="form-group" id="alignForm">
-                        <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Lastname">
+                    <div class="form-group" id="">
+                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="FULL NAME">
                     </div>
-                    <div class="form-group" id="alignForm">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                    <div class="form-group">
+                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="MOBILE NUMBER">
                     </div>
-                    <div class="form-group" id="alignForm">
-                        <input type="phone" class="form-control" name="phone" id="phone" placeholder="Phone">
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" id="pass" placeholder="PASSWORD">
                     </div>
-                    <div class="form-group" id="alignForm">
-                        <input type="text" class="form-control" name="password" id="password" placeholder="Password">
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password-check" id="pass-check"
+                            placeholder=" CONFIRM PASSWORD">
                     </div>
-                    <div class="form-group" id="alignForm">
-                        <input type="text" class="form-control" name="gender" id="gender" placeholder="Gender">
+                    <div class="form-group form-check d-flex flex-row justify-content-start align-items-center">
+                        <input type="checkbox" class="form-check-input" id="check" style="width:auto;">
+                        <label class="form-check-label" for="check" id="reg-label" style="font-size:1.1vw;"> Agree to
+                            terms and policy.</label>
                     </div>
-                    {{!-- <div class="form-group" id="alignForm">
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add your Profile</button>
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Fill in your Profile</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group" id="alignForm">
-                                    <input type="text" class="form-control" name="country" id="country" placeholder="country">
-                                </div>
-                                <div class="form-group" id="alignForm">
-                                    <input type="state" class="form-control" name="state" id="state" placeholder="state">
-                                </div>
-                                <div class="form-group" id="alignForm">
-                                    <input type="local_govt" class="form-control" name="local_govt" id="local_govt" placeholder="local_govt">
-                                </div>
-                                <div class="form-group" id="alignForm">
-                                    <input type="ward" class="form-control" name="ward" id="ward" placeholder="ward">
-                                </div>
-                                <div class="form-group" id="alignForm">
-                                    <input type="employment_status" class="form-control" name="employment_status" id="employment_status" placeholder="employment_status">
-                                </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Next</button>
-                                </div>
-                            </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div class="mt-3" style="">
+                            <button type="submit" class="btn" id="sign-in-btn" data-toggle="modal"
+                                data-target="#myModal">SIGN UP</button>
                         </div>
-                    </div> --}}
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" onkeyup="success()" id="check">
-                        <label class="form-check-label" for="check"> Agree to terms and policy.</label>
+                        <div class="mt-3 d-flex justify-content-center align-items-center" style="height:35px;">
+                            <p class="mt-3 text-center" style="color:#575757;font-size:.9vw;">ALREADY HAVE AN
+                                ACCOUNT?
+                                <a href="login" class="font-weight-bold" id="" style="font-size:.9vw;">LOGIN</a></p>
+                        </div>
                     </div>
-                    <br><button type="submit" class="btn" id="click" data-toggle="modal" data-target="#myModal" disabled>SIGN UP</button> ALREADY HAVE AN ACCOUNT? <a href="login" id="login">LOGIN</a>
                 </form>
             </div>
         </div>

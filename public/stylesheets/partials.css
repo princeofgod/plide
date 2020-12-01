@@ -210,8 +210,8 @@ border-radius: 35px;
 .profile-input:focus{
     outline:none;
 }
-label{
-    width:20%;
+.profile-form-label{
+    width:30%;
 }
 .profile-button{
     width: 110px;
@@ -344,3 +344,129 @@ border-radius: 9.52381px;
     border-radius: 4.65385px;
 }
   /* ---------------------------- */
+
+  /*------------- HOME PAGE -------------*/
+.overlay{
+    background-color:#124814;
+    opacity:.7;
+}
+.overlay h2{
+    color:#fff;
+    font-size:1.5vw;
+}
+.overlay p{
+    color:#fff;
+    font-size:1vw;
+    line-height: 32px;
+}
+#index-right{
+    background: #124814;
+    box-shadow: 0px 14px 34px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 15px;
+    border:solid 1px;
+    height:70%;
+    color:#fff;
+    font-size:1.3vw;
+    margin:15% 0;
+}
+#get-started-btn{
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0px 8.83959px 19.5734px -10.1024px rgba(18, 72, 20, 0.3);
+    border-radius: 6.31399px;
+    background-color: #124814;
+    color:#fff;
+    font-weight:normal;
+    font-size:1.1vw;
+    width:60%;
+    height:50px;
+    /* margin:0 20%; */
+}
+#login-btn{
+    border: 1px solid #FFFFFF;
+    box-sizing: border-box;
+    box-shadow: 0px 8.83959px 19.5734px -10.1024px rgba(18, 72, 20, 0.3);
+    border-radius: 6.31399px;
+    color: #124814;
+    background-color:#fff;
+    font-weight:normal;
+    font-size:1.1vw;
+    width:60%;
+    height:50px;
+    /* margin:0 20%; */
+}
+  /* --------------------------------- */
+  /* ------------LOGIN PAGE -----------*/
+#login-right{
+    color: #124814;
+    box-shadow: 0px 14px 34px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 15px;
+    border:solid 1px #124814;
+    height:70%;
+    background-color:#fff;
+    font-size:1.3vw;
+    /* margin:15% 0; */
+    width:80%;
+}
+#fp-link{
+    font-size:.5vw;
+    color:#124814;
+}
+#remember-me{
+    font-size:.7vw;
+    width:70px;
+    margin-top:15px;
+}
+#remember-me-input{
+    margin-top:15px;
+    width:auto;
+}
+#sign-in-btn{
+    width: 105px;
+    height: 35px;
+    background: #124814;
+    color:#fff;
+    font-size:1vw;
+}
+#reg:link{
+    color:#124814;
+    text-decoration:#124814;
+}
+#reg:hover{
+    text-decoration:#124814;
+    color:#124814;
+}
+  /* --------------------------------- */
+  /* --------- REG FORM-------------- */
+.form-group input{
+    width:100%;
+    font-size:1vw;
+}
+#reg{
+    color: #124814;
+    box-shadow: 0px 14px 34px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 15px;
+    border:solid 1px #124814;
+    height:70%;
+    background-color:#fff;
+    font-size:1.3vw;
+    /* margin:0; */
+    width:90%;
+}
+#reg-label{
+    color: #575757;
+}
+#fp-email{
+    width:100%;
+}
+#fp-right{
+    color: #124814;
+    box-shadow: 0px 14px 34px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 15px;
+    border:solid 1px #124814;
+    height:70%;
+    background-color:#fff;
+    font-size:1.3vw;
+    width:80%;
+}
+  /* --------------------------------- */

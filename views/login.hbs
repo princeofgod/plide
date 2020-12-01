@@ -1,34 +1,41 @@
-<div class="card" id="card" style="max-width: 100%;">
-    <div class="row no-gutters">
-        <div class="col-md-7" style="max-width: 70%;">
-            <div class="card bg-dark text-white">
-                <img src="Group95.svg" class="card-img" alt="Responsive image">
-                <div class="card-img-overlay text-center" style="top: 334px;">
-                    <h5 class="card-title">LET US BUILD A NIGERIA OF OUR DREAM</h5>
-                    <p class="card-text">Together we can build a future for this great nation</p>
-                </div>
-            </div>
+<div class="row h-100">
+    <div class="col-7 h-100 w-100 px-0"
+        style="background-image: url(bg-main.png);background-size:cover;border:solid 1px;">
+        <div class="overlay d-flex flex-column justify-content-center align-items-center h-100 w-100">
+            <h2 class="font-weight-bold">LET US BUILD A NIGERIA OF OUR DREAM</h2>
+            <p class="">Together we can build a future for this great nation</p>
         </div>
-        <div class="col-md-5" style="max-width: 37%;">
-            <div class="card-body" id="formCard">
-                <form id="loginDetails" action="users/registerMember" method="POST" enctype="multipart/formdata">
-                    <label for="register" style="color: #124814; line-height: 25px;"><b>Welcome to PLIDE Automated Citizens Engagement System</b></label>
-                    <div class="form-group" id="alignForm">
-                        <input type="text" class="form-control" name="email" id="firstname" placeholder="email">
+    </div>
+    <div class="col-5 d-flex justify-content-center align-items-center">
+        <div class="p-5 d-flex flex-column justify-content-center align-items-center" id="login-right">
+            <p class="font-weight-bold mx-3 mb-5 px-2 text-center">Welcome to PLIDE Automated Citizens Engagement System
+            </p>
+            <form id="login-form" action="users/registerMember" method="POST" enctype="multipart/formdata">
+                <div class="form-group" id="">
+                    <input type="text" class="form-control" name="email" id="email" placeholder="email">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="password">
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <a href="forgotPassword" id="fp-link" style="font-size:.8vw;">Forgot Password?</a>
+                    <div class="form-group form-check d-flex flex-row justify-content-between align-items-center">
+                        <input type="checkbox" class="form-check-input" id="remember-me-input">
+                        <label class="form-check-label" for="remember-me-input" id="remember-me"> Remember me</label>
                     </div>
-                    <div class="form-group" id="alignForm">
-                        <input type="text" class="form-control" name="password" id="lastname" placeholder="password">
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <div class="mt-3" style="">
+                        <button type="submit" class="btn" id="sign-in-btn" data-toggle="modal"
+                            data-target="#myModal">SIGN IN</button>
                     </div>
-                    <div class="FP">
-                        <a href="forgotPassword" id="FP">Forgot Password</a>
-                        <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1"> Remember me</label>
-                        </div>
+                    <div class="mt-3 d-flex justify-content-between align-items-center" style=";height:35px;">
+                        <p class="mt-3 text-center" style="font-size:.7vw;" style="color:#575757;">DON'T HAVE AN
+                            ACCOUNT?
+                            <a href="register" class="font-weight-bold " id="">SIGN UP</a></p>
                     </div>
-                    <br><button type="submit" class="btn" id="click" data-toggle="modal" data-target="#myModal" >LOGIN</button> &nbsp;&nbsp; DON'T HAVE AN ACCOUNT? <a href="register" id="signUp">SIGN UP</a>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
