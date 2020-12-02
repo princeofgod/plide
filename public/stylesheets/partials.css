@@ -251,13 +251,17 @@ border-radius: 35px;
     color:#124814;
     width:40%;
 }
-#name{
-    background-image: url('../../images/img1.png');
-    background-size: contain;
+.name, .comments-icons{
+    /* background-image: url('../../images/img1.png'); */
+    background-size:cover;
+    width:3vw;
+    height:3vw;
+    border-radius:50%;
+    /* background:url(John.png); */
 }
 .event-managers p{
      font-size:.5vw;
-     width:90%;
+     /* width:90%; */
 }
 .event-managers span{
      font-size:.5vw;
@@ -286,11 +290,10 @@ border:none;
 .show-more a:hover{
     text-decoration: #124814;
 }
-.event-name{
+.event-name, .group-name{
     background: #FAFFF9;
 box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
 border-radius: 9.52381px;
-
 }
 
   /* ----------------------------------- */
@@ -308,6 +311,8 @@ border-radius: 9.52381px;
     background: #FFFFFF;
     box-shadow: 0px 3.95577px 15.8231px rgba(159, 159, 159, 0.25);
     border-radius: 2.63718px;
+    border:none;
+    color:#124814;
 }
 .see-more{
     background: #FFFFFF;
@@ -316,6 +321,7 @@ border-radius: 9.52381px;
     color:#124814;
     width:40%;
     height:30px;
+    border:none;
 }
 .event-update-btn{
     background: #FFFFFF;
@@ -469,4 +475,53 @@ border-radius: 9.52381px;
     font-size:1.3vw;
     width:80%;
 }
+.btn{
+    background-color: #124814;
+    color: #fff;
+}
+  /* --------------------------------- */
+  /* ------------ Course funding Page -------- */
+.see-all{
+    border:solid 2px #124814;
+    color:#124814;
+    box-sizing: border-box;
+    border-radius: 6.07944px;
+    width:7vw;
+    height:30px;
+    background-color:#fff;
+    font-size:1.1vw;
+}
+.cat{
+    background: #FAFFF9;
+    box-shadow: 0px 7px 35px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 10px;
+    color:#124814;
+}
+.fund-btn{
+    background: #124814;
+    box-shadow: 0px 3.95577px 15.8231px rgba(159, 159, 159, 0.25);
+    border-radius: 2.63718px;
+    border:solid 1px #124814;
+    color:#fff;
+    width:6vw;
+}
+.org-div{
+    background: #FAFFF9;
+    box-shadow: 0px 7px 35px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 10px;
+}
+.organisation-img{
+    font-size:1vw;
+    border-radius: 10px;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background-position: center;
+}
+.div{
+    background: #FFFFFF;
+    box-shadow: 0px 6.98077px 27.9231px rgba(159, 159, 159, 0.25);
+    border-radius: 4.65385px;
+    height:80px;
+}
+
   /* --------------------------------- */

@@ -21,7 +21,7 @@ router.get('/confirm_account', async(req, res, next) => {
 
       await controller.confirm_account(req.query.random_character);
 
-      res.redirect('/userDashboard', 200, {title: 'PLACES User', style: 'userDashboard.css'});
+      res.redirect('/userDashboard', 200, {title: 'PLACES User', pageTitle: 'Dashboard', style: 'userDashboard.css'});
 
     } else if((permission.includes('admin')) === true){
 
@@ -56,11 +56,11 @@ router.get('/profile', function(req, res, next) {
 })
 
 router.get('/funding', function(req, res, next) {
-  res.render('funds', {title: 'Fund a course'});
+  res.render('fundACourse', {title: 'PLACES Fund a course', pageTitle: 'Fund a course'});
 });
 
 router.get('/events', function(req, res, next) {
-  res.render('events', {title: 'PLACES events', style: 'events.css'});
+  res.render('events', {title: 'PLACES events', pageTitle: 'Events',style: 'events.css'});
 });
 
 router.get('/adminDashboard', function(req, res, next) {
@@ -69,6 +69,12 @@ router.get('/adminDashboard', function(req, res, next) {
 
 router.get('/userDashboard', function(req, res, next) {
   res.render('userDashboard', {title: 'PLACES User', style: 'userDashboard.css'});
+});
+router.get('/resetpassword', (req,res,next) => {
+  res.render('resetpassword', {title: 'PLACES Change Password'});
+});
+router.get('/groups', (req,res,next) => {
+  res.render('usergroups', {title: 'PLACES Groups', pageTitle: 'Groups'});
 });
 
 module.exports = router;
