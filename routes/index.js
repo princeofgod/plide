@@ -76,5 +76,13 @@ router.get('/resetpassword', (req,res,next) => {
 router.get('/groups', (req,res,next) => {
   res.render('usergroups', {title: 'PLACES Groups', pageTitle: 'Groups'});
 });
-
+router.get('/categories', (req,res,next) => {
+  res.render('categories',{title: 'PLACES categories', pageTitle: 'Fund a course'})
+})
+router.get('/payment', (req,res,next) => {
+  res.render('payment', {title: 'PLACES Fund a course payment', pageTitle: 'Fund a course'})
+})
+router.get('/donation-payment', (req,res,next) => {
+  res.render('donation-payment', {title: 'PLACES Donation payment', pageTitle: 'Fund a course'})
+})
 module.exports = router;
