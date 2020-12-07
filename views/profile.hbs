@@ -3,7 +3,7 @@
         {{>userMenu}}
     </div>
     {{!--  --}}
-    <div class="col-10 overflow-scroll" style="border:solid 1px black;">
+    <div class="col-10 overflow-scroll" id="main" style="border:solid 1px black;">
         <div class="row">
             <div class="col-12">
                 <div class="row d-flex justify-content-center">
@@ -40,7 +40,7 @@
                     {{!--  --}}
                     <div class="row my-3">
                         <div class="col-6">
-                            <label for="firstname" class="mr-5 profile-form-label ">First name:</label>
+                            <label for="firstname" class="mr-5 profile-form-label font-weight-bold">First name:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="firstname" id="" placeholder="" style="border">
@@ -48,7 +48,7 @@
                             <br>
                         </div>
                         <div class="col-6">
-                            <label for="country" class="mr-5 profile-form-label">Country:</label>
+                            <label for="country" class="mr-5 profile-form-label font-weight-bold">Country:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="country" id="" placeholder="" style="border">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="row my-3">
                         <div class="col-6">
-                            <label for="lastname" class="mr-5 profile-form-label">Last name:</label>
+                            <label for="lastname" class="mr-5 profile-form-label font-weight-bold">Last name:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="lastname" id="" placeholder="" style="border">
@@ -66,7 +66,7 @@
                             <br>
                         </div>
                         <div class="col-6 ">
-                            <label for="state" class="mr-5 profile-form-label">State:</label>
+                            <label for="state" class="mr-5 profile-form-label font-weight-bold">State:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="state" id="" placeholder="" style="border">
@@ -76,7 +76,7 @@
                     </div>
                     <div class="row my-3">
                         <div class="col">
-                            <label for="email" class="mr-5 profile-form-label">E-mail:</label>
+                            <label for="email" class="mr-5 profile-form-label font-weight-bold">E-mail:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="email" id="" placeholder="" style="border">
@@ -84,7 +84,7 @@
                             <br>
                         </div>
                         <div class="col">
-                            <label for="lga" class="mr-5 profile-form-label">Local govt:</label>
+                            <label for="lga" class="mr-5 profile-form-label font-weight-bold">Local govt:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="lga" id="" placeholder="" style="border">
@@ -94,7 +94,7 @@
                     </div>
                     <div class="row my-3">
                         <div class="col">
-                            <label for="phone" class="mr-5 profile-form-label">Phone:</label>
+                            <label for="phone" class="mr-5 profile-form-label font-weight-bold">Phone:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="phone" id="" placeholder="" style="border">
@@ -102,7 +102,7 @@
                             <br>
                         </div>
                         <div class="col">
-                            <label for="address" class="mr-5 profile-form-label">Address:</label>
+                            <label for="address" class="mr-5 profile-form-label font-weight-bold">Address:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="address" id="" placeholder="" style="border">
@@ -112,7 +112,7 @@
                     </div>
                     <div class="row my-3">
                         <div class="col">
-                            <label for="gender" class="mr-5 profile-form-label">Gender:</label>
+                            <label for="gender" class="mr-5 profile-form-label font-weight-bold">Gender:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="gender" id="" placeholder="" style="border">
@@ -120,7 +120,7 @@
                             <br>
                         </div>
                         <div class="col">
-                            <label for="ward" class="mr-5 profile-form-label">Ward:</label>
+                            <label for="ward" class="mr-5 profile-form-label font-weight-bold">Ward:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="ward" id="" placeholder="" style="border">
@@ -130,7 +130,7 @@
                     </div>
                     <div class="row my-3">
                         <div class="col">
-                            <label for="password" class="mr-5 profile-form-label">Password:</label>
+                            <label for="password" class="mr-5 profile-form-label font-weight-bold">Password:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="password"
                                     name="password" id="" placeholder="" style="border">
@@ -138,7 +138,8 @@
                             <br>
                         </div>
                         <div class="col">
-                            <label for="job-stat" class="mr-5 profile-form-label">Employment stat:</label>
+                            <label for="job-stat" class="mr-5 profile-form-label font-weight-bold">Employment
+                                stat:</label>
                             <div class="d-inline">
                                 <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
                                     name="job-stat" id="" placeholder="" style="border">
