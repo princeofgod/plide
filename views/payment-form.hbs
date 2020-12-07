@@ -10,19 +10,114 @@
         </div>
         {{!--  --}}
         <div class="row">
-            <div class="col-6 d-flex flex-column align-items-center justify-content-center">
-                <div class="mx-3 d-flex flex-column align-items-center justify-content-center" id="success-div">
-                    <div class="d-flex flex-column align-items-center justify-content-center" id="success">
-                        <svg width="109" height="87" viewBox="0 0 109 87" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M106.724 2.63363C104.628 0.357731 101.231 0.357731 99.1358 2.63363L34.8545 72.4509L10.1458 45.6145C8.05058 43.3386 4.65358 43.3389 2.55792 45.6145C0.462464 47.8902 0.462464 51.5797 2.55792 53.8556L31.0606 84.8122C33.1552 87.0878 36.5547 87.0862 38.6485 84.8122L106.724 10.8749C108.819 8.59926 108.819 4.90952 106.724 2.63363Z"
-                                fill="white" />
-                        </svg>
-                    </div>
-                    <p class="my-2 font-weight-bold" style="font-size:1.5vw;">Success!</p>
-                    <p class="mb-5">The donation has been made successfully.</p>
-                    <button class="my-5" id="done-btn">Done</button>
+            <div class="col-6 d-flex flex-column align-items-center">
+                <div class="group-name px-5 py-4">
+                    <form action="" class="">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="amount-target" class="">Amount target</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">&#8358</span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="" aria-label="Username"
+                                        aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="">Please fill the details below:</p>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="name" class="">Full Name</label><br>
+                            </div>
+
+                            {{!-- <div class=""> --}}
+                            <div class="col-6">
+                                <input class="form-control" type="text" name="name" id="" placeholder="First Name">
+                            </div>
+                            <div class="col-6">
+                                <input class="form-control" type="text" name="name" id="" placeholder="Last Name">
+                            </div>
+                            {{!-- </div> --}}
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="email" class="">E-mail</label>
+                                <input class="form-control" type="text" name="" id="">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <label for="country" class="">Country</label>
+                                <select class="form-control" name="" id="">
+                                    <option value="Nigeria">Nigeria</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <label for="zipcode" class="">Zip code</label>
+                                <input class="form-control" type="text" name="zipcode" id="">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="referral" class="">Referred by (optional)</label>
+                                <input class="form-control" type="text" name="" id="">
+                            </div>
+                        </div>
+                        <p class="">Fill your card details below:</p>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <label for="card-number" class="">Card Number</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><svg width="34" height="11"
+                                                viewBox="0 0 34 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path
+                                                    d="M13.8983 0.190552L12.192 10.1705H14.9194L16.6247 0.190552H13.8983ZM22.1253 4.25583C21.1722 3.81346 20.5879 3.5149 20.5879 3.06246C20.5995 2.6511 21.082 2.22965 22.1593 2.22965C23.0454 2.20873 23.6967 2.40445 24.1908 2.59918L24.4383 2.70301L24.8091 0.614953C24.2704 0.419236 23.4162 0.203585 22.3611 0.203585C19.6677 0.203585 17.7712 1.51972 17.7594 3.40209C17.7371 4.79117 19.1172 5.562 20.1501 6.02441C21.2051 6.49875 21.5643 6.80629 21.5643 7.22773C21.5526 7.8748 20.7112 8.17336 19.926 8.17336C18.838 8.17336 18.2536 8.01959 17.3665 7.65904L17.0073 7.50527L16.6259 9.67525C17.2666 9.94292 18.4448 10.1785 19.6679 10.1906C22.5302 10.1906 24.3928 8.89435 24.4162 6.88821C24.4255 5.78773 23.6978 4.94484 22.1253 4.25583ZM31.8014 0.221437H29.6912C29.041 0.221437 28.5469 0.397222 28.2654 1.02435L24.214 10.1705H27.0764L27.8647 8.19033H31.0671L31.4762 10.1785H34.0007L31.8014 0.221437ZM28.6585 6.19198C28.7138 6.19701 29.7572 2.95951 29.7572 2.95951L30.5881 6.19198C30.5881 6.19198 29.1973 6.19198 28.6585 6.19198ZM9.91294 0.190552L7.24074 6.97101L6.94965 5.63384C6.45555 4.09099 4.90649 2.41442 3.17773 1.5816L5.62468 10.1605H8.51048L12.7987 0.191646H9.91294V0.190552Z"
+                                                    fill="#1A3E93" />
+                                                <path
+                                                    d="M6.04988 1.4782C5.84164 0.717232 5.17752 0.204007 4.27556 0.193054H0.043583L0 0.37771C3.30124 1.14262 6.07214 3.49627 6.97107 5.71017L6.04988 1.4782Z"
+                                                    fill="#EFC75E" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <input type="number" class="form-control" placeholder="" aria-label="logo"
+                                        aria-describedby="visa-logo">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <label for="card-expiry-date" class="">Expiry date</label>
+                                <input class="form-control" type="text" name="card-expiry-date" id=""
+                                    placeholder="MM / YY">
+                            </div>
+                            <div class="col-6">
+                                <label for="card-secure-code" class="">CVV</label>
+                                <input class="form-control" type="text" name="card-secure-code" id="" placeholder="">
+                            </div>
+                        </div>
+                        <div class="row my-3 align-items-center justify-content-center">
+                            <button class="my-3 org-btn" style="background-color:#124814; color:#fff;"
+                                onclick="window.location.href='donation-payment'"><svg width="24" height="36"
+                                    viewBox="0 0 24 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M9.10661 28.9365L7.89581 29.832C7.26426 30.3 6.54265 30.546 5.81133 30.546C4.45332 30.546 3.19387 29.7135 2.4394 28.32C2.24957 27.969 2.10355 27.5955 1.99158 27.21C1.28821 28.1565 0.876953 29.4075 0.876953 30.75C0.876953 33.645 2.7874 36 5.13598 36C7.48455 36 9.395 33.645 9.395 30.75C9.395 30.1245 9.28429 29.5155 9.10661 28.9365Z"
+                                        fill="white" />
+                                    <path
+                                        d="M23.6312 4.56019L15.1132 0.0602195C14.8625 -0.0717562 14.5705 0.0182432 14.3989 0.280718L11.9652 4.03067C11.8508 4.20764 11.807 4.43869 11.8459 4.66067C11.8849 4.88264 12.0029 5.06869 12.1684 5.17064L21.3593 10.8346C21.6173 10.9936 21.8923 11.0746 22.1746 11.0746C22.6431 11.0746 23.1055 10.8436 23.445 10.4401C23.8028 10.0141 24.0011 9.43963 24.0011 8.82314V5.25016C23.9999 4.94866 23.8551 4.67866 23.6312 4.56019Z"
+                                        fill="white" />
+                                    <path
+                                        d="M4.5293 30.2565V32.25C4.5293 32.664 4.80189 33 5.13775 33C5.4736 33 5.74619 32.664 5.74619 32.25V30.537C5.32392 30.528 4.91991 30.4185 4.5293 30.2565Z"
+                                        fill="white" />
+                                    <path
+                                        d="M20.8131 12.1771L10.5805 5.86968L4.50351 8.67914C3.86221 8.97466 3.31462 9.53715 2.96177 10.2616L0.435574 15.4516C-0.102258 16.5571 -0.144867 17.9055 0.323604 19.0575L2.11604 23.4765C2.44339 22.551 2.97147 21.7995 3.65778 21.315C4.56312 20.6746 5.25188 20.1631 5.78122 19.7491C5.75446 19.7296 5.73496 19.6951 5.70701 19.6785C5.59749 18.8595 5.27379 18.1365 4.96714 17.6071C5.89803 17.1136 7.14288 16.2241 7.77443 15.3166C8.25996 15.6676 9.02412 16.1191 9.97938 16.3501C9.26871 17.4346 8.5447 18.7771 8.28186 19.6711C8.05917 19.7956 7.72697 20.0086 7.21469 20.3746C6.57219 20.9295 5.64249 21.639 4.26258 22.617C3.63952 23.058 3.20391 23.8425 3.03478 24.825C2.99828 25.0365 2.98368 25.248 2.97883 25.4595C2.97763 25.527 2.98248 25.593 2.98368 25.6605C2.98733 25.8076 2.99708 25.953 3.01653 26.0985C3.02629 26.1705 3.03724 26.241 3.04939 26.313C3.07614 26.457 3.11145 26.5996 3.1528 26.7391C3.17105 26.8006 3.18685 26.862 3.20756 26.9236C3.27572 27.1185 3.35478 27.3106 3.45335 27.4906C3.56897 27.7051 3.70889 27.888 3.85246 28.0606C3.94007 28.161 4.03379 28.2526 4.1299 28.3381C4.17736 28.3816 4.22601 28.4221 4.27472 28.4626C4.82111 28.8856 5.47822 29.0731 6.12192 28.9981C6.20103 28.9876 6.28134 28.9786 6.3604 28.9591C6.46507 28.9351 6.56848 28.9051 6.6707 28.8661C6.87513 28.7851 7.07837 28.692 7.27059 28.5496L11.4517 25.4581C12.1064 25.2616 15.359 24.0616 17.8232 19.1477C19.2627 16.2782 20.2313 13.8272 20.8178 12.1832C20.8167 12.1786 20.8155 12.1771 20.8131 12.1771Z"
+                                        fill="white" />
+                                </svg>
+                                DONATE NOW
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
             {{!-- Right panel --}}
@@ -41,11 +136,18 @@
                     {{!--  --}}
                     <div class="">
                         <h3 class="font-weight-bolder" style="font-size: 1vw;">Organiser</h3>
+                        {{!-- <div class="col-4 "> --}}
+                        <div class="d-flex flex-row ">
+                            <div class="joint-img" style="z-index:1;background:url(Raima.png);"></div>
+                            <div class="joint-img" style="z-index:3;background:url(Sanni.png);"></div>
+                            <div class="joint-img" style="z-index:4;background:url(Mariam.png);"></div>
+                            <div class="joint-img" style="z-index:5;background:url(John.png);"></div>
+                        </div>
+                        {{!-- </div> --}}
 
                         <div class="d-flex flex-row align-items-center justify-content-between">
-                            <p class="" style="font-size:.8vw;width:70%;">Raiman and his team are organizing this fund
-                                raiserfor
-                                the Youth Political Party</p>
+                            <p class="" style="font-size:.8vw;width:70%;">Raiman and his team are organizing this
+                                fundraiser for the Youth Political Party</p>
                             <button class="mb-1" id="contact-btn">Contact</button>
                         </div>
                         <p class="" style="font-size:.9vw;">This person will receive your donation directly.</p>
@@ -176,7 +278,9 @@
                 </div>
             </div>
         </div>
+
     </div>
+</div>
 
 </div>
 </div>

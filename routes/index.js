@@ -82,8 +82,8 @@ router.get('/categories', (req,res,next) => {
 router.get('/payment', (req,res,next) => {
   res.render('payment', {title: 'PLACES Fund a course payment', pageTitle: 'Fund a course'})
 })
-router.get('/donation-payment', (req,res,next) => {
-  res.render('donation-payment', {title: 'PLACES Donation payment', pageTitle: 'Fund a course'})
+router.get('/payment-form', (req,res,next) => {
+  res.render('payment-form', {title: 'PLACES Donation payment', pageTitle: 'Fund a course'})
 })
 router.get('/candidates', (req,res,next) => {
   res.render('candidates', {title: 'PLACES Candidates', pageTitle: 'Fund a course'})
@@ -108,5 +108,8 @@ router.get('/add-category', (req,res,next) => {
 })
 router.get('/add-candidates', (req,res,next) => {
   res.render('add-candidates', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
+})
+router.get('/successful-payment', (req,res,next) => {
+  res.render('successful-payment', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
 })
 module.exports = router;
