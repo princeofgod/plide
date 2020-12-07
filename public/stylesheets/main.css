@@ -703,3 +703,9 @@ border-radius: 15px;
     background-position-x: center;
     background-position-y: center;
 }
+.wrap-text{
+    white-space: nowrap;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
