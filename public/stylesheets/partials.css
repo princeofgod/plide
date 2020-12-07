@@ -27,6 +27,8 @@
 body{
     font-family:"Sofia Pro";
     height:100%;
+    font-size:1vw;
+    color:#124814;
 }
 /* Top nav partil styling */
 
@@ -521,7 +523,176 @@ border-radius: 9.52381px;
     background: #FFFFFF;
     box-shadow: 0px 6.98077px 27.9231px rgba(159, 159, 159, 0.25);
     border-radius: 4.65385px;
-    height:80px;
+    height:50px;
+    width:130px;
+    
+}
+.div a{
+    color:#124814;
+}
+.org-img{
+    background: #F7F7F7;
+    box-shadow: 0px 3.63402px 37.2487px -15.4446px rgba(18, 72, 20, 0.35);
+    border-radius: 9.08504px;
+    width:100%;
+    background-image: url(org-img.png); 
+    background-size:cover;
+    background-position-x: center;
+    background-position-y: center;
+
+    height:300px;
 }
 
   /* --------------------------------- */
+
+.about{
+    border: solid 1px #000000;
+    box-sizing: border-box;
+    border-radius: 6.07944px;
+    font-size:.8vw;
+}
+#contact-btn{
+    border: 2px solid #124814;
+    box-sizing: border-box;
+    border-radius: 6.07944px;
+    height:35px;
+    width:8vw;
+  }
+.org-btn{
+    width:60%;
+    height:40px;
+  }
+.donator-icon{
+    width:4vw;
+    height:4vw;
+    border-radius:50%;
+    background: rgba(18, 72, 20, 0.28);
+ }
+ #donation-info{
+    background: #FAFFF9;
+    box-shadow: 0px 3.25203px 33.3333px -13.8211px rgba(18, 72, 20, 0.35);
+    border-radius: 8.13008px;
+ }
+ .more-donations{
+    background: #FFFFFF;
+    box-shadow: 0px 11px 37px -14px rgba(18, 72, 20, 0.3);
+    border-radius: 23px;
+    width:12vw;
+ }
+ .commenter-icon{
+    width:5vw;
+    height:5vw;
+    background-size:cover;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+ }
+#donation-form input{
+    padding:0 1vw;
+    font-size:1vw;
+ }
+.donation-form-div{
+    background: #FAFFF9;
+    box-shadow: 0px 3.25203px 33.3333px -13.8211px rgba(18, 72, 20, 0.35);
+    border-radius: 8.13008px;
+}
+#guarantee{
+    background: rgba(18, 72, 20, 0.5);
+    border: 2.86275px solid #FFFFFF;
+    box-shadow: 0px 1.9085px 5.24837px -0.954248px rgba(0, 0, 0, 0.15);
+    border-radius:50%;
+    width:4vw;
+    height:4vw;
+}
+#done-btn{
+    background: #124814;
+    box-shadow: 0px 18px 40px -15px rgba(70, 99, 168, 0.35);
+    border-radius: 5px;
+    color:#fff;
+    width:50%;
+    height:35px;
+    border:none;
+}
+#success{
+    background: #89C831;
+    box-shadow: 0px 37.8621px 84.1379px -31.5517px rgba(137, 200, 49, 0.35);
+    width:15vw;
+    height:15vw;
+    border-radius:50%;
+}
+#success-div{
+    background: #FAFFF9;
+box-shadow: 0px 3.25203px 33.3333px -13.8211px rgba(18, 72, 20, 0.35);
+border-radius: 8.13008px;
+height:100vh;
+width:95%;
+}
+.candidates-icon{
+    width:5vw;
+    height:5vw;
+    border-radius:50%;
+    border:solid 1px;
+    background-size:contain;
+}
+.candidates-name{
+    color:#000;
+    width:50%;
+    font-size:.8vw;
+}
+#add-div{
+    width: 2vw;
+    height:2vw;
+    background-color:#fff;
+    border-radius:50%;
+    border:none;
+}
+#add-group-btn{
+    /* width:; */
+    background: #FAFFF9;
+    font-size:.7vw;cursor:pointer
+}
+.btn-white-1{
+    background:#fff;
+    color:#124814;
+    border:solid 2px #124814;
+    border-radius: 5px;
+    height:30px;
+    font-size:.8vw;
+}
+.btn-white-2{
+    border: 1px solid rgba(196, 196, 196, 0.5);
+    box-sizing: border-box;
+    border-radius: 5px;
+    height:30px;
+    font-size:.8vw;
+}
+.btn-green{
+    background:#124814;
+    color:#fff;
+    border:solid 2px #124814;
+    border-radius: 5px;
+    height:30px;
+    font-size:.8vw;
+}
+#form-add{
+    border: 1px solid rgba(18, 72, 20, 0.5);
+box-sizing: border-box;
+box-shadow: 0px 2.97867px 30.5314px -12.6594px rgba(18, 72, 20, 0.35);
+border-radius: 15px;
+}
+.drag-drop{
+    background-color: #fff;
+    box-shadow: 0px 3.63402px 37.2487px -15.4446px rgba(18, 72, 20, 0.35);
+    border-radius: 9.08504px;
+    width:80%;
+    height:45%;
+}
+.joint-img{
+    width:5vh;
+    height:5vh;
+    border-radius:50%;
+    margin-left:-.5vw;
+    background-size:cover;
+    background-position-x: center;
+    background-position-y: center;
+}

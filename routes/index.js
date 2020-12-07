@@ -85,4 +85,28 @@ router.get('/payment', (req,res,next) => {
 router.get('/donation-payment', (req,res,next) => {
   res.render('donation-payment', {title: 'PLACES Donation payment', pageTitle: 'Fund a course'})
 })
+router.get('/candidates', (req,res,next) => {
+  res.render('candidates', {title: 'PLACES Candidates', pageTitle: 'Fund a course'})
+})
+router.get('/admingroup', (req,res,next) => {
+  res.render('admingroup', {title: 'PLACES Admin', pageTitle: 'Groups'})
+})
+router.get('/adminevents', (req,res,next) => {
+  res.render('adminEvents', {title: 'PLACES Admin Events', pageTitle: 'Events'})
+})
+router.get('/addevents', (req,res,next) => {
+  res.render('addevents', {title: 'PLACES Admin add event', pageTitle: 'Events'})
+})
+router.get('/addGroup', (req,res,next) => {
+  res.render('addgroup', {title: 'PLACES Admin add group', pageTitle: 'Groups'})
+})
+router.get('/admin-category', (req,res,next) => {
+  res.render('admin-category', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
+})
+router.get('/add-category', (req,res,next) => {
+  res.render('add-category', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
+})
+router.get('/add-candidates', (req,res,next) => {
+  res.render('add-candidates', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
+})
 module.exports = router;

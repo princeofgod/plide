@@ -1,243 +1,142 @@
 <div class="row" style="height:100vh">
     <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
-        {{>userMenu}}
+        {{>adminMenu}}
     </div>
     <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
         <div class="row ">
             <div class="col-12" style="">
-                {{>topnav}}
+                {{>adminTop}}
             </div>
         </div>
         <div class="row">
             <div class="col-9">
                 <div class="row d-flex justify-content-between pb-5">
-                    <div class="col-5" style="">
-                        <div class="group-name mx-2 py-2 pl-2 pr-1">
-                            <h3 class=" event-head pt-3 font-weight-bold text-center">ENTREPRENEURSHIP SESSION</h3>
-                            </h4>
-                            <label class="event-label">Event Managers:</label>
-                            <div class="row px-2 event-managers">
-                                <div class="col-3 d-flex flex-column justify-content-center align-items-center">
-                                    <div class="name" style="background:url(Raima.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">Rajma Hassan</p>
-                                    <span class="my-0">Team Leader</span>
+                    <div class="col-9">
+                        <div class="mx-3 py-3" id="form-add">
+                            <form action="" class="">
+                                <div class="mx-5 px-2 my-3">
+                                    <label for="" class="">Group Title</label>
+                                    <input class="form-control" type="text" name="" id="">
                                 </div>
                                 {{!--  --}}
-                                <div class="col-3 px-0 d-flex flex-column justify-content-center align-items-center ">
-                                    <div class="name" style="background:url(Mariam.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">Mariam Ope</p>
-                                    <span class="my-0">Secretary</span>
+                                <div class="mx-5 px-2 my-3">
+                                    <label for="" class="">Description</label>
+                                    <textarea class="form-control" name="description" id="" cols="30" rows="5"
+                                        style="resize: none;"></textarea>
                                 </div>
                                 {{!--  --}}
-                                <div class="col-3 px-0 d-flex flex-column justify-content-center align-items-center">
-                                    <div class="name" style="background:url(Sanni.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">Sanni Hammed</p>
-                                    <span class="my-0">Asst. Leader</span>
+                                <div class="mx-5 px-2 my-3">
+                                    <label for="group-excos" class="">Group Excos</label>
+                                    <select class="form-control" name="group-excos" id="">
+                                        <option value="" disabled selected>Select Member</option>
+                                    </select>
                                 </div>
                                 {{!--  --}}
-                                <div class="col-3 pl-0 d-flex flex-column justify-content-center align-items-center">
-                                    <div class="name" style="background:url(John.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">John Caleb</p>
-                                    <span class="my-0">Network Support</span>
+                                <div class="mx-5 px-2 my-3">
+                                    <label for="group-excos" class="">Group Leader</label>
+                                    <select class="form-control" name="group-excos" id="">
+                                        <option value="" disabled selected>Select Member</option>
+                                    </select>
                                 </div>
                                 {{!--  --}}
+                                <div class="mx-5 px-2 my-3">
+                                    <label for="" class="">Contact Details</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input class="form-control" type="text" name="" id=""
+                                                placeholder="+234 000 000 0000">
 
-                            </div>
-                            <label class="event-label">Event Population:</label>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <svg width="74" height="86" viewBox="0 0 74 86" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.53009 69.9746C1.17009 71.2974 1.16261 73.4932 2.62656 74.7C7.0572 78.3525 12.2191 81.0931 17.8005 82.7399C24.5032 84.7176 31.6039 85.0569 38.4736 83.7278C45.3433 82.3986 51.77 79.442 57.1844 75.1199C62.5988 70.7978 66.8338 65.2436 69.5142 58.9493C72.1947 52.6549 73.2378 45.8147 72.5513 39.0345C71.8647 32.2544 69.4697 25.7435 65.5783 20.0787C61.6869 14.414 56.4193 9.7701 50.2421 6.55849C45.044 3.85597 39.3369 2.23781 33.4846 1.79272C31.6544 1.65352 30.1643 3.1546 30.1643 4.99007C30.1643 6.82554 31.6553 8.29787 33.4832 8.46361C38.2104 8.89223 42.8142 10.2334 47.0208 12.4205C52.2069 15.1168 56.6294 19.0156 59.8965 23.7715C63.1635 28.5274 65.1743 33.9937 65.7507 39.686C66.3271 45.3784 65.4513 51.1211 63.2009 56.4056C60.9505 61.6901 57.395 66.3532 52.8493 69.9819C48.3036 73.6105 42.908 76.0928 37.1405 77.2086C31.3729 78.3245 25.4115 78.0397 19.7842 76.3793C15.2179 75.032 10.9859 72.8126 7.33072 69.8626C5.91103 68.7168 3.83786 68.7025 2.53009 69.9746Z"
-                                        fill="#124814" stroke="#124814" stroke-width="2.45464" />
-                                </svg>
+                                        </div>
+                                        <div class="col-6">
+                                            <input class="form-control" type="text" name="" id=""
+                                                placeholder="username@example.com">
+                                        </div>
+                                    </div>
+                                </div>
+                                {{!--  --}}
+                                <div class="mx-5 my-4 px-2 d-flex flex-row align-items-center justify-content-between">
+                                    <button class="btn-white-2 px-0 mx-0"
+                                        style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%">cancel</button>
+                                    <div class="d-flex flex-row justify-content-end" style="width:70%">
+                                        <button class="btn-white-1 mr-3" style="width:30%">Save as draft</button>
+                                        <button class="btn-green" style="width:30%">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
 
+
+                    <div class="col-3 d-flex align-items-center"
+                        style="width:60%;height:300px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;">
+                        <div class="" style="font-size:.7vw;cursor:pointer" id="add-group-btn"
+                            onclick="window.location.href='addGroup'">
+                            <h3 class="font-weight-bold" style="font-size:1vw;">ADD GROUP</h3>
+                            <p class="">Create new groups and customize it with your priority</p>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center" id="add-div">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.375 7.375H8.625V0.625C8.625 0.279813 8.34519 0 8 0C7.65481 0 7.375 0.279813 7.375 0.625V7.375H0.625C0.279813 7.375 0 7.65481 0 8C0 8.34519 0.279813 8.625 0.625 8.625H7.375V15.375C7.375 15.7202 7.65481 16 8 16C8.34519 16 8.625 15.7202 8.625 15.375V8.625H15.375C15.7202 8.625 16 8.34519 16 8C16 7.65481 15.7202 7.375 15.375 7.375Z"
+                                            fill="#124814" />
+                                    </svg>
+                                </div>
+                                <p class="font-weight-bold mt-3">Create New Group</p>
                             </div>
                         </div>
-
-                        {{!-- <div class="progress"></div> --}}
-                    </div>
-                    <div class="col-5" style="">
-                        <div class="group-name mx-2 py-2 pl-2 pr-1">
-                            <h3 class=" event-head pt-3 font-weight-bold text-center">ENTREPRENEURSHIP SESSION</h3>
-                            <label class="event-label">Event Managers:</label>
-                            <div class="row px-2 event-managers">
-                                <div class="col-3 d-flex flex-column justify-content-center align-items-center">
-                                    <div class="name" style="background:url(Raima.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">Rajma Hassan</p>
-                                    <span class="my-0">Team Leader</span>
-                                </div>
-                                {{!--  --}}
-                                <div class="col-3 px-0 d-flex flex-column justify-content-center align-items-center ">
-                                    <div class="name" style="background:url(Mariam.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">Mariam Ope</p>
-                                    <span class="my-0">Secretary</span>
-                                </div>
-                                {{!--  --}}
-                                <div class="col-3 px-0 d-flex flex-column justify-content-center align-items-center">
-                                    <div class="name" style="background:url(Sanni.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">Sanni Hammed</p>
-                                    <span class="my-0">Asst. Leader</span>
-                                </div>
-                                {{!--  --}}
-                                <div class="col-3 pl-0 d-flex flex-column justify-content-center align-items-center">
-                                    <div class="name" style="background:url(John.png)">
-                                        {{!-- <img src="../images/img1.png" alt=""> --}}
-                                    </div>
-                                    <p class="mb-0 mt-1">John Caleb</p>
-                                    <span class="my-0">Network Support</span>
-                                </div>
-                                {{!--  --}}
-
-                            </div>
-                            <label class="event-label">Event Population:</label>
-                            <div class="d-flex justify-content-center align-items-center">
-                                <svg width="74" height="86" viewBox="0 0 74 86" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M2.53009 69.9746C1.17009 71.2974 1.16261 73.4932 2.62656 74.7C7.0572 78.3525 12.2191 81.0931 17.8005 82.7399C24.5032 84.7176 31.6039 85.0569 38.4736 83.7278C45.3433 82.3986 51.77 79.442 57.1844 75.1199C62.5988 70.7978 66.8338 65.2436 69.5142 58.9493C72.1947 52.6549 73.2378 45.8147 72.5513 39.0345C71.8647 32.2544 69.4697 25.7435 65.5783 20.0787C61.6869 14.414 56.4193 9.7701 50.2421 6.55849C45.044 3.85597 39.3369 2.23781 33.4846 1.79272C31.6544 1.65352 30.1643 3.1546 30.1643 4.99007C30.1643 6.82554 31.6553 8.29787 33.4832 8.46361C38.2104 8.89223 42.8142 10.2334 47.0208 12.4205C52.2069 15.1168 56.6294 19.0156 59.8965 23.7715C63.1635 28.5274 65.1743 33.9937 65.7507 39.686C66.3271 45.3784 65.4513 51.1211 63.2009 56.4056C60.9505 61.6901 57.395 66.3532 52.8493 69.9819C48.3036 73.6105 42.908 76.0928 37.1405 77.2086C31.3729 78.3245 25.4115 78.0397 19.7842 76.3793C15.2179 75.032 10.9859 72.8126 7.33072 69.8626C5.91103 68.7168 3.83786 68.7025 2.53009 69.9746Z"
-                                        fill="#124814" stroke="#124814" stroke-width="2.45464" />
-                                </svg>
-
-                            </div>
-                        </div>
-
-                        {{!-- <div class="progress"></div> --}}
-                    </div>
-
-
-                    <div class="col-2 d-flex align-items-center" style="width:60%px;">
-                        {{!-- <div class="show-more d-flex align-items-center justify-content-center"> --}}
-                        <button class="show-more">
-                            <a href="" class="">Show more</a>
-                        </button>
-                        {{!-- </div> --}}
                     </div>
                 </div>
-                <div class="row">
-                    {{!-- WRITE HERE --}}
 
-                    <table class="w-100 mx-4 my-0">
-                        <tr>
-                            <th class="p-0 text-center " style="height:50px;">
-                                <div class="d-flex justify-content-center">
-                                    <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
-                                        UPCOMING
-                                        EVENTS
-                                    </div>
-                                </div>
-                            </th>
-                            <th class="p-0 text-center " style="height:50px;">
-                                <div class="d-flex justify-content-center">
-                                    <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
-                                        CREATED
-                                    </div>
-                                </div>
-                            </th>
-                            <th class="p-0 text-center  " style="height:50px;">
-                                <div class="d-flex justify-content-center">
-                                    <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
-                                        LEADER
-                                    </div>
-                                </div>
-                            </th>
-                            <th class="p-0 text-center " style="height:50px;">
-                                <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">ACTIONS
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <td class="text-center py-3">CENTRAL LIFE</td>
-                            <td class="text-center py-3">26 Oct, 2020</td>
-                            <td class="text-center py-3">Raima Hassan</td>
-                            <td>
-                                <button type="submit" class="event-update-btn text-center">Update</button>
-                                <button type="submit" class="event-delete-btn text-center">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center py-3">CENTRAL LIFE</td>
-                            <td class="text-center py-3">26 Oct, 2020</td>
-                            <td class="text-center py-3">Raiman Hassan</td>
-                            <td>
-                                <button type="submit" class="event-update-btn text-center">Update</button>
-                                <button type="submit" class="event-delete-btn text-center">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center py-3">CENTRAL LIFE</td>
-                            <td class="text-center py-3">26 Oct, 2020</td>
-                            <td class="text-center py-3">Raiman Hassan</td>
-                            <td>
-                                <button type="submit pr-2" class="event-update-btn text-center">Update</button>
-                                <button type="submit" class="event-delete-btn text-center">Delete</button>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
             </div>
             <div class="col-3">
                 <div class="row">
                     <div class="col-11 pt-3 event-activities " style="border:solid 1px black">
                         <div class="">
-                            <h3 style="font-size:1vw;">Event Activities</h3>
+                            <h3 style="font-size:1vw;">Group Activities</h3>
                         </div>
                         <d class="d-flex flex-column justify-content-center align-items-center">
                             <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
-                                <div class="col-2 comments-icons" style="background:url(comments.png)"></div>
+                                <div class="col-2 comments-icons" style="background:url(Raima.png)"></div>
                                 <div class="col-7" style="background-color: #124814;">
-                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <p class="mb-0 font-weight-bolder">John Caleb</p>
                                     <span class="mt-0"
-                                        style="font-size: .8vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
                                         about the post 11 mins ago</span>
                                 </div>
                                 <div class="col-2 px-1"><button class="view-btn">view</button></div>
                             </div>
                             {{!--  --}}
                             <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
-                                <div class="col-2 comments-icons" style="background:url(comments.png)"></div>
+                                <div class="col-2 comments-icons" style="background:url(Mariam.png)"></div>
                                 <div class="col-7" style="background-color: #124814;">
-                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <p class="mb-0 font-weight-bolder">John Caleb</p>
                                     <span class="mt-0"
-                                        style="font-size: .8vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
                                         about the post 11 mins ago</span>
                                 </div>
                                 <div class="col-2 px-1"><button class="view-btn">view</button></div>
                             </div>
                             {{!--  --}}
                             <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
-                                <div class="col-2 comments-icons" style="background:url(comments.png)"></div>
+                                <div class="col-2 comments-icons" style="background:url(John.png)"></div>
                                 <div class="col-7" style="background-color: #124814;">
-                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <p class="mb-0 font-weight-bolder">John Caleb</p>
                                     <span class="mt-0"
-                                        style="font-size: .8vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
                                         about the post 11 mins ago</span>
                                 </div>
                                 <div class="col-2 px-1"><button class="view-btn">view</button></div>
                             </div>
                             {{!--  --}}
                             <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
-                                <div class="col-2 comments-icons" style="background:url(comments.png)">
+                                <div class="col-2 comments-icons" style="background:url(Sanni.png)">
 
                                 </div>
                                 <div class="col-7" style="background-color: #124814;">
-                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <p class="mb-0 font-weight-bolder">John Caleb</p>
                                     <span class="mt-0"
-                                        style="font-size: .8vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
                                         about the post 11 mins ago</span>
                                 </div>
                                 <div class="col-2 px-1"><button class="view-btn">view</button></div>
@@ -249,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-4">
+                <div class="row my-4">
                     <div class="col-11 schedule pb-3" style="border:solid 1px black">
                         <div class="row p-3  schedule">
                             {{!-- CONTINUE HERE TOMORROW --}}

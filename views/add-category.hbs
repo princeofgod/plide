@@ -1,0 +1,94 @@
+<div class="row" style="height:100vh">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+        {{>adminMenu}}
+    </div>
+    <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
+        <div class="row ">
+            <div class="col-12" style="">
+                {{>adminTop}}
+            </div>
+        </div>
+        <div class="row px-4 pl-4">
+            <div class="col-11 m-4" id="form-add">
+                <form action="" class="">
+                    <div class="row p-4">
+                        <div class="col-5 pt-4">
+                            <div
+                                class="my-3 mx-5 drag-drop d-flex flex-column align-items-center justify-content-center">
+                                <svg width="116" height="81" viewBox="0 0 116 81" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M90.6383 81H71.8897H66.841H65.7507V56.866H73.9755C76.0613 56.866 77.2938 54.5914 76.0613 52.9537L60.0621 31.7085C59.0429 30.3437 56.9334 30.3437 55.9142 31.7085L39.915 52.9537C38.6825 54.5914 39.8913 56.866 42.0008 56.866H50.2256V81H49.1353H44.0866H22.3515C9.90764 80.3404 0 69.1719 0 57.0708C0 48.7228 4.7168 41.444 11.709 37.5088C11.0691 35.8484 10.7372 34.0741 10.7372 32.2089C10.7372 23.679 17.9191 16.7869 26.8075 16.7869C28.7274 16.7869 30.5762 17.1053 32.3065 17.7195C37.4499 7.25611 48.5427 0 61.4369 0C78.1234 0.0227464 91.8709 12.2831 93.4352 27.9099C106.258 30.0253 116 41.4212 116 54.3185C116 68.1028 104.812 80.0446 90.6383 81Z"
+                                        fill="#124814" />
+                                </svg>
+                                <p class="text-center font-weight-bold mt-3 mb-0">Drag and drop an image</p>
+                                <p class="text-center m-0">or <a href="" class="">browse</a> to choose a file</p>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="row mt-3">
+                                <div class="col-10 ">
+                                    <label for="category" class="">Category</label>
+                                    <input type="text" name="category" id="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-10">
+                                    <label for="description" class="">Description</label>
+                                    <textarea name="description" class="form-control" id="" cols="30" rows="5"
+                                        style="resize: none;"></textarea>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-10">
+                                    <label for="sponsors" class="">Sponsors</label>
+                                    <input type="text" name="sponsors" id="" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-10">
+                                    <label for="" class="">Contact details</label>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="tel" name="telephone" id="" class="form-control"
+                                                placeholder="+234 000 000 0000">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="email" name="email" id="" class="form-control"
+                                                placeholder="useername@example.com">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col"><label for="needs-fund" style="d-block">Needs to be
+                                        funded?</label><br />
+                                    <div class="d-inline justify-content-center align-items-center p-1 "
+                                        style="background-color: #fff;">
+                                        <input class="mt-1" type="radio" name="needs-fund" id="">No
+                                    </div>
+                                    <div class="d-inline justify-content-center align-items-center p-1 "
+                                        style="background-color: #124814;color:#fff">
+                                        <input class="mt-1" type="radio" name="needs-fund" id=""> Yes
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div
+                                    class="col-10 my-4 px-2 d-flex flex-row align-items-center justify-content-between">
+                                    <button class="btn-white-2 px-0 mx-0"
+                                        style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%">cancel</button>
+                                    <div class="d-flex flex-row justify-content-end" style="width:70%">
+                                        <button class="btn-white-1 mr-3" style="width:30%">Save as draft</button>
+                                        <button class="btn-green" style="width:30%">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
