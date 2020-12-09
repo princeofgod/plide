@@ -12,11 +12,9 @@ const eventSchema = new mongoose.Schema({
     },
     slug: {
         type: String,
-        require: true
     },
     type: {
         type: String,
-        require: true
     },
     start_date: {
         type: String,

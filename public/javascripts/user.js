@@ -21,7 +21,6 @@ const userSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        require: true
     },
     password: {
         type: String,
@@ -30,23 +29,18 @@ const userSchema = new mongoose.Schema({
     profile: {
         country: {
             type: String,
-            require: true
         },
         state: {
             type: String,
-            require: true
         },
         local_govt: {
             type: String,
-            require: true
         },
         ward: {
             type: String,
-            require: true
         },
         employment_status: {
             type: String,
-            require: true
         }
     },
     role: {

@@ -79,7 +79,7 @@ exports.signup = async (options) => {
         const confirmationToken = await generateToken();       
         const temporary_password = utility.generateRandomCharacter(6);  
         let body = options;
-        body.isActive = options.role && options.role === 1 ? true : false;
+        body.isActive = options && options.role === 1 ? true : false;
         body.confirmation_token = confirmationToken; 
         body.password = options.password ? options.password : temporary_password;
         const user = await User.create(body);
@@ -93,10 +93,10 @@ exports.signup = async (options) => {
             subject = 'PLACES Admin Account Created!';
         }
         else {
-            emailBody = '<p>Hello '+user.firstname+',</p><p> Thank you for signing up on PLACES.</p><p> We are glad to have you onboard on PLACES.</p><p>Kindly click on the link below to activate your account.</p><p><a href="'+process.env.URL+'/confirm_account?random_character='+confirmationToken+'">Account Activation Link</a></p>';
+            emailBody = '<p>Hello '+user.firstname+',</p><p> Thank you for signing up on PLACES.</p><p> We are glad to have you onboard on PLACES.</p><p>Kindly click on the link below to activate your account.</p><p><a href="'+process.env.URL+'/confirm_account?random_character='+ confirmationToken +'">Account Activation Link</a></p>';
             subject = 'Welcome to PLACES!';
         }
-
+        
         await Email.sendMail(user.email, subject, emailBody);
         user.password = undefined;
 

@@ -44,7 +44,7 @@ router.get('/reset_password/:random_character',function(req, res, next) {
 })
 
 router.get('/register',function(req, res, next) {
-  res.render('register', {title: 'register', style: 'register.css'});
+  res.render('register', {title: 'register'});
 })
 
 router.get('/login', function(req, res, next) {
@@ -112,4 +112,5 @@ router.get('/add-candidates', (req,res,next) => {
 router.get('/successful-payment', (req,res,next) => {
   res.render('successful-payment', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
 })
+
 module.exports = router;

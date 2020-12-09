@@ -709,3 +709,31 @@ border-radius: 15px;
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+.progress-title{
+    width:40vw;
+}
+#fund-progress{
+    width:79%;
+    height:5px;
+    background-color: #0099DF;
+}
+#reg-progress{
+    width:60%;
+    height:5px;
+    background-color:#34CF4D;
+}
+#event-progress{
+    width:45%;
+    height:5px;
+    background-color:#E0CA3C;
+}
+.d{
+    width:100%;
+    height:5px;
+}
+.stat-icons{
+    height:3vw;
+    width:3vw;
+    border-radius:10px;
+    background-color:rgba(255, 199, 21, 0.05);
+}

@@ -4,35 +4,27 @@ const mongoose = require('mongoose'),
 const groupSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true
     },
     slug: {
         type: String,
-        require: true
     },
     description: {
         type: String,
-        require: true
     },
     ward: {
         type: String,
-        require: true
     },
     local_govt: {
         type: String,
-        require: true
     },
     constituency: {
         type: String,
-        require: true
     },
     state: {
         type: String,
-        require: true
     },
     federal: {
         type: String,
-        require: true
     }
 },{
     timestamps: { createdAt: true, updatedAt: false }

@@ -9,8 +9,10 @@
             </div>
         </div>
         <div class="row px-4 pl-4">
+            <p class="text-center text-white bg-dark">{{message}}</p>
             <div class="col-11 m-4" id="form-add">
-                <form action="" class="">
+
+                <form action="users/addCategory" class="" method="POST">
                     <div class="row p-4">
                         <div class="col-5 pt-4">
                             <div
@@ -28,14 +30,14 @@
                         <div class="col-7">
                             <div class="row mt-3">
                                 <div class="col-10 ">
-                                    <label for="category" class="">Category</label>
-                                    <input type="text" name="category" id="" class="form-control">
+                                    <label for="category_name" class="">Category</label>
+                                    <input type="text" name="category_name" id="" class="form-control">
                                 </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col-10">
-                                    <label for="description" class="">Description</label>
-                                    <textarea name="description" class="form-control" id="" cols="30" rows="5"
+                                    <label for="category_description" class="">Description</label>
+                                    <textarea name="category_description" class="form-control" id="" cols="30" rows="5"
                                         style="resize: none;"></textarea>
                                 </div>
                             </div>
