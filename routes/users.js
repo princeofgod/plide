@@ -89,9 +89,9 @@ router.post('/addevents', (req,res,next) => {
     })
 })
 router.post('/add-candidates', (req,res, next) => {
-    let body = req.body;
-    body.name = req.body.candidate_name;
-    body.description = req.body.candidate_description;
+    // let body = req.body;
+    // body.name = req.body.candidate_name;
+    // body.description = req.body.candidate_description;
 
 })
 router.post('/addCategory', (req,res, next) => {
