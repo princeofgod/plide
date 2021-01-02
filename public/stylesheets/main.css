@@ -87,6 +87,7 @@ body{
     box-shadow: 7px 5px 40px rgba(0, 0, 0, 0.1);
     border-radius:50%;
     align-items: center;
+    cursor:pointer;
 }
 /* -------------------------- */
 
@@ -736,4 +737,9 @@ border-radius: 15px;
     width:3vw;
     border-radius:10px;
     background-color:rgba(255, 199, 21, 0.05);
+}
+#register-alert{
+    background-color: #124814;
+    opacity: 0.5;
+    color:#fff;
 }

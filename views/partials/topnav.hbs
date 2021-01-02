@@ -47,7 +47,7 @@
                 d="M10.8255 2.38614H5.18064C3.22285 2.38614 2 3.47676 2 5.48149V11.5146C2 13.5508 3.22285 14.6667 5.18064 14.6667H10.8193C12.7833 14.6667 14 13.5697 14 11.565V5.48149C14.0062 3.47676 12.7895 2.38614 10.8255 2.38614Z"
                 stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        &nbsp;&nbsp;&nbsp;11 november 2020
+        &nbsp;&nbsp;&nbsp;{{newDate}}
     </div>
 
     <div class="col-lg-3 d-flex align-items-center justify-content-between px-0" id="rightnav">
@@ -70,12 +70,15 @@
                     fill="#124814" />
             </svg>
             <div id="image">
-
+                {{profile_pic}}
             </div>
-            <p class="text-center m-2" style="font-size:14px;font-weight:400;font-style:normal;">Oreoluwa</p>
+            <p class="text-center m-2" style="font-size:14px;font-weight:400;font-style:normal;">
+                {{firstname}}
+            </p>
 
         </div>
-        <div class="d-flex justify-content-center align-items-center" id="logout">
+        <div class="d-flex justify-content-center align-items-center" id="logout"
+            onclick='window.location.href="users/logout"'>
             <svg width="23" height="18" viewBox="0 0 23 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="1.06934" y="1.06915" width="11.76" height="15.96" fill="white" stroke="black"
                     stroke-width="1.68" />

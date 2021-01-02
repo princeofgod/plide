@@ -58,6 +58,9 @@ const userSchema = new mongoose.Schema({
     remember_token: {
         type: String
     },
+    profile_pic: {
+        type: String
+    },
     permission: []
 },{
     timestamps: { createdAt: true, updatedAt: false }

@@ -13,7 +13,7 @@
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-9">
                         <div class="mx-3 py-3" id="form-add">
-                            <form action="users/addgroup" class="" method="POST">
+                            <form action="group/addgroup" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
                                     <label for="title" class="">Group Title</label>
                                     <input class="form-control" type="text" name="title" id="">
@@ -67,10 +67,27 @@
                     </div>
 
 
-                    <div class="col-3 d-flex align-items-center"
-                        style="width:60%;height:300px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;">
-                        <div class="" style="font-size:.7vw;cursor:pointer" id="add-group-btn"
-                            onclick="window.location.href='addGroup'">
+                    <div class="col-3 d-flex flex-column align-items-center justify-content-between" style="">
+                        <div class="p-3"
+                            style="width:98%;height:300px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;border:solid 2px;font-size:.7vw;cursor:pointer;border:solid 1px red"
+                            id="add-group-btn" onclick="window.location.href='addGroup'">
+                            <h3 class="font-weight-bold" style="font-size:1vw;">ADD GROUP</h3>
+                            <p class="">Create new groups and customize it with your priority</p>
+                            <div class="d-flex flex-row align-items-center justify-content-between">
+                                <div class="d-flex align-items-center justify-content-center" id="add-div">
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.375 7.375H8.625V0.625C8.625 0.279813 8.34519 0 8 0C7.65481 0 7.375 0.279813 7.375 0.625V7.375H0.625C0.279813 7.375 0 7.65481 0 8C0 8.34519 0.279813 8.625 0.625 8.625H7.375V15.375C7.375 15.7202 7.65481 16 8 16C8.34519 16 8.625 15.7202 8.625 15.375V8.625H15.375C15.7202 8.625 16 8.34519 16 8C16 7.65481 15.7202 7.375 15.375 7.375Z"
+                                            fill="#124814" />
+                                    </svg>
+                                </div>
+                                <p class="font-weight-bold mt-3">Create New Group</p>
+                            </div>
+                        </div>
+                        <div class="p-3"
+                            style="width:95%;height:200px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;border:solid 2px;font-size:.7vw;cursor:pointer;border:solid 1px red"
+                            id="add-group-btn" onclick="window.location.href='addGroup'">
                             <h3 class="font-weight-bold" style="font-size:1vw;">ADD GROUP</h3>
                             <p class="">Create new groups and customize it with your priority</p>
                             <div class="d-flex flex-row align-items-center justify-content-between">
@@ -151,7 +168,6 @@
                 <div class="row my-4">
                     <div class="col-11 schedule pb-3" style="border:solid 1px black">
                         <div class="row p-3  schedule">
-                            {{!-- CONTINUE HERE TOMORROW --}}
                             <h3 class="schedule">Today's schedule</h3>
                         </div>
                         <div class="row schedule mt-3">

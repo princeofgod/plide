@@ -2,7 +2,7 @@ const  fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 const { uuid } = require('uuidv4');
-const User = require('../public/javascripts/user');
+const User = require('../model/user');
 
 /* exports.hashPassword = async (password) => {
 
@@ -25,6 +25,10 @@ exports.hashPassword = async (password) => {
   const hash = await bcrypt.hash(password, salt);
 
   return hash;
+}
+
+exports.comparePassword = async () => {
+  bcrypt.compare()
 }
 
 exports.generateToken = async () => {  

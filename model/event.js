@@ -10,6 +10,10 @@ const eventSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    published:{
+        type: Boolean,
+        default: false
+    },
     slug: {
         type: String,
     },

@@ -6,12 +6,15 @@
             <p class="">Together we can build a future for this great nation</p>
         </div>
     </div>
-    <div class="col-5 d-flex justify-content-center align-items-center">
+    {{!-- {{>messages}} --}}
+
+
+    <div class="col-5 d-flex flex-column justify-content-center align-items-center">
+        {{>messages}}
         <div class="p-4 d-flex flex-column justify-content-center align-items-center" id="login-right">
             <p class="font-weight-bold mx-3 mb-5 px-2 text-center">Welcome to PLIDE Automated Citizens Engagement System
             </p>
-            <form id="login-form" action="users/registerMember" method="POST" enctype="multipart/formdata"
-                style="width:80%">
+            <form id="login-form" action="login" method="POST" enctype="multipart/formdata" style="width:80%">
                 <div class="form-group" id="">
                     <input type="text" class="form-control" name="email" id="email" placeholder="email">
                 </div>

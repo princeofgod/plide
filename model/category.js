@@ -10,10 +10,6 @@ const categorySchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    published:{
-        type: Boolean,
-        default: false
-    },
     need_funds: {
         type:  Boolean,
         require:true

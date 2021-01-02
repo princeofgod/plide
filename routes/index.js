@@ -1,116 +1,96 @@
 const express = require('express');
-const controller = require('../controllers/webControllers/controllers');
-const User = require('../public/javascripts/user');
+const login = require('../controllers/webControllers/user').login;
+const { controllers } = require('chart.js');
+const { sessionChecker } = require('../app');
+const { Store } = require('express-session');
 var router = express.Router();
+const session = require('express-session')
+const moment = require('moment')
+const bcrypt = require('bcryptjs')
+
 
 router.get('/', function(req, res, next) {
   res.render('index', {title: 'PLIDE', style: 'index.css'});
 });
 
+
 router.get('/about', function(req, res, next) {
   res.render('about', {title: 'About PLIDE'});
 });
 
-router.get('/confirm_account', async(req, res, next) => {
-  const permit = await User.findOne({confirmation_token: req.query.random_character});
-  const permission = permit && permit.permission;
+// Routing for the home dashboard
 
-  try {
 
-    if((permission.includes('user')) === true){
 
-      await controller.confirm_account(req.query.random_character);
 
-      res.redirect('/userDashboard', 200, {title: 'PLACES User', pageTitle: 'Dashboard', style: 'userDashboard.css'});
-
-    } else if((permission.includes('admin')) === true){
-
-      await controller.confirm_account(req.query.random_character);
-
-      res.redirect('/adminDashboard', 200, {title: 'PLACES User', style: 'userDashboard.css'});
-    }
-  
-  } catch (error) {
-    console.log(error);
-  }
-});
-
-router.get('/forgotPassword', function(req, res, next) {
-  res.render('forgotPassword', {title: 'Reset Password', style: 'forgotPassword.css'});
-});
-
-router.get('/reset_password/:random_character',function(req, res, next) {
-  res.render('resetPassword', {title: 'PLACES reset password', style: 'forgotPassword.css'}, req.params.random_character)
-})
-
-router.get('/register',function(req, res, next) {
-  res.render('register', {title: 'register'});
-})
-
-router.get('/login', function(req, res, next) {
-  res.render('login', {title: 'PLACES User Login', style: 'login.css'});
-});
-
-router.get('/profile', function(req, res, next) {
-  res.render('profile', {title: 'PLACES profile', style: 'userDashboard.css'})
-})
-
-router.get('/funding', function(req, res, next) {
-  res.render('fundACourse', {title: 'PLACES Fund a course', pageTitle: 'Fund a course'});
-});
-
-router.get('/events', function(req, res, next) {
-  res.render('events', {title: 'PLACES events', pageTitle: 'Events',style: 'events.css'});
-});
-
-router.get('/adminDashboard', function(req, res, next) {
-  res.render('adminDashboard', {title: 'PLACES Admin', style: 'adminDashboard.css'});
-});
-
-router.get('/userDashboard', function(req, res, next) {
-  res.render('userDashboard', {title: 'PLACES User', style: 'userDashboard.css'});
-});
-router.get('/resetpassword', (req,res,next) => {
-  res.render('resetpassword', {title: 'PLACES Change Password'});
-});
-router.get('/groups', (req,res,next) => {
-  res.render('usergroups', {title: 'PLACES Groups', pageTitle: 'Groups'});
-});
 router.get('/categories', (req,res,next) => {
-  res.render('categories',{title: 'PLACES categories', pageTitle: 'Fund a course'})
-})
-router.get('/payment', (req,res,next) => {
-  res.render('payment', {title: 'PLACES Fund a course payment', pageTitle: 'Fund a course'})
-})
-router.get('/payment-form', (req,res,next) => {
-  res.render('payment-form', {title: 'PLACES Donation payment', pageTitle: 'Fund a course'})
-})
-router.get('/candidates', (req,res,next) => {
-  res.render('candidates', {title: 'PLACES Candidates', pageTitle: 'Fund a course'})
-})
-router.get('/admingroup', (req,res,next) => {
-  res.render('admingroup', {title: 'PLACES Admin', pageTitle: 'Groups'})
-})
-router.get('/adminevents', (req,res,next) => {
-  res.render('adminEvents', {title: 'PLACES Admin Events', pageTitle: 'Events'})
-})
-router.get('/addevents', (req,res,next) => {
-  res.render('addevents', {title: 'PLACES Admin add event', pageTitle: 'Events'})
-})
-router.get('/addGroup', (req,res,next) => {
-  res.render('addgroup', {title: 'PLACES Admin add group', pageTitle: 'Groups'})
-})
-router.get('/admin-category', (req,res,next) => {
-  res.render('admin-category', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
-})
-router.get('/add-category', (req,res,next) => {
-  res.render('add-category', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
-})
-router.get('/add-candidates', (req,res,next) => {
-  res.render('add-candidates', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
-})
-router.get('/successful-payment', (req,res,next) => {
-  res.render('successful-payment', {title: 'PLACES Admin Category', pageTitle: 'Categories'})
+  if(!req.session.user){
+    res.render('login')
+  }else{
+    if(req.session.user.role !== '1' ){
+      // let error = 
+      res.render('login', {error:"You do not have enough privilege to access the requested page"})
+    } else{
+      res.render('categories',{title: 'PACES categories', pageTitle: 'Fund a course'})
+
+    }
+  }
 })
 
+
+// Routing for the payment page
+
+// Routing for the candidates
+
+
+
+
+// Routing for the events page
+
+
+// Routing for the add-group page
+router.get('/addGroup', (req,res,next) => {
+  if(!req.session.user){
+    res.render('login')
+  } else {
+    if(req.session.user.role !== "1"){
+            res.render('login', {title: 'PACES Login',message: 'No proper privilege to view this resource.'})
+    }else{
+      res.render('addgroup')
+    }
+  }
+})
+
+
+//Routing for add-category page
+router.get('/add-category', (req,res,next) => {
+  if(!req.session.user){
+    res.render(login)
+  }
+  res.render('add-category', {title: 'PACES Admin Category', pageTitle: 'Categories'})
+})
+
+
+// Routing for add-candidates
+router.get('/add-candidates', (req,res,next) => {
+  if(!req.session.user){
+    res.render('login')
+  }else{
+    if(req.session.user.role !== "1"){
+      res.render('add-candidates', {title: 'PACES Admin Category', pageTitle: 'Categories'})
+    }
+  }
+})
+
+// Routing for successful payment
+router.get('/successful-payment', (req,res,next) => {
+  if(!req.session.user){
+    res.render('login')
+  }else{
+      res.render('successful-payment', {title: 'PACES Admin Category', pageTitle: 'Categories'})
+  }
+})
+
+
+    
 module.exports = router;

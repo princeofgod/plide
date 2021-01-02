@@ -13,7 +13,9 @@
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-5" style="">
                         <div class="group-name mx-2 py-2 pl-2 pr-1">
-                            <h3 class=" event-head pt-3 font-weight-bold text-center">ENTREPRENEURSHIP SESSION</h3>
+
+                            <h3 class=" event-head pt-3 font-weight-bold text-center">
+                                {{!-- ENTREPRENEURSHIP SESSION --}}{{events.name}}</h3>
                             </h4>
                             <label class="event-label ml-2">Event Managers:</label>
                             <div class="row pl-1 pr-4 event-managers">
@@ -68,8 +70,9 @@
                         {{!-- <div class="progress"></div> --}}
                     </div>
                     <div class="col-5" style="">
+                        {{#if event}}
                         <div class="group-name mx-2 py-2 pl-2 pr-1">
-                            <h3 class=" event-head pt-3 font-weight-bold text-center">ENTREPRENEURSHIP SESSION</h3>
+                            <h3 class=" event-head pt-3 font-weight-bold text-center">{{event.title}}</h3>
                             </h4>
                             <label class="event-label ml-2">Event Managers:</label>
                             <div class="row pl-1 pr-4 event-managers">
@@ -120,6 +123,8 @@
 
                             </div>
                         </div>
+                        {{/if}}
+
 
                         {{!-- <div class="progress"></div> --}}
                     </div>

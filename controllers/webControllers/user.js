@@ -1,10 +1,11 @@
 const AppError = require('../../utils/appError');
 const jwt = require('jsonwebtoken');
 const Email = require('../../services/mail');
-const User = require('../../public/javascripts/user');
+const User = require('../../model/user');
 const { uuid } = require('uuidv4');
 const {validationResult} = require('express-validator');
 const utility = require('../../services/utility');
+const bcrypt = require('bcryptjs');
 
 
 const createToken = id => {
@@ -14,6 +15,7 @@ const createToken = id => {
         expiresIn: process.env.JWT_EXPIRES_IN
     });
 };
+
 
 const generateToken = async () => {  
     try{
@@ -42,21 +44,19 @@ exports.login = async (options) => {
         // 1) check if user exist and  password is correct
         const user = await User.findOne({email}).select('+password');
 
-        if (!user || !await user.correctPassword(password, user.password)) {
-            return next(new AppError(406, 'Not acceptable', 'Email/Password is incorrect'), req, res, next);
+        // console.log("122", user)
+        if (!user || !user.correctPassword(password, user.password)) {
+            return 'Email/Password is incorrect'
         }
 
         // 2) check if user is active
         if(user.isActive === false) {
-            return next(new AppError(401, 'Unauthorized', 'You cannot access this account. See the administrator'), req, res, next);
+            return 'You cannot access this account. See the administrator'
         }
         
         if(role !== user.role){
-            return next(new AppError(403, 'fail', 'Email/Password is incorrect'), req, res, next);
+            return 'Email/Password/role is incorrect'
         }
-        
-        // 4) All correct, send jwt to client
-        const token = createToken(user.id);
         
         // Remove the password from the output 
         user.password = undefined;
@@ -64,8 +64,9 @@ exports.login = async (options) => {
         return user;
 
     } catch (error) {
-        throw new Error("Internal ServerError")
+        throw error
     };
+    console.log(req.session)
 };
 
 exports.signup = async (options) => {
@@ -79,34 +80,36 @@ exports.signup = async (options) => {
         const confirmationToken = await generateToken();       
         const temporary_password = utility.generateRandomCharacter(6);  
         let body = options;
+                
         body.isActive = options && options.role === 1 ? true : false;
         body.confirmation_token = confirmationToken; 
         body.password = options.password ? options.password : temporary_password;
         const user = await User.create(body);
         console.log("1", user)
-        
+                
         let emailBody = "";
         let subject = "";
-
+        
         if(body.userType === 'admin') {
             emailBody = '<p>Hello '+user.firstname+',</p><p> An admin account has just been created for you on PLACES.</p><p> Login with the following details:</p><p>Url: '+process.env.URL+'<br />Username: '+ user.email +'<br /> Password:'+temporary_password+'<p><p>You are advised to change your password once you login.</p>Regard.<p> <p> PLACES.</p>'; // HTML body
             subject = 'PLACES Admin Account Created!';
-        }
-        else {
-            emailBody = '<p>Hello '+user.firstname+',</p><p> Thank you for signing up on PLACES.</p><p> We are glad to have you onboard on PLACES.</p><p>Kindly click on the link below to activate your account.</p><p><a href="'+process.env.URL+'/confirm_account?random_character='+ confirmationToken +'">Account Activation Link</a></p>';
-            subject = 'Welcome to PLACES!';
-        }
+            }
+            else {
+                emailBody = '<p>Hello '+user.firstname+',</p><p> Thank you for signing up on PLACES.</p><p> We are glad to have you onboard on PLACES.</p><p>Kindly click on the link below to activate your account.</p><p><a href="'+process.env.URL+'/confirm_account?random_character='+ confirmationToken +'">Account Activation Link</a></p><p>Or copy this link to your browser</p><p>'+process.env.URL+'/confirm_account?random_character='+ confirmationToken +'</p>';
+                subject = 'Welcome to PLACES!';
+                console.log( "3",emailBody)
+                }
+                
+            await Email.sendMail(user.email, subject, emailBody);
+            user.password = undefined;
         
-        await Email.sendMail(user.email, subject, emailBody);
-        user.password = undefined;
+            return user;
+        
+            } catch (error) {
+                throw error
+            }
+        }
 
-        return user;
-
-    } catch (error) {
-        throw error
-    }
-
-};
 
 exports.confirm_account = async(random_character) => {         
     const data = await User.findOneAndUpdate({confirmation_token: random_character}, {$set: {isActive: true}}, {
@@ -115,9 +118,9 @@ exports.confirm_account = async(random_character) => {
     });
 
     if (!data) {
-        return next(new AppError(404, 'fail', 'This confirmation token doesn\'t exist'), req, res, next);
+        return 'This confirmation token doesn\'t exist'
     };
-
+    console.log("update", data)
     const token = createToken(data.id); 
 
     return data, token;
@@ -137,7 +140,7 @@ exports.forgot_password = async (body) =>{
         });
 
         if(!user){
-            return next(new AppError(403, 'fail', 'The email does not exist'), req, res, next);
+            return 'The email does not exist'
         };
         
         const emailBody = '<p>Hello '+user.firstname+',</p><p> You recently requested to change your password.</p><p> If you did not make this request, kindly ignore this email.</p><p>To change your password, click on the link below</p><p><a href="'+process.env.URL+'/user/reset_password/'+random_character+'">Reset Password Link<a></p>'// HTML body
@@ -146,6 +149,7 @@ exports.forgot_password = async (body) =>{
         // Mail User
         await Email.sendMail(user.email, subject, emailBody);
 
+        console.log(emailBody)
         return user;
 
     }catch(error){
@@ -161,6 +165,11 @@ exports.reset_password = async (req, res, next) =>{
     };
 
     try{
+        // Check if password match
+        if (req.body.password !== req.body.password2 ){
+            errors.push()
+        }
+
         const hash = await utility.hashPassword(req.body.password);
         const data = await User.findOneAndUpdate({remember_token: req.params.random_character}, {$set: {password: hash}}, {
             new: true,
@@ -168,30 +177,25 @@ exports.reset_password = async (req, res, next) =>{
         });
 
         if (!data) {
-            return next(new AppError(404, 'fail', 'Invalid user id'), req, res, next);
+            res.render('', {error: "Incorrect user ID"})
+        }else if (req.params.random_character !== data.remember_token) {
+            res.render('', {error: "Incorrect token"})
+        }else{
+            res.render('', {success: "Password reset was successful!"})
         };
-
-        if (req.params.random_character !== data.remember_token) {
-            return next(new AppError(404, 'fail', 'Invalid token'), req, res, next);
-        };
-
-        res.status(200).json({
-            status: 'your password reset was successful',
-            data
-        });
     }catch(error) {
         next(error);
     }
 };
 
-exports.deleteOne = Model => async (id) => {
+exports.deleteOne = async (id) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     }
     try {
-        const data = await Model.findByIdAndDelete({_id: id});
+        const data = await User.findByIdAndDelete({_id: id});
         if (!data) {
             return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
         };
@@ -203,7 +207,7 @@ exports.deleteOne = Model => async (id) => {
     };
 };
 
-exports.updateOne = Model => async (id, body) => {
+exports.updateOne = async (id, body) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -215,7 +219,7 @@ exports.updateOne = Model => async (id, body) => {
             return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
         }; 
 
-        const data = await Model.findByIdAndUpdate(id, {$set: req.body}, {
+        const data = await User.findByIdAndUpdate(id, {$set: req.body}, {
             new: true,
             runValidators: true,
         });
@@ -230,14 +234,14 @@ exports.updateOne = Model => async (id, body) => {
     };
 };
 
-exports.createOne = Model => async (body) => {
+exports.createOne = async (body) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     };
     try {
-        const data = await Model.create(body);
+        const data = await User.create(body);
 
         return data;
 
@@ -246,7 +250,7 @@ exports.createOne = Model => async (body) => {
     };
 };
 
-exports.getOne = Model => async (id) => {
+exports.getOne = async (id) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -254,7 +258,7 @@ exports.getOne = Model => async (id) => {
     };
 
     try {
-        const data = await Model.findById(id);
+        const data = await User.findById(id);
 
         if(!data) {
           return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
@@ -267,14 +271,14 @@ exports.getOne = Model => async (id) => {
     };
 };
 
-exports.getAll = Model => async () => {
+exports.getAll = async () => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     };
     try {
-        const data = await Model.find();
+        const data = await User.find();
 
         return data;
 
@@ -284,9 +288,9 @@ exports.getAll = Model => async () => {
 
 };
 
-exports.count = Model => async () => {
+exports.count = async () => {
     try {
-        const data = await Model.estimatedDocumentCount({});
+        const data = await User.estimatedDocumentCount({});
 
         return data;
 
@@ -295,7 +299,7 @@ exports.count = Model => async () => {
     };
 };
 
-exports.search = (Model, config=null) => async (body) => {
+exports.search = (User, config=null) => async (body) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -317,7 +321,7 @@ exports.search = (Model, config=null) => async (body) => {
             options.populate = config.populate;
         };
         
-        const data = await Model.paginate(query, options); 
+        const data = await User.paginate(query, options); 
 
         return data;
 
