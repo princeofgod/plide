@@ -1,4 +1,4 @@
-const {check , validationResult, Result} = require("express-validator")
+const {check , validationResult, Result, body} = require("express-validator")
 const Group = require("../model/group")
 const User = require("../model/user")
 const bcrypt = require("bcryptjs")
@@ -81,13 +81,24 @@ const result = (req,res,next) => {
 
 
 const groupValidation =  [
-    check("title", "Title is required").exists(),
-    check("description", "Description is required").exists(),
-    check("title").custom(value => {
-        return Group.findOne({title:value}).then(group => {
-            if(group) return Promise.reject("Group with same name already exist")
+    check("title").isEmpty().withMessage("Title is required").custom(async value => {
+        await Group.findOne({title:value}).then(group => {
+            if(group) console.log("Group with same name already exist")
         })
     }),
+    check("description").isEmpty().withMessage("Description is required"),
 ]
 
-module.exports = {registerValidation, loginValidation, groupValidation, result}
+const eventValidation = [
+    check("event_title").trim().isExist().withMessage("Event title is required!").custom(async value => {
+        await Event.findOne({name:value},(err, events => {
+            if (events) {
+                console.log("Event with same title already exists.")
+            } else {
+                
+            }
+        }))
+    }),
+    check("event_description").isExist(),
+]
+module.exports = {registerValidation, loginValidation, groupValidation,eventValidation, result}

@@ -38,31 +38,9 @@ router.get('/categories', (req,res,next) => {
 })
 
 
-// Routing for the payment page
-
-// Routing for the candidates
-
-
-
-
-// Routing for the events page
-
-
-// Routing for the add-group page
-router.get('/addGroup', (req,res,next) => {
-  if(!req.session.user){
-    res.render('login')
-  } else {
-    if(req.session.user.role !== "1"){
-            res.render('login', {title: 'PACES Login',message: 'No proper privilege to view this resource.'})
-    }else{
-      res.render('addgroup')
-    }
-  }
-})
-
-
-//Routing for add-category page
+/**
+ *Routing for add-category page 
+ **//
 router.get('/add-category', (req,res,next) => {
   if(!req.session.user){
     res.render(login)
@@ -71,7 +49,9 @@ router.get('/add-category', (req,res,next) => {
 })
 
 
-// Routing for add-candidates
+/**
+ * Routing for add-candidates
+ */
 router.get('/add-candidates', (req,res,next) => {
   if(!req.session.user){
     res.render('login')
@@ -82,13 +62,15 @@ router.get('/add-candidates', (req,res,next) => {
   }
 })
 
-// Routing for successful payment
+/**
+ * Routing for successful payment
+ **/
 router.get('/successful-payment', (req,res,next) => {
-  if(!req.session.user){
-    res.render('login')
-  }else{
-      res.render('successful-payment', {title: 'PACES Admin Category', pageTitle: 'Categories'})
-  }
+	if(!req.session.user){
+		res.render('login')
+	}else{
+		res.render('successful-payment', {title: 'PACES Admin Category', pageTitle: 'Categories'})
+	}
 })
 
 
