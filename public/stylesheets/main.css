@@ -1,27 +1,27 @@
 @font-face{
     font-family: 'Sofia Pro';
-    src:url('../../fonts/SofiaProBlack.otf');
+    src:url('/SofiaProBlack.otf');
     font-weight: 900;
 }
 
 @font-face{
     font-family: 'Sofia Pro';
-    src:url('../../fonts/SofiaProRegular.otf');
+    src:url('/SofiaProRegular.otf');
     font-weight: 400;
 }
 @font-face{
     font-family: 'Sofia Pro';
-    src:url('../../fonts/SofiaProMedium.otf');
+    src:url('/SofiaProMedium.otf');
     font-weight: 500;
 }
 @font-face{
     font-family: 'Sofia Pro';
-    src:url('../../fonts/SofiaProSemiBold.otf');
+    src:url('/SofiaProSemiBold.otf');
     font-weight: 600;
 }
 @font-face{
     font-family: 'Sofia Pro';
-    src:url('../../fonts/SofiaProLight.otf');
+    src:url('/SofiaProLight.otf');
     font-weight: 300;
 }
 body{
@@ -482,7 +482,7 @@ border-radius: 9.52381px;
     box-shadow: 0px 14px 34px -14px rgba(18, 72, 20, 0.3);
     border-radius: 15px;
     border:solid 1px #124814;
-    height:70%;
+    height:77%;
     background-color:#fff;
     font-size:1.3vw;
     width:80%;

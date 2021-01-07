@@ -1,9 +1,9 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
-const genid = require('genid');
+const {v4: uuid} = require('uuidv4')
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require('connect-mongodb-session')(session);
 const logger = require('morgan');
 const methodOverride = require('method-override')
 const indexRouter = require('./routes/index');
@@ -18,12 +18,20 @@ const categoryRouter = require('./routes/category');
 const hbs = require("express-handlebars");
 const passport = require("passport");
 const flash = require('connect-flash')
-
+const MongoDBStore = require('connect-mongodb-session')
 const mongoose = require('mongoose');
-const User = require('./model/user');
-const { Store } = require('express-session');
+const { v4 } = require('uuid');
+// const User = require('./model/user');
+// const { Store } = require('express-session');
+const store = exports = new MongoStore({
+  uri: 'mongodb://localhost:27017/MVC1',
+  // databaseName:'MVC1',
+  collection: 'sessions'
+});
+
 
 const app = express();
+
 
 // Passport config
 require('./config/passport')(passport)
@@ -53,33 +61,47 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
+app.use(express.static(path.join(__dirname, 'fonts')))
 app.use(methodOverride('_method'));
 
 
-app.use(session({
-  name: /*process.env.SESS_NAME*/ 'minimie',
-  keys: /*['key1', 'key2']*/'user_id',
-  resave: false,
-  saveUninitialized: false,
-  secret: "chinchin",
-  store: new MongoStore({
-     mongooseConnection: mongoose.connection,
-     autoRemove: 'native',
-     }),
-  rolling: true,
-  unset: "destroy",
-  cookie: {
-      maxAge: 1000*60*60*1,
-      sameSite: true,
-      secure: true,
-      httpOnly:true
-  }
-}));
+// app.use(session({
+//   // genid: function(req) {
+//   //   return genuuid() // use UUIDs for session IDs
+//   // },
+//   secret: "chinchin",
+//   name: /*process.env.SESS_NAME*/ 'minimie',
+//   keys: /*['key1', 'key2']*/'user_id',
+//   resave: false,
+//   saveUninitialized: false,
+//   store: store,
+//   // rolling: true,
+//   // unset: "destroy",
+//   cookie: {
+//       maxAge: 1000*60*60*1,
+//       sameSite: true,
+//       secure: true,
+//       httpOnly:true
+//   }
+// }));
 
+app.use(session({
+  genid: (req) => {
+    return v4()
+  },
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  store:store,
+  cookie: { 
+    secure: false,
+    maxAge: 60*60*1000,
+   }
+}))
 // passport middleware
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(flash())
+// app.use(passport.initialize())
+// app.use(passport.session())
+// app.use(flash())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -108,13 +130,13 @@ app.use(function(err, req, res, next) {
 });
 
 
-exports.sessionChecker = (req, res, next) => {
-  if(req.session.user && req.cookies.user_id){
-    res.render('home')
-  } else {
-    next()
-  }
-}
+// exports.sessionChecker = (req, res, next) => {
+//   if(req.session.user && req.cookies.user_id){
+//     res.render('home')
+//   } else {
+//     next()
+//   }
+// }
 
 
 module.exports = app;

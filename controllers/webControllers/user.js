@@ -5,7 +5,6 @@ const User = require('../../model/user');
 const { uuid } = require('uuidv4');
 const {validationResult} = require('express-validator');
 const utility = require('../../services/utility');
-const bcrypt = require('bcryptjs');
 
 
 const createToken = id => {
@@ -44,7 +43,6 @@ exports.login = async (options) => {
         // 1) check if user exist and  password is correct
         const user = await User.findOne({email}).select('+password');
 
-        // console.log("122", user)
         if (!user || !user.correctPassword(password, user.password)) {
             return 'Email/Password is incorrect'
         }
@@ -66,7 +64,6 @@ exports.login = async (options) => {
     } catch (error) {
         throw error
     };
-    console.log(req.session)
 };
 
 exports.signup = async (options) => {
@@ -85,7 +82,6 @@ exports.signup = async (options) => {
         body.confirmation_token = confirmationToken; 
         body.password = options.password ? options.password : temporary_password;
         const user = await User.create(body);
-        console.log("1", user)
                 
         let emailBody = "";
         let subject = "";
@@ -95,9 +91,8 @@ exports.signup = async (options) => {
             subject = 'PLACES Admin Account Created!';
             }
             else {
-                emailBody = '<p>Hello '+user.firstname+',</p><p> Thank you for signing up on PLACES.</p><p> We are glad to have you onboard on PLACES.</p><p>Kindly click on the link below to activate your account.</p><p><a href="'+process.env.URL+'/confirm_account?random_character='+ confirmationToken +'">Account Activation Link</a></p><p>Or copy this link to your browser</p><p>'+process.env.URL+'/confirm_account?random_character='+ confirmationToken +'</p>';
+                emailBody = '<p>Hello '+user.firstname+',</p><p> Thank you for signing up on PLACES.</p><p> We are glad to have you onboard on PLACES.</p><p>Kindly click on the link below to activate your account.</p><p><a href="'+process.env.URL+'/users/confirm_account?random_character='+ confirmationToken +'">Account Activation Link</a></p><p>Or copy this link to your browser</p><p>'+process.env.URL+'/users/confirm_account?random_character='+ confirmationToken +'</p>';
                 subject = 'Welcome to PLACES!';
-                console.log( "3",emailBody)
                 }
                 
             await Email.sendMail(user.email, subject, emailBody);
@@ -120,71 +115,91 @@ exports.confirm_account = async(random_character) => {
     if (!data) {
         return 'This confirmation token doesn\'t exist'
     };
-    console.log("update", data)
     const token = createToken(data.id); 
 
     return data, token;
 };
 
 exports.forgot_password = async (body) =>{
-    const errors = validationResult(body);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
+    // const errors = validationResult(body);
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // }
     try{
         const random_character = await generateToken();
-        const user = await User.findOneAndUpdate({email:body.email, role:body.role}, {$set: {remember_token: random_character}}, {
+        await User.findOneAndUpdate({email:body.email}, {$set: {remember_token: random_character}}, {
             new: true,
             runValidators: true,
-        });
-
-        if(!user){
-            return 'The email does not exist'
-        };
-        
-        const emailBody = '<p>Hello '+user.firstname+',</p><p> You recently requested to change your password.</p><p> If you did not make this request, kindly ignore this email.</p><p>To change your password, click on the link below</p><p><a href="'+process.env.URL+'/user/reset_password/'+random_character+'">Reset Password Link<a></p>'// HTML body
+            upsert: true
+        }, async (err,user) => {
+            const emailBody = '<p>Hello '+user.firstname+',</p><p> You recently requested to change your password.</p><p> If you did not make this request, kindly ignore this email.</p><p>To change your password, click on the link below</p><p><a href="'+process.env.URL+'/users/reset_password/'+random_character+'">Reset Password Link<a></p><p>Or copy this link to your browser</p><p>'+process.env.URL+'/users/reset_password/'+random_character+'</p>'// HTML body
         const subject =  'Password Reset Request' // Subject line
         
+
         // Mail User
         await Email.sendMail(user.email, subject, emailBody);
 
-        console.log(emailBody)
         return user;
+        });
+
+        // if(!user){
+        //     return 'The email does not exist'
+        // };
+        
+        
 
     }catch(error){
         throw error;
     }
 };
 
-exports.reset_password = async (req, res, next) =>{
-    const errors = validationResult(req);
+exports.reset_password = async (password, random_character) =>{
+    // const errors = validationResult(req);
 
-    if(!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-
+    // if(!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // };
+    console.log("I just entered the controller")
     try{
-        // Check if password match
-        if (req.body.password !== req.body.password2 ){
-            errors.push()
-        }
+        console.log("I just entered the try statement")
+console.log("token = ", random_character)
+        await User.findOne({remember_token: random_character})
+            .then(async (user)=> {
+                console.log("Old password = ", user.password)
+                console.log("new password entered = ",password)
+        const hash = await utility.hashPassword(password);
+        console.log("new hash = ",hash)
+        // console.log("req body in reset controller = ", req.body)
 
-        const hash = await utility.hashPassword(req.body.password);
-        const data = await User.findOneAndUpdate({remember_token: req.params.random_character}, {$set: {password: hash}}, {
-            new: true,
-            runValidators: true,
-        });
+        User.findOneAndUpdate({remember_token:random_character}, {$set:{password:hash}}, {new:true},(err,user) => {
+            console.log("new pass in db = ", user)
+        })
+// console.log("new pass in db = ", data)
+        })
+        // const data = await User.findOneAndUpdate({remember_token: random_character}, {$set: {password: hash}}, {
+        //     new: true,
+        //     runValidators: true,
+        // });
 
-        if (!data) {
-            res.render('', {error: "Incorrect user ID"})
-        }else if (req.params.random_character !== data.remember_token) {
-            res.render('', {error: "Incorrect token"})
-        }else{
-            res.render('', {success: "Password reset was successful!"})
-        };
+        // console.log("data = ", data)
+        // console.log("data = ", data.password)
+
+        // console.log("Was here")
+        // // ------------------------------------------------
+        
+        
+        
+        // // -------------------------------------------------
+        // console.log("Was here too")
+        // User.findOne({remember_token: req.params.random_character})
+        //     .then(user=> {
+        //         console.log("new password = ", user.password)
+        //     })
+
+        return errors,data
+        
     }catch(error) {
-        next(error);
+
     }
 };
 
