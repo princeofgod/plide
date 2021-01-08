@@ -296,11 +296,8 @@ router.get('/home', async function(req, res) {
   	console.log("Testing persistent login", req.session)
   // Check for running session
   	if(!req.session.user){
-    	res.redirect('/login')
+    	res.redirect('/users/login')
   	}else{
-		//   req.session.reload((err)=> {
-		// 	  if(err) console.log(err)
-		//   })
     	let user = req.session.user
 		user.newDate = moment().format("DD, MMMM YYYY")
 		user.pageTitle = "Dashboard"
@@ -313,23 +310,24 @@ router.get('/home', async function(req, res) {
   	}  
 });
 
-  
-  
-  
-  /**
-   * Routing for the payment page
-   */
+   
+/**
+* Routing for the payment page
+*/
 router.get('/payment', (req,res,next) => {
     if(!req.session.user){
-      	res.render('login')
+      	res.redirect('/users/login')
     }else{
-      	res.render('payment', {title: 'PACES Fund a course payment', pageTitle: 'Fund a course'})
+		let user = req.session.user
+		user.title = 'PACES Fund a course payment'
+		user.pageTitle = 'Fund a course'
+      	res.render('payment', user)
     }
 })
 
 router.get('/payment-form', (req,res,next) => {
     if(!req.session.user){
-      	res.render('login')
+      	res.redirect('/users/login')
     }else{
         res.render('payment-form', {title: 'PACES Donation payment', pageTitle: 'Fund a course'})
     }
@@ -337,7 +335,13 @@ router.get('/payment-form', (req,res,next) => {
   
   
 router.get('/funding', function(req, res, next) {
- 	res.render('fundACourse', {title: 'PACES Fund a course', pageTitle: 'Fund a course'});
+	if(!req.session.user) res.redirect('/users/login')
+ 	else {
+		let user = req.session.user
+		user.title = 'PACES Fund a course'
+		user.pageTitle = 'Fund a course'
+		res.render('fundACourse', user);
+	 }
 });
 
 // Routing for the logout page

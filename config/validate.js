@@ -1,12 +1,11 @@
-const {check,param , validationResult, Result, body} = require("express-validator")
+const {check,param} = require("express-validator")
 const Group = require("../model/group")
 const User = require("../model/user")
 const Event = require("../model/event")
 const Category = require("../model/category")
 const bcrypt = require("bcryptjs")
 const { NotExtended } = require("http-errors")
-// const { param } = require("../routes")
-let a;
+
 
 /**
  * Validation for the regitration form
@@ -55,15 +54,15 @@ const loginValidation = [
 ]
 
 
-const result = (req,res,next) => {
-    const result = validationResult(req)
+// const result = (req,res,next) => {
+//     const result = validationResult(req)
 
-    if(!result.isEmpty()){
-        const error = result()[0].msg 
-        console.log(error)
-    }
-    next();
-}
+//     if(!result.isEmpty()){
+//         const error = result()[0].msg 
+//         console.log(error)
+//     }
+//     next();
+// }
 
 /**
  * Group validation
@@ -109,9 +108,13 @@ const categoryValidation = [
                 }
             })
     }),
-    check("category_description").isEmpty().withMessage("Category description can't be left empty"),
+    check("category_description").notEmpty().withMessage("Category description can't be left empty"),
 ]
 
+/**
+ * Validation for forget password
+ * Validates the email sent
+ */
 const forgotPasswordValidation = [
     check("email").notEmpty().custom(async (value) => {
         await User.findOne({email:value})
@@ -123,6 +126,10 @@ const forgotPasswordValidation = [
     })
 ]
 
+/**
+ * Validation for resetting password
+ * Validates the password for to be updated in the user information
+ */
 const resetPasswordValidation = [
     check("password").notEmpty().withMessage("Enter password!").isLength({min: 6}).withMessage("Password must be up to 6 characters long.")
         .custom(async (value, {req}) => {
@@ -132,17 +139,19 @@ const resetPasswordValidation = [
         }),
 ]
 
+/**
+ * Verifies the token used to access the change password page
+ */
+
 const tokenVerify = [
     param("random_character").notEmpty().custom(async (value) => {
         await User.findOne({remember_token:value})
             .then(user => {
                 if(!user){
                     throw new Error("Invalid token")
-                } else {
-                    exports.a = user
                 }
             })
     })
 ]
 
-module.exports = {categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify , result}
+module.exports = {categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify}

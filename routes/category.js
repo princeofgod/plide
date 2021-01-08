@@ -3,38 +3,40 @@ const Category = require('../model/category');
 const router = express.Router();
 const categoryController = require('../controllers/webControllers/category');
 const { categoryValidation } = require('../config/validate');
+const { validationResult } = require('express-validator');
 
 /**
  * 
  */
-router.post('/addCategory',categoryValidation, (req,res) => {
+router.post('/addCategory',categoryValidation, async (req,res) => {
     let body = req.body;  
-    if(!body.name || !body.description || !body.need_fund){
-      res.render('add-category',{alert: "Fill in the requirwed fields"})
-    } else{
-      // A Check if name already exists
-      	Category.findOne({name:body.name}, (err, category)=> {
-        if(category){
-          	res.render('add-category', {alert: `Category with name ${body.name} already exists!`})
-        } else{
-          // Save category
-			body.name = req.body.category_name;
-			console.log('4', body.name)
-			body.description = req.body.category_description;
-	
-			let newCategory = new Category(body);
-			newCategory.save()
-				.then(item => {
-			console.log(newCategory)
-			res.render("add-category", {success: `New category ${body.name} created`})
-      })
-        }
-      })
+
+    const result = validationResult(req)
+    if(!result.isEmpty()){
+      	const error = result.array()[0].msg
+      	res.render('add-category', { error:error })
+    } else {
+		await categoryController.createOne(body)
     }
-      
-      
-  
-      
+    // if(!body.name || !body.description || !body.need_fund){
+    //   res.render('add-category',{alert: "Fill in the requirwed fields"})
+    // } else{
+      // A Check if name already exists
+    // }
   })
+
+  router.get('/categories', (req,res,next) => {
+	if(!req.session.user){
+	  res.render('login')
+	}else{
+	  if(req.session.user.role !== '1' ){
+		// let error = 
+		res.render('login', {error:"You do not have enough privilege to access the requested page"})
+	  } else {
+		res.render('categories',{title: 'PACES categories', pageTitle: 'Fund a course'})
+	  }
+	}
+  })
+  
   
   module.exports = router; 

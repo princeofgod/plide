@@ -10,7 +10,8 @@ const bcrypt = require('bcryptjs')
 
 
 router.get('/', function(req, res, next) {
-  res.render('index', {title: 'PLIDE', style: 'index.css'});
+  if(!req.session.user) res.render('index', {title: 'PLIDE', style: 'index.css'});
+  else res.redirect('/users/home')
 });
 
 
@@ -23,24 +24,10 @@ router.get('/about', function(req, res, next) {
 
 
 
-router.get('/categories', (req,res,next) => {
-  if(!req.session.user){
-    res.render('login')
-  }else{
-    if(req.session.user.role !== '1' ){
-      // let error = 
-      res.render('login', {error:"You do not have enough privilege to access the requested page"})
-    } else{
-      res.render('categories',{title: 'PACES categories', pageTitle: 'Fund a course'})
-
-    }
-  }
-})
-
 
 /**
  *Routing for add-category page 
- **//
+ **/
 router.get('/add-category', (req,res,next) => {
   if(!req.session.user){
     res.render(login)

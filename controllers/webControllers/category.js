@@ -1,4 +1,7 @@
 const Category = require('../../model/category');
+
+
+
 exports.deleteOne = async (id) => {
     const errors = validationResult(req);
 
@@ -48,13 +51,27 @@ exports.updateOne = async (id, body) => {
 exports.createOne = async (body) => {
     const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // };
     try {
-        const data = await Category.create(body);
-
-        return data;
+        await Category.findOne({name:body.name}, (err, category)=> {
+            if(err) console.log(" Category erroe = ",err)
+			if(category){
+				  res.render('add-category', {error: `Category with name ${body.name} already exists!`})
+			} else{
+			  // Save category
+				body.name = req.body.category_name;
+				body.description = req.body.category_description;
+		
+				let newCategory = new Category(body);
+				newCategory.save()
+					.then(item => {
+				console.log(newCategory)
+				res.render("add-category", {success: `New category ${body.name} has been created`})
+		  	})
+			}
+		  })
 
     } catch (error) {
         throw new Error("Internal ServerError")
