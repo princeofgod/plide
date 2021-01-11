@@ -10,23 +10,23 @@ const moment = require('moment')
 const bcrypt = require('bcryptjs');
 const { Session, Store } = require('express-session');
 // const upload = require('../config/multer').upload
-const {confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
+const {fileValidator, confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'images/avatar')
+        cb(null, './images/avatar')
       },
-    // //   filename: function (req, file, cb) {
-	// // 	  console.log(req.session.user._id)
-	// // 	  let s = req.session.user._id
-    // //     cb(null, s)
-	//   }
-		filename: function (req,file, cb) {
-			file.fieldname +
-          "-" +
-          Date.now() +
-          "." +
-          file.originalname.split(".")[1].toLowerCase()
-		}
+      filename: function (req, file, cb) {
+		//   console.log(req.session.user._id)
+		  let s = req.session.user._id.toString()
+        cb(null, s+"."+file.originalname.split(".")[1])
+	  },
+		// filename: function (req,file, cb) {
+		// 	file.fieldname +
+        //   "-" +rsr
+        //   Date.now() +
+        //   "." +
+        //   file.originalname.split(".")[1].toLowerCase()
+		// }
     })
 // const {store} = require('../app')
 const session = require('express-session');
@@ -264,10 +264,30 @@ router.get('/profile', async (req, res, next) => {
 })
 
 
-router.post('/avatar',upload.single("picture"), (req, res, next) => {
+router.post('/avatar', fileValidator, upload.single("picture"), async (req, res, next) => {
 	// Verify if the selected file is an image
-	console.log("file field = ", req.body)
-	console.log("file attribute = ", req.file)
+	const result = validationResult(req)
+	if(!result.isEmpty()){
+		const error = result.array()[0].msg
+		// Best bet is to render error with a modal page
+		// res.render("profile", {error:error})
+	} else {
+		console.log("file field = ", req.body)
+		console.log("file attribute = ", req.file)
+		let user = req.session.user
+		await User.findOneAndUpdate({_id:user._id},{$set:{profile_pic:req.file.filename}}, {new:true}, (err, user) => {
+			if(err){
+				console.log("ERROR")
+				console.log(err)
+			}
+			if(!user) console.log("No USer found")
+			else {
+				console.log("Success")
+				console.log(user)
+				req.session.user = user
+				res.redirect('profile')
+			}
+	})}
 
   // profile picture
     // After post data to database, change the values of the input with the new values
@@ -275,10 +295,13 @@ router.post('/avatar',upload.single("picture"), (req, res, next) => {
 	// after update, a timed alert should be displayed indicating the data is saved successfully
 	
 })
-router.post('/profile_data', async (req,res) => {
+router.post('/profiledata', async (req,res) => {
 	if(!req.session.user) res.render("/users/login")
 	else {
+		console.log("Form to update = ", req.body)
 		let body = req.body
+		console.log("Form to update = ", body)
+
 		// Sort out all the profile data arrangement in a controller
 		// At the end of the controller return the populated profile
 		let profileData = await userController.populateProfile(body)
@@ -286,12 +309,11 @@ router.post('/profile_data', async (req,res) => {
 		// From here go to the controller and populate the table in d database using id as the reference 
 		let user = await userController.updateOne(req.session.user._id,profileData)
 		// rAssign the new value from the db to session
-		req.session.user = user
+		// req.session.user = user
 		// Comes back  to the route
-		
+		console.log("New User from route = ", user)
 		res.redirect('/users/profile')
 		
-		//   body.profile = profile
 	}
 })
 

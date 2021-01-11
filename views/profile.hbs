@@ -9,13 +9,14 @@
             <div class="row">
                 <div class="col-12">
                     <div class="row d-flex justify-content-center">
-                        <form action="avatar" class="" method="post" enctype="multipart/form-data">
-                            <div class="col-12 mt-4 mb-5 d-flex flex-row align-items-center px-5 mx-3" id="profile"
+                        {{!-- <form action="avatar" class="" method="post" enctype="multipart/form-data"> --}}
+                            <div class="col-6 mt-4 mb-5 d-flex flex-row align-items-center px-5 mx-3" id="profile"
                                 style="">
                                 {{!-- <form action="avatar" class="" method="post" enctype="multipart/form-data"> --}}
                                     <div class="mx-3">
-                                        <div class="img-holder" style="" id="avatarbox">
-                                            <img src="/{{profile_pic}}" alt="" id="profilee">
+                                        <div class="img-holder" style="" id="avatarbox"
+                                            style="background-image:url('../avatar/{{profile_pic}}');background-size:contain">
+                                            {{!-- <img src="../avatar/{{profile_pic}}" alt="" id="profilee"> --}}
                                         </div>
                                     </div>
                                     <div class="ml-2">
@@ -24,22 +25,26 @@
                                         <p class="mt-2" style="font-size:.9vw;color:rgba(0, 0, 0, 0.7)">{{email}}</p>
                                     </div>
                                     <div class="" id="" style="margin-left:70px;margin-top:100px;">
-                                        <button id="edit-btn" class="" type="submit">Edit data</button>
-                                        <button id="submit-image-btn" class="" type="submit">Save</button>
-                                        <input id="file" type="file" name="picture" style="display: none;" />
+                                        <form action="avatar" class="" method="POST" enctype="multipart/form-data">
+                                            <button id="edit-btn" class="" type="submit">Edit data</button>
+                                            {{!-- <button id="submit-image-btn" class="" type="submit">Save</button>
+                                            --}}
+                                            <input id="file" type="file" name="picture" style="display: none;" />
+                                        </form>
                                     </div>
                                     {{!--
                                 </form> --}}
 
                             </div>
-                        </form>
+                            {{!--
+                        </form> --}}
                     </div>
                 </div>
             </div>
             {{!-- --}}
             <div class="row">
                 <div class="col-12 px-5">
-                    <form action="profile_data" method="post" enctype="multipart/form-data">
+                    <form action="profiledata" method="POST" enctype="application/json">
                         <div class="row p-0 m-0 mb-4">
                             <div class="col-6 px-0">
                                 <h4 class="profile-head font-weight-bolder">BASIC INFORMATION</h4>

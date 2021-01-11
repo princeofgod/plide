@@ -163,5 +163,19 @@ const confirmRegisterToken = [
             })
     })
 ]
+const fileValidator =[
+    check("picture").custom((value,{req}) => {
+        if(!req.file){
+            throw new Error("Select a file!")
+        } else {
+            // Check for the file type
+            const expectedFile = ['png', 'jpg', 'jpeg']
+            const fileExtension = req.file.mimetype.split("/").pop()
+            if(!expectedFile.includes(fileExtension)){
+                throw new Error("Image file required")
+            }
+        }
+    })
+]
 
-module.exports = {confirmRegisterToken, categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify}
+module.exports = {fileValidator, confirmRegisterToken, categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify}

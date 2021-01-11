@@ -223,11 +223,11 @@ exports.deleteOne = async (id) => {
 };
 
 exports.updateOne = async (id, body) => {
-    const errors = validationResult(req);
+    // const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // }
     try {
 
         // if(id !== body._id) {
@@ -241,20 +241,17 @@ exports.updateOne = async (id, body) => {
         // if (!data) {
         //     return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
         // };
-        await User.findByIdAndUpdate({_id:req.session.user._id},{$set:profileData},async (err,user) => {
+         let user = await User.findByIdAndUpdate({_id:id},{$set:body}, {new:true},async (err,user) => {
 			// THe below should repopulate the profile page with the new values
-// 
-		})
-
-        await User.findOne({_id:req.session.user._id}, (err, user) => {
             if(err) console.log(err)
-            if(!user) console.log("User not available")
-            else {
-                return user
-                // repopulate the req.session
-                
+            
+            if(user){
+                console.log("uSER FOUND AND SENT")
+                console.log("From controllers = ", user)
+            } else {
+                console.log("uSER NOT FOUND AND SENT")
             }
-        })
+		})
         // return data;
 
     } catch (error) {
