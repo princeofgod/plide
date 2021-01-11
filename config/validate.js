@@ -1,10 +1,11 @@
-const {check,param} = require("express-validator")
+const {check,param,query} = require("express-validator")
 const Group = require("../model/group")
 const User = require("../model/user")
 const Event = require("../model/event")
 const Category = require("../model/category")
 const bcrypt = require("bcryptjs")
 const { NotExtended } = require("http-errors")
+// const { query } = require("express")
 
 
 /**
@@ -154,4 +155,13 @@ const tokenVerify = [
     })
 ]
 
-module.exports = {categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify}
+const confirmRegisterToken = [
+    query('random_character').notEmpty().custom(async (value) => {
+        await User.findOne({ confirmation_token:value })
+            .then(user => {
+                if(!user) throw new Error("Invalid confirmation token")
+            })
+    })
+]
+
+module.exports = {confirmRegisterToken, categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify}

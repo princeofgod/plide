@@ -1,30 +1,36 @@
 const express = require('express');
-const { validationResult,check,param } = require('express-validator');
+const { validationResult } = require('express-validator');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const userController = require('../controllers/webControllers/user');
 const multer = require('multer');
 const User = require('../model/user');
-// const passport = require('passport');
-// const loginauth = require('../config/auth');
 const { render } = require('../app');
-// const LocalStrategy = require('passport-local').Strategy;
-// let session;
-var validate = require("../config/validate")
 const moment = require('moment')
 const bcrypt = require('bcryptjs');
 const { Session, Store } = require('express-session');
-const {resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
+// const upload = require('../config/multer').upload
+const {confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
 const storage = multer.diskStorage({
-	destination : (req,file,cb) => {
-		cb(null,'/profile')
-	},
-	filename : (req, file, cb) => {
-		cb(null, file.fieldname + id + Date.now() + file.extname)
-	}
-})
+    destination: function (req, file, cb) {
+        cb(null, 'images/avatar')
+      },
+    // //   filename: function (req, file, cb) {
+	// // 	  console.log(req.session.user._id)
+	// // 	  let s = req.session.user._id
+    // //     cb(null, s)
+	//   }
+		filename: function (req,file, cb) {
+			file.fieldname +
+          "-" +
+          Date.now() +
+          "." +
+          file.originalname.split(".")[1].toLowerCase()
+		}
+    })
 // const {store} = require('../app')
-const session = require('express-session')
+const session = require('express-session');
+const { route } = require('.');
 const MongoStore = require('connect-mongodb-session')(session)
 const store = new MongoStore({
 	uri: 'mongodb://localhost:27017/MVC1',
@@ -46,7 +52,9 @@ router.get('/login', function(req, res, next) {
   	res.render('login', {title: 'PACES User Login'});
 });
 
-
+/**
+ * Route for the login url
+ */
 router.post('/login',loginValidation, async (req, res, next) => {
 	const result = validationResult(req)
 	
@@ -56,24 +64,16 @@ router.post('/login',loginValidation, async (req, res, next) => {
 	}else{
 		await User.findOne({email:req.body.email})
 			.then(user => {
+				// user.password = ""
 				req.session.user = user
 				user.newDate = moment().format("DD, MMMM YYYY")
 				user.pageTitle = "Dashboard"
-				// user.title = "PACES User Dashboard"
-				
-				console.log("sesson ID from the login route = ", req.sessionID)
-				console.log("sesson = ", req.session)
-				console.log("sessiom id tyupe = ", req.session.id)
+				user.title = "PACES User Dashboard"
 
-				if(req.session.user.role !== "1"){
-					res.redirect("home",)
-				}else{
-					res.render('adminDashboard', user )
-				}
+				res.redirect("home",)
 			})
-			.catch(error => {
-
-			})
+			.catch(error =>	console.log(error)
+			)
 	}
 });
 // 	// -----------------------------------------------------------------
@@ -125,48 +125,31 @@ router.post('/registerMember', registerValidation, async (req, res, next) => {
 /**
  * Routing for account confirmation
  */
-router.get('/confirm_account', async(req, res, next) => {
-	const permit = await User.findOne({confirmation_token: req.query.random_character});
-	const permission = permit && permit.permission;
-	let title
-	let user = {
-		name:permit.firstname,
-		email:permit.email,
-		password:permit.password,
-		role:permit.role,
-		pageTitle: "Dashboard",
-		newDate : moment().format("DD, MMMM YYYY"),
-		title : title,
-	  }
-	try {
+router.get('/confirm_account',confirmRegisterToken, async(req, res, next) => {
+	// console.log("random characters = ", req.query.random_character)
+	const result = validationResult(req)
 
-	  	if((permission.includes('user')) === true){
-			title = "PACES User Dashboard"
-			await userController.confirm_account(req.query.random_character);
-			res.render('userDashboard', user);
-  		} else if((permission.includes('admin')) === true){
-			title = "PACES User Dashboard"
-			await userController.confirm_account(req.query.random_character);
-			res.render('adminDashboard', user);
-  }
-} catch (error) {
-  console.log(error);
-}
-});
-
-
-router.post('/confirm_account', async (req, res, next) => {
-  	console.log("query", req.body.confirmation_token)
-  	const confirm = await controller.confirm_account(req.body.confirmation_token);
-	const userRole = confirm.role;
-  	let link = ''
-  	if(userRole === 1){
-    	link = 'adminDashboard'
-  	} else {
-    	link = 'userDashboard'
-  	};
-  	res.render(link, confirm)
-});
+	if(!result.isEmpty()){
+		const error = result.array()[0].msg
+		// res.send("Invalid confirmation token")
+		res.render('login', {error: error})
+	} else{
+		await User.findOne({confirmation_token:req.query.random_character})
+		.then(async (user) => {
+			if(!user) console.log(error)
+			if(user) {
+				if (err) console.log(err)
+				if(user){
+					await User.findOneAndUpdate({confirmation_token:user._id},{isActive : true }, (err,user) => {
+						if(err) console.log(err)
+						req.session.user = user
+					})
+				}
+			}
+		})
+		res.redirect('/users/home')
+	}
+})
 
 /**
  * Routing for password reset
@@ -266,10 +249,9 @@ router.get('/profile', async (req, res, next) => {
     	user = req.session.user
 		user.fullname = user.firstname + " " + user.lastname
 
-		console.log("user from profile = ",user)
-			res.render('profile', user)
+		res.render('profile', user)
 
-		}
+	}
   
   // After login,
   
@@ -282,13 +264,35 @@ router.get('/profile', async (req, res, next) => {
 })
 
 
-router.post('/profile_pic', (req, res, next) => {
+router.post('/avatar',upload.single("picture"), (req, res, next) => {
+	// Verify if the selected file is an image
+	console.log("file field = ", req.body)
+	console.log("file attribute = ", req.file)
 
   // profile picture
     // After post data to database, change the values of the input with the new values
       // before saving, save the details to a variable for above to be easy.
 	// after update, a timed alert should be displayed indicating the data is saved successfully
 	
+})
+router.post('/profile_data', async (req,res) => {
+	if(!req.session.user) res.render("/users/login")
+	else {
+		let body = req.body
+		// Sort out all the profile data arrangement in a controller
+		// At the end of the controller return the populated profile
+		let profileData = await userController.populateProfile(body)
+
+		// From here go to the controller and populate the table in d database using id as the reference 
+		let user = await userController.updateOne(req.session.user._id,profileData)
+		// rAssign the new value from the db to session
+		req.session.user = user
+		// Comes back  to the route
+		
+		res.redirect('/users/profile')
+		
+		//   body.profile = profile
+	}
 })
 
 

@@ -230,19 +230,32 @@ exports.updateOne = async (id, body) => {
     }
     try {
 
-        if(id !== body._id) {
-            return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
-        }; 
+        // if(id !== body._id) {
+        //     return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
+        // }; 
 
-        const data = await User.findByIdAndUpdate(id, {$set: req.body}, {
-            new: true,
-            runValidators: true,
-        });
-        if (!data) {
-            return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
+        // const data = await User.findByIdAndUpdate(id, {$set: req.body}, {
+        //     new: true,
+        //     runValidators: true,
+        // });
+        // if (!data) {
+        //     return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
+        // };
+        await User.findByIdAndUpdate({_id:req.session.user._id},{$set:profileData},async (err,user) => {
+			// THe below should repopulate the profile page with the new values
+// 
+		})
 
-        return data;
+        await User.findOne({_id:req.session.user._id}, (err, user) => {
+            if(err) console.log(err)
+            if(!user) console.log("User not available")
+            else {
+                return user
+                // repopulate the req.session
+                
+            }
+        })
+        // return data;
 
     } catch (error) {
         throw new Error("Internal ServerError")
@@ -344,6 +357,26 @@ exports.search = (User, config=null) => async (body) => {
         throw new Error("Internal ServerError")
     }
 };
+
+exports.populateProfile = (body) => {
+    let profileData = {
+        firstname : body.firstname,
+        lastname : body.lastname,
+        phone : body.phone,
+        gender : body.gender,
+        email : body.email,
+        address : body.address,
+        profile : {
+            state: body.state,
+            local_govt: body.local_govt,
+            ward: body.ward,
+            country: body.country,
+            jobstat: body.employment_status
+        }
+      }
+
+      return profileData
+}
 
 // Authorization check if the user have rights to do this action
 // exports.restrictTo = (...permission) => {

@@ -7,14 +7,16 @@ const {groupValidation} = require("../config/validate")
 /**
  * Routing for the add-group page
  */
-router.get('/addGroup', (req,res,next) => {
+router.get('/groups', (req,res,next) => {
 	if(!req.session.user){
 	  	res.render('login')
 	} else {
+		let user = req.session.user 
+		console.log("User in groups = ",user)
 	  	if(req.session.user.role !== "1"){
-			res.render('login', {title: 'PACES Login',message: 'No proper privilege to view this resource.'})
+			res.render('usergroups', user)
 	  	}else{
-			res.render('addgroup')
+			res.render('admingroup', user)
 	  	}
 	}
 })
