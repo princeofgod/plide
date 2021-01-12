@@ -40,6 +40,13 @@ const loginValidation = [
                 throw new Error("User does not exist")
             } 
         })
+    }).custom(async value => {
+        await User.findOne({email:value})
+            .then(user => {
+                if(user.isActive === false){
+                    throw new Error("User account is not verified! Go to your mail and click the link to verify account.")
+                }
+            })
     }),
     check("password").notEmpty().custom(async (value,{req}) => {
         await User.findOne({email:req.body.email})

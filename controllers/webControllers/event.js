@@ -45,20 +45,12 @@ exports.updateOne =  async (id, body) => {
     };
 };
 
-exports.createOne =  async (body) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-    try {
-        const data = await Event.create(body);
-
-        return data;
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+exports.createOne =  async (event) => {
+    let newEvent = new Event(event);
+    newEvent.save()
+        .then(item => {
+            console.log(item)
+    })
 };
 
 exports.getOne =  async (id) => {

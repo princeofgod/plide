@@ -25,7 +25,8 @@ const groupSchema = new mongoose.Schema({
     },
     federal: {
         type: String,
-    }
+    },
+    
 },{
     timestamps: { createdAt: true, updatedAt: false }
 },{

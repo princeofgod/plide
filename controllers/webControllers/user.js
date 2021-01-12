@@ -241,9 +241,15 @@ exports.updateOne = async (id, body) => {
         // if (!data) {
         //     return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
         // };
-         let user = await User.findByIdAndUpdate({_id:id},{$set:body}, {new:true},async (err,user) => {
-			// THe below should repopulate the profile page with the new values
-            if(err) console.log(err)
+         let user = await User.findByIdAndUpdate({_id:id}, {$set:body}, 
+            {
+                new:true,
+                runValidators: true,
+                upsert:true
+            },
+            async (err,user) => {
+			    // THe below should repopulate the profile page with the new values
+                if(err) console.log(err)
             
             if(user){
                 console.log("uSER FOUND AND SENT")
@@ -252,7 +258,7 @@ exports.updateOne = async (id, body) => {
                 console.log("uSER NOT FOUND AND SENT")
             }
 		})
-        // return data;
+        return user;
 
     } catch (error) {
         throw new Error("Internal ServerError")
@@ -363,13 +369,11 @@ exports.populateProfile = (body) => {
         gender : body.gender,
         email : body.email,
         address : body.address,
-        profile : {
-            state: body.state,
-            local_govt: body.local_govt,
-            ward: body.ward,
-            country: body.country,
-            jobstat: body.employment_status
-        }
+        state: body.state,
+        local_govt: body.local_govt,
+        ward: body.ward,
+        country: body.country,
+        employment_status: body.employment_status
       }
 
       return profileData

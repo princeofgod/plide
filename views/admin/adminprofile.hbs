@@ -1,0 +1,199 @@
+<div class="row" style="height:100vh;">
+    <div class="col-2 p-0 m-0" style="border:solid 1px black;">
+        {{>adminMenu}}
+    </div>
+    {{!-- --}}
+
+    <div class="col-10 overflow-scroll" id="main" style="border:solid 1px black;">
+        {{!-- <form class="col-12" action="users/profile method=" post" enctype="multipart/form-data"> --}}
+            <div class="row">
+                <div class="col-12">
+                    <div class="row d-flex justify-content-center">
+                        {{!-- <form action="avatar" class="" method="post" enctype="multipart/form-data"> --}}
+                            <div class="col-6 mt-4 mb-5 d-flex flex-row align-items-center px-5 mx-3" id="profile"
+                                style="">
+                                {{!-- <form action="avatar" class="" method="post" enctype="multipart/form-data"> --}}
+                                    <div class="mx-3">
+                                        <div class="img-holder" id="avatarbox"
+                                            style="background-image:url('../avatar/{{user.profile_pic}}');background-size:cover;background-position:50%">
+                                            {{!-- <img src="../avatar/{{profile_pic}}" alt="" id="profilee"> --}}
+                                            <div id="add-profile"
+                                                class="d-flex flex-row text-center align-item-center justify-content-center"
+                                                id="" style="">
+                                                +
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="ml-2">
+                                        <p class="mb-0 mt-3 font-weight-bolder" style="font-size: .9vw;width:150px;">
+                                            {{user.fullname}}</p>
+                                        <p class="mt-2" style="font-size:.9vw;color:rgba(0, 0, 0, 0.7)">{{user.email}}
+                                        </p>
+                                    </div>
+                                    <div class="" id="" style="margin-left:70px;margin-top:100px;">
+                                        <form action="avatar" class="" method="POST" enctype="multipart/form-data">
+                                            <button id="edit-btn" class="" type="submit">Edit data</button>
+                                            {{!-- <button id="submit-image-btn" class="" type="submit">Save</button>
+                                            --}}
+                                            <input id="file" type="file" name="picture" style="display: none;" />
+                                        </form>
+                                    </div>
+                                    {{!--
+                                </form> --}}
+
+                            </div>
+                            {{!--
+                        </form> --}}
+                    </div>
+                </div>
+            </div>
+            {{!-- --}}
+            <div class="row">
+                <div class="col-12 px-5">
+                    <form action="profiledata" method="POST" enctype="application/json">
+                        <div class="row p-0 m-0 mb-4">
+                            <div class="col-6 px-0">
+                                <h4 class="profile-head font-weight-bolder">BASIC INFORMATION</h4>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="profile-head font-weight-bolder">ADDITIONAL INFORMATION</h4>
+                            </div>
+                        </div>
+                        {{!-- --}}
+                        <div class="row my-3">
+                            <div class="col-6">
+                                <label for="firstname" class="mr-5 profile-form-label font-weight-bold">First
+                                    name:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="firstname" id="" placeholder="" style="border" value="{{user.firstname}}">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-6">
+                                <label for="country" class="mr-5 profile-form-label font-weight-bold">Country:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="country" id="" placeholder="" value="{{user.country}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col-6">
+                                <label for="lastname" class="mr-5 profile-form-label font-weight-bold">Last
+                                    name:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="lastname" id="" placeholder="" value="{{user.lastname}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col-6 ">
+                                <label for="state" class="mr-5 profile-form-label font-weight-bold">State:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="state" id="" placeholder="" value="{{user.state}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col">
+                                <label for="email" class="mr-5 profile-form-label font-weight-bold">E-mail:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="email" id="" placeholder="" value="{{user.email}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col">
+                                <label for="lga" class="mr-5 profile-form-label font-weight-bold">Local govt:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="local_govt" id="" placeholder="" value="{{user.local_govt}}"
+                                        style="border">
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col">
+                                <label for="phone" class="mr-5 profile-form-label font-weight-bold">Phone:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="phone" id="" placeholder="" value="{{user.phone}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col">
+                                <label for="address" class="mr-5 profile-form-label font-weight-bold">Address:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="address" id="" placeholder="" value="{{user.address}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col">
+                                <label for="gender" class="mr-5 profile-form-label font-weight-bold">Gender:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="gender" id="" placeholder="" value="{{user.gender}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col">
+                                <label for="ward" class="mr-5 profile-form-label font-weight-bold">Ward:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="ward" id="" placeholder="" value="{{user.ward}}" style="border">
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row my-3">
+                            <div class="col">
+                                <label for="password" class="mr-5 profile-form-label font-weight-bold">Password:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0"
+                                        type="password" name="password" id="" placeholder="" style="border">
+                                </div>
+                                <br>
+                            </div>
+                            <div class="col">
+                                <label for="job_stat" class="mr-5 profile-form-label font-weight-bold">Employment
+                                    stat:</label>
+                                <div class="d-inline">
+                                    <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
+                                        name="employment_status" id="" placeholder="" value="{{user.employment_status}}"
+                                        style="border">
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row m-0 d-flex justify-content-end mr-5 mt-5">
+                            <button class="profile-button" type="submit">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {{!--
+        </form> --}}
+    </div>
+
+</div>
+
+<script>
+    const editProfile = document.getElementById("edit-btn")
+    const avatarField = document.getElementById("file")
+    const avatarbox = document.getElementById("avatarbox")
+
+    //Opens the dialog to select avatar.
+    avatarbox.addEventListener("click", () => {
+        avatarField.click();
+    })
+
+</script>

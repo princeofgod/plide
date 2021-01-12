@@ -26,22 +26,20 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    profile: {
-        country: {
-            type: String,
-        },
-        state: {
-            type: String,
-        },
-        local_govt: {
-            type: String,
-        },
-        ward: {
-            type: String,
-        },
-        employment_status: {
-            type: String,
-        }
+    country: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    local_govt: {
+        type: String,
+    },
+    ward: {
+        type: String,
+    },
+    employment_status: {
+        type: String,
     },
     role: {
         type: String,
@@ -59,6 +57,9 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     profile_pic: {
+        type: String
+    },
+    card_number: {
         type: String
     },
     permission: []

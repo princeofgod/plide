@@ -14,15 +14,22 @@
                                 style="">
                                 {{!-- <form action="avatar" class="" method="post" enctype="multipart/form-data"> --}}
                                     <div class="mx-3">
-                                        <div class="img-holder" style="" id="avatarbox"
-                                            style="background-image:url('../avatar/{{profile_pic}}');background-size:contain">
+                                        <div class="img-holder" id="avatarbox"
+                                            style="background-image:url('../avatar/{{user.profile_pic}}');background-size:cover;background-position:50%">
                                             {{!-- <img src="../avatar/{{profile_pic}}" alt="" id="profilee"> --}}
+                                            <div id="add-profile"
+                                                class="d-flex flex-row text-center align-item-center justify-content-center"
+                                                id="" style="">
+                                                +
+                                            </div>
                                         </div>
+
                                     </div>
                                     <div class="ml-2">
                                         <p class="mb-0 mt-3 font-weight-bolder" style="font-size: .9vw;width:150px;">
-                                            {{fullname}}</p>
-                                        <p class="mt-2" style="font-size:.9vw;color:rgba(0, 0, 0, 0.7)">{{email}}</p>
+                                            {{user.fullname}}</p>
+                                        <p class="mt-2" style="font-size:.9vw;color:rgba(0, 0, 0, 0.7)">{{user.email}}
+                                        </p>
                                     </div>
                                     <div class="" id="" style="margin-left:70px;margin-top:100px;">
                                         <form action="avatar" class="" method="POST" enctype="multipart/form-data">
@@ -60,7 +67,7 @@
                                     name:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="firstname" id="" placeholder="" style="border" value="{{firstname}}">
+                                        name="firstname" id="" placeholder="" style="border" value="{{user.firstname}}">
                                 </div>
                                 <br>
                             </div>
@@ -68,7 +75,7 @@
                                 <label for="country" class="mr-5 profile-form-label font-weight-bold">Country:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="country" id="" placeholder="" value="{{country}}" style="border">
+                                        name="country" id="" placeholder="" value="{{user.country}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -79,7 +86,7 @@
                                     name:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="lastname" id="" placeholder="" value="{{lastname}}" style="border">
+                                        name="lastname" id="" placeholder="" value="{{user.lastname}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -87,7 +94,7 @@
                                 <label for="state" class="mr-5 profile-form-label font-weight-bold">State:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="state" id="" placeholder="" value="{{profile.state}}" style="border">
+                                        name="state" id="" placeholder="" value="{{user.state}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -97,7 +104,7 @@
                                 <label for="email" class="mr-5 profile-form-label font-weight-bold">E-mail:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="email" id="" placeholder="" value="{{email}}" style="border">
+                                        name="email" id="" placeholder="" value="{{user.email}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -105,7 +112,8 @@
                                 <label for="lga" class="mr-5 profile-form-label font-weight-bold">Local govt:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="lga" id="" placeholder="" value="{{profile.local_govt}}" style="border">
+                                        name="local_govt" id="" placeholder="" value="{{user.local_govt}}"
+                                        style="border">
                                 </div>
                                 <br>
                             </div>
@@ -115,7 +123,7 @@
                                 <label for="phone" class="mr-5 profile-form-label font-weight-bold">Phone:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="phone" id="" placeholder="" value="{{phone}}" style="border">
+                                        name="phone" id="" placeholder="" value="{{user.phone}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -123,7 +131,7 @@
                                 <label for="address" class="mr-5 profile-form-label font-weight-bold">Address:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="address" id="" placeholder="" value="{{address}}" style="border">
+                                        name="address" id="" placeholder="" value="{{user.address}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -133,7 +141,7 @@
                                 <label for="gender" class="mr-5 profile-form-label font-weight-bold">Gender:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="gender" id="" placeholder="" value="{{gender}}" style="border">
+                                        name="gender" id="" placeholder="" value="{{user.gender}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -141,7 +149,7 @@
                                 <label for="ward" class="mr-5 profile-form-label font-weight-bold">Ward:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="ward" id="" placeholder="" value="{{profile.ward}}" style="border">
+                                        name="ward" id="" placeholder="" value="{{user.ward}}" style="border">
                                 </div>
                                 <br>
                             </div>
@@ -160,7 +168,8 @@
                                     stat:</label>
                                 <div class="d-inline">
                                     <input class="profile-input border-top-0 border-left-0 border-right-0" type="text"
-                                        name="job_stat" id="" placeholder="" value="{{jobstat}}" style="border">
+                                        name="employment_status" id="" placeholder="" value="{{user.employment_status}}"
+                                        style="border">
                                 </div>
                                 <br>
                             </div>

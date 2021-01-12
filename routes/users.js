@@ -1,3 +1,6 @@
+/**
+ * Declaring needed variables
+ */
 const express = require('express');
 const { validationResult } = require('express-validator');
 const router = express.Router();
@@ -5,36 +8,13 @@ const jwt = require('jsonwebtoken');
 const userController = require('../controllers/webControllers/user');
 const multer = require('multer');
 const User = require('../model/user');
-const { render } = require('../app');
+// const { render } = require('../app');
 const moment = require('moment')
-const bcrypt = require('bcryptjs');
-const { Session, Store } = require('express-session');
-// const upload = require('../config/multer').upload
 const {fileValidator, confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, './images/avatar')
-      },
-      filename: function (req, file, cb) {
-		//   console.log(req.session.user._id)
-		  let s = req.session.user._id.toString()
-        cb(null, s+"."+file.originalname.split(".")[1])
-	  },
-		// filename: function (req,file, cb) {
-		// 	file.fieldname +
-        //   "-" +rsr
-        //   Date.now() +
-        //   "." +
-        //   file.originalname.split(".")[1].toLowerCase()
-		// }
-    })
-// const {store} = require('../app')
 const session = require('express-session');
-const { route } = require('.');
 const MongoStore = require('connect-mongodb-session')(session)
 const store = new MongoStore({
 	uri: 'mongodb://localhost:27017/MVC1',
-	// databaseName:'MVC1',
 	collection: 'sessions'
   });
 
@@ -45,9 +25,25 @@ const createToken = id => {
 		expiresIn: process.env.JWT_EXPIRES_IN
 	});
 };
-
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './images/avatar')
+      },
+      filename: function (req, file, cb) {
+		//   console.log(req.session.user._id)
+		  let s = req.session.user._id.toString()
+        cb(null, s+"."+file.originalname.split(".")[1])
+	  },
+    })
 const upload = multer({storage : storage});
 
+let page = {
+	newDate : moment().format("DD, MMMM YYYY")
+}
+
+/**
+ * Routing begins
+ */
 router.get('/login', function(req, res, next) {
   	res.render('login', {title: 'PACES User Login'});
 });
@@ -64,25 +60,20 @@ router.post('/login',loginValidation, async (req, res, next) => {
 	}else{
 		await User.findOne({email:req.body.email})
 			.then(user => {
-				// user.password = ""
 				req.session.user = user
-				user.newDate = moment().format("DD, MMMM YYYY")
-				user.pageTitle = "Dashboard"
-				user.title = "PACES User Dashboard"
-
-				res.redirect("home",)
+				res.redirect("home")
 			})
 			.catch(error =>	console.log(error)
 			)
 	}
 });
-// 	// -----------------------------------------------------------------
 	
 /**
  * Routing for forgot password
  */
 router.get('/forgotPassword', function(req, res, next) {
-  	res.render('forgotPassword', {title: 'Reset Password', style: 'forgotPassword.css'});
+	page.title = 'Reset Password'
+  	res.render('forgotPassword', {page:page});
 });
 
 router.post('/forgotPassword',forgotPasswordValidation, async (req, res, next) => {
@@ -135,18 +126,20 @@ router.get('/confirm_account',confirmRegisterToken, async(req, res, next) => {
 		res.render('login', {error: error})
 	} else{
 		await User.findOne({confirmation_token:req.query.random_character})
-		.then(async (user) => {
-			if(!user) console.log(error)
-			if(user) {
-				if (err) console.log(err)
-				if(user){
-					await User.findOneAndUpdate({confirmation_token:user._id},{isActive : true }, (err,user) => {
-						if(err) console.log(err)
-						req.session.user = user
-					})
+			.then(async (user) => {
+				if(!user) console.log(error)
+				if(user) {
+					// if (err) console.log(err)
+					if(user){
+						console.log('user confirm = ',user)
+						await User.findOneAndUpdate({email:user.email},{$set: {isActive : true} }, {new:true, runValidators:true}, (err,user) => {
+							console.log("returned user = ", user)
+							if(err) console.log(err)
+							req.session.user = user
+						})
+					}
 				}
-			}
-		})
+			})
 		res.redirect('/users/home')
 	}
 })
@@ -202,101 +195,21 @@ router.get("/changePassword", (req, res) => {
 /**
  * Routing for profile
  */
-router.post('/profile', async (req, res) => {
-	console.log(req.session.user)
-
-  	let profile = {
-    	state: req.body.state,
-    	local_govt: req.body.local_govt,
-    	ward: req.body.ward,
-    	country: req.body.country,
-    	jobstat: req.body.employment_status
-	  }
-	  let body = {
-		firstname : req.body.firstname,
-  		lastname : req.body.lastname,
-  		phone : req.body.phone,
-  		gender : req.body.gender,
-		email : req.body.email,
-		address : req.body.address,
-	  }
-  	
-  // Hash password if provided else leave field
-
-  if(req.body.password){
-	bcrypt.genSalt(10, (err, salt) => {
-			bcrypt.hash(req.body.password, salt, (err, hash) => {
-				body.password = hash
-			})
-		})
-  }
-  	
-  	body.profile = profile
-
-  	await User.findOneAndUpdate({email:body.email},{$set:body}, (err,user)=>{
-    	if(err) return "update not succesful."
-    	if(user){
-			// If update successful, display profile page and repopulate the fields
-      		res.render('profile', user)
-    	}
-  	})
-})
 
 router.get('/profile', async (req, res, next) => {
   	if(!req.session.user){
-    	res.render('login')
+    	res.redirect('..users/login')
   	} else {
     	user = req.session.user
 		user.fullname = user.firstname + " " + user.lastname
 
-		res.render('profile', user)
-
+		if(user.role === '1') res.render('./admin/adminprofile',{user :user, page:page})
+		else res.render('./users/profile', {user :user, page:page})
 	}
-  
-  // After login,
-  
-  // Locate user data on the database
-  // Retrieve and load
-    // user image
-    // user full name on the top
-    // &
-    // Load other details to the form ( Set input value to details read from database=)
 })
 
-
-router.post('/avatar', fileValidator, upload.single("picture"), async (req, res, next) => {
-	// Verify if the selected file is an image
-	const result = validationResult(req)
-	if(!result.isEmpty()){
-		const error = result.array()[0].msg
-		// Best bet is to render error with a modal page
-		// res.render("profile", {error:error})
-	} else {
-		console.log("file field = ", req.body)
-		console.log("file attribute = ", req.file)
-		let user = req.session.user
-		await User.findOneAndUpdate({_id:user._id},{$set:{profile_pic:req.file.filename}}, {new:true}, (err, user) => {
-			if(err){
-				console.log("ERROR")
-				console.log(err)
-			}
-			if(!user) console.log("No USer found")
-			else {
-				console.log("Success")
-				console.log(user)
-				req.session.user = user
-				res.redirect('profile')
-			}
-	})}
-
-  // profile picture
-    // After post data to database, change the values of the input with the new values
-      // before saving, save the details to a variable for above to be easy.
-	// after update, a timed alert should be displayed indicating the data is saved successfully
-	
-})
 router.post('/profiledata', async (req,res) => {
-	if(!req.session.user) res.render("/users/login")
+	if(!req.session.user) res.redirect("../users/login")
 	else {
 		console.log("Form to update = ", req.body)
 		let body = req.body
@@ -307,31 +220,56 @@ router.post('/profiledata', async (req,res) => {
 		let profileData = await userController.populateProfile(body)
 
 		// From here go to the controller and populate the table in d database using id as the reference 
-		let user = await userController.updateOne(req.session.user._id,profileData)
+		let user = await userController.updateOne(req.session.user._id, profileData)
 		// rAssign the new value from the db to session
 		// req.session.user = user
+		// console.log('body', req.session.user._id)
 		// Comes back  to the route
-		console.log("New User from route = ", user)
+		// console.log("New User from route = ", user)
+		req.session.user = user
 		res.redirect('/users/profile')
 		
 	}
 })
 
 
+router.post('/avatar', upload.single("picture"), async (req, res, next) => {
+	// Verify if the selected file is an image
+	const result = validationResult(req)
+	if(!result.isEmpty()){
+		const error = result.array()[0].msg
+	} else {
+		console.log("Request file = ", req.file.path)
+		let user = req.session.user
+		await User.findOneAndUpdate({_id:user._id},{$set:{profile_pic:req.file.filename}}, {new:true}, (err, user) => {
+			if(err){
+				console.log(err)
+			}
+			if(!user) console.log("No USer found")
+			else {
+				req.session.user = user
+				res.redirect('profile')
+			}
+	})}
+})
+
+
+/**
+ * Routing for the home page
+ */
 router.get('/home', async function(req, res) {
   	console.log("Testing persistent login", req.session)
   // Check for running session
   	if(!req.session.user){
     	res.redirect('/users/login')
   	}else{
-    	let user = req.session.user
-		user.newDate = moment().format("DD, MMMM YYYY")
-		user.pageTitle = "Dashboard"
+		page.pageTitle = "Dashboard",
+		page.title = 'PACES Admin Events'
 		// Check for privileges
-		if(user.role === '1'){
-			res.render('adminDashboard', user)
+		if(req.session.user.role === '1'){
+			res.render('./admin/adminDashboard', {user:req.session.user, page:page})
 		} else {
-      		res.render('userDashboard', user)
+      		res.render('./users/userDashboard', {user:req.session.user, page:page})
     	}   
   	}  
 });
@@ -345,9 +283,9 @@ router.get('/payment', (req,res,next) => {
       	res.redirect('/users/login')
     }else{
 		let user = req.session.user
-		user.title = 'PACES Fund a course payment'
-		user.pageTitle = 'Fund a course'
-      	res.render('payment', user)
+            page.pageTitle = "Dashboard"
+            page.title = 'PACES Admin Events'
+           	res.render('payment', {user:user, page:page})
     }
 })
 
@@ -355,7 +293,9 @@ router.get('/payment-form', (req,res,next) => {
     if(!req.session.user){
       	res.redirect('/users/login')
     }else{
-        res.render('payment-form', {title: 'PACES Donation payment', pageTitle: 'Fund a course'})
+		page.pageTitle = "Fund a course"
+		page.title = 'PACES Fund a course'
+        res.render('./users/payment-form', {page:page, user:req.session.user})
     }
 })
   
@@ -364,9 +304,10 @@ router.get('/funding', function(req, res, next) {
 	if(!req.session.user) res.redirect('/users/login')
  	else {
 		let user = req.session.user
-		user.title = 'PACES Fund a course'
-		user.pageTitle = 'Fund a course'
-		res.render('fundACourse', user);
+		page.pageTitle = "Fund a course"
+		page.title = 'PACES Fund a course'
+		if(user.role === '1') res.render('./admin/adminfundACourse')
+		res.render('./users/fundACourse', {user:user, page:page});
 	 }
 });
 
@@ -382,9 +323,7 @@ router.get('/logout', (req, res, next) => {
 				res.redirect('/users/login')
 			}
 		})
-
 	}
 })
-
 
 module.exports = router;

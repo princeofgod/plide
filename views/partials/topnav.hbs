@@ -1,6 +1,6 @@
 <div class="row title d-flex align-items-center px-3 my-3" id="topnav">
     <div class="col-lg-3" id="">
-        <h3 id="dashText">{{pageTitle}}</h3>
+        <h3 id="dashText">{{page.pageTitle}}</h3>
     </div>
 
     <div class="col-lg-3 input-group" id="search">
@@ -47,7 +47,7 @@
                 d="M10.8255 2.38614H5.18064C3.22285 2.38614 2 3.47676 2 5.48149V11.5146C2 13.5508 3.22285 14.6667 5.18064 14.6667H10.8193C12.7833 14.6667 14 13.5697 14 11.565V5.48149C14.0062 3.47676 12.7895 2.38614 10.8255 2.38614Z"
                 stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
-        &nbsp;&nbsp;&nbsp;{{newDate}}
+        &nbsp;&nbsp;&nbsp;{{page.newDate}}
     </div>
 
     <div class="col-lg-3 d-flex align-items-center justify-content-between px-0" id="rightnav">
@@ -64,16 +64,24 @@
 
         </div>
         <div id="userImage" class="mx-0">
-            <svg width="90" height="91" viewBox="0 0 90 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="90" height="91" viewBox="0 0 90 91" fill="none" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
                 <path
                     d="M87.28 45.5C88.7822 45.5 90.0084 46.7189 89.9196 48.2185C89.4435 56.2621 86.8615 64.0515 82.4161 70.7784C77.4715 78.2609 70.4434 84.0927 62.2208 87.5365C53.9981 90.9803 44.9501 91.8814 36.2209 90.1257C27.4918 88.3701 19.4736 84.0366 13.1802 77.6734C6.88683 71.3101 2.601 63.2027 0.864662 54.3766C-0.871673 45.5505 0.0194776 36.4019 3.42542 28.0879C6.83136 19.7739 12.5991 12.6677 19.9993 7.66813C26.6357 3.18462 34.3175 0.575764 42.2514 0.0849339C43.7674 -0.00885349 45 1.23131 45 2.75021C45 4.26911 43.7671 5.49037 42.2519 5.59703C35.3949 6.07976 28.7632 8.36258 23.0216 12.2416C16.516 16.6368 11.4455 22.8839 8.45131 30.1928C5.4571 37.5018 4.67368 45.5444 6.20011 53.3035C7.72655 61.0627 11.4943 68.1899 17.0268 73.784C22.5594 79.378 29.6083 83.1876 37.2822 84.731C44.9561 86.2744 52.9103 85.4823 60.139 82.4548C67.3676 79.4273 73.546 74.3005 77.893 67.7226C81.7405 61.9004 84.0002 55.1728 84.4686 48.2181C84.5695 46.7192 85.7778 45.5 87.28 45.5Z"
                     fill="#124814" />
+                <ellipse cx="45" cy="45" rx="33" ry="34" fill="url(#pattern0)" />
+                <defs>
+                    <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                        <use xlink:href="#image0" transform="translate(-0.272727) scale(0.000804924)" />
+                    </pattern>
+                    <image id="image0" width="1920" height="1280" xlink:href="../avatar/{{user.profile_pic}}"></image>
+                </defs>
             </svg>
             <div id="image">
                 {{!-- {{profile_pic}} --}}
             </div>
             <p class="text-center m-2" style="font-size:14px;font-weight:400;font-style:normal;">
-                {{firstname}}
+                {{user.firstname}}
             </p>
 
         </div>

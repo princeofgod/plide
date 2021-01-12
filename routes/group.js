@@ -11,12 +11,14 @@ router.get('/groups', (req,res,next) => {
 	if(!req.session.user){
 	  	res.render('login')
 	} else {
-		let user = req.session.user 
+		let user = req.session.user
+		user.title = 'PACES Groups'
+		user.pageTitle = 'Group'
 		console.log("User in groups = ",user)
 	  	if(req.session.user.role !== "1"){
-			res.render('usergroups', user)
+			res.render('./users/usergroups', user)
 	  	}else{
-			res.render('admingroup', user)
+			res.render('./admin/admingroup', user,)
 	  	}
 	}
 })
@@ -33,7 +35,7 @@ router.post('/addgroup', groupValidation, (req,res,next) => {
     newGroup.save()
     	.then(item => {
         // Renders the page of the new added
-      	res.render("addgroup", {success:"Group saved"});
+      	res.render("./admin/addgroup", {success:"Group saved"});
     })
 })
 

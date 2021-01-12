@@ -9,7 +9,15 @@ const userGroupSchema = new mongoose.Schema({
     GROUPID: {
         type: String,
         require: true
-    }
+    },
+    GroupLeader: {
+        type: String,
+        require: true
+    },
+    Secretary: {
+        type: String,
+    },
+    
 });
 
 userGroupSchema.plugin(mongoosePaginate);
