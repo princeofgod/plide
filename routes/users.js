@@ -306,7 +306,7 @@ router.get('/funding', function(req, res, next) {
 		let user = req.session.user
 		page.pageTitle = "Fund a course"
 		page.title = 'PACES Fund a course'
-		if(user.role === '1') res.render('./admin/adminfundACourse')
+		if(user.role === '1') res.render('./admin/adminfundACourse', {user:user, page:page})
 		res.render('./users/fundACourse', {user:user, page:page});
 	 }
 });

@@ -8,7 +8,9 @@ const User = require('../model/user');
 const { validationResult } = require('express-validator');
 
 let page = {
-    newDate : moment().format("DD, MMMM YYYY")
+    newDate : moment().format("DD, MMMM YYYY"),
+    title : 'PACES Events',
+	pageTitle : 'Events'
 }
 // const eventController = require('../controllers/webControllers/event');
 
@@ -23,7 +25,7 @@ router.get('/addevents', (req,res,next) => {
 		if(req.session.user.role !== "1"){
 			res.redirect('../users/home')
 		} else {
-			res.render('./admin/addevents', {title: 'PACES Admin add event', pageTitle: 'Events'})
+			res.render('./admin/addevents', {page:page, user:req.session.user})
 		}
 	}
 })
@@ -39,7 +41,7 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
         res.render('addevents', {error:error})
     } else {
         await eventController.createOne(req.body)
-        res.render('addevents', {success : `Group has been created.`})                
+        res.render('addevents', {success : `Group has been created.`, page:page, user:req.session.user})                
     }
 })
 
@@ -63,6 +65,10 @@ router.get('/events', (req,res) => {
       
 router.post('/updateEvent', (req,res) => {
     Event.findOne({})
+})
+
+router.get('/logout', (req,res) => {
+	res.redirect('../users/logout')
 })
   
 module.exports = router; 

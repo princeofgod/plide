@@ -1,0 +1,32 @@
+
+* Do i need to delete the random_character in the DB after reset password?
+
+* Registration      {done}
+* Login             {done}
+* Password reset    {done}
+* Password change   {done}
+* Profile           {}
+* Events            {}
+* Category          {}
+* Profile picture   {}
+* Graph             {}
+* Refacttor valdate.js
+
+
+once logged in 
+* credentials is stored to the session database
+* For every route, the session id is used to locate the session details on the server and then 
+
+RESET Password
+once token is verified,
+* USe token to find data in database
+* 
+*Store token to session too
+*use token to access
+
+
+Pages with admin privileges
+* add-category 
+* add-events
+* add-groups
+* add-groups
