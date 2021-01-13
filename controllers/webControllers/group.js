@@ -92,3 +92,26 @@ exports.getAll = async () => {
     };
 
 };
+
+exports.Search = async (firstname, lastname) => {
+    try {
+        var page = 1;
+        var perPage = 10;
+        var query = {firstname: firstname, lastname: lastname}
+
+        var options = {
+            sort: req.body.sort || {createdAt: -1},      
+            populate: populateOption.populate,      
+            lean: true,
+            page: page, 
+            limit: perPage
+        };
+        
+        const data = await Payment.paginate(query, options); 
+
+        return data;
+
+    } catch (error) {
+        throw new Error("Internal ServerError")
+    };
+};
