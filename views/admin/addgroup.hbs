@@ -1,4 +1,46 @@
 <div class="row" style="height:100vh">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="usergroup" method="post">
+                    <div class="modal-body">
+                        <label for="event_title"> Fullname</label>
+                        <input list="fullname" type="text" class="form-control" name="fullname" id="">
+                        <datalist id="fullname">
+                            {{#if users}}
+                            {{#each users}}
+                            <option value="{{this}}"></option>
+                            {{/each}}
+                            {{/if}}
+                        </datalist>
+                        <br>
+                        <label for="group_name"> Group name</label>
+                        <input list="group_name" class="form-control" name="group_name" id="">
+                        <datalist id="group_name">
+                            {{#if groups}}
+                            {{#each groups}}
+                            <option value="{{this}}"></option>
+                            {{/each}}
+                            {{/if}}
+                        </datalist>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
     <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
         {{>adminMenu}}
     </div>
@@ -40,7 +82,8 @@
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
                                     <label for="group-sec" class="">Group Secretary</label>
-                                    <input list="group-sec" name="group_sec" class="form-control">
+                                    <input list="group-sec" name="group_sec" class="form-control"
+                                        placeholder="Search...">
                                     <datalist id="group-sec">
                                         {{#if users}}
                                         {{#each users}}
@@ -98,11 +141,12 @@
                         </div>
                         <div class="p-3"
                             style="width:95%;height:200px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;font-size:.7vw;cursor:pointer"
-                            id="add-group-btn" onclick="window.location.href='addGroup'">
+                            id="add-group-btn" data-toggle="modal" data-target="#exampleModalCenter">
                             <h3 class="font-weight-bold" style="font-size:1vw;">ADD USER</h3>
                             <p class="">Create new groups and customize it with your priority</p>
                             <div class="d-flex flex-row align-items-center justify-content-between">
                                 <div class="d-flex align-items-center justify-content-center" id="add-div">
+
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path

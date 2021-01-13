@@ -1,5 +1,6 @@
 const mongoose = require('mongoose'),
     mongoosePaginate = require('mongoose-paginate-v2');
+const Mongoose = mongoose.Schema.Types
 
 const groupSchema = new mongoose.Schema({
     name: {
@@ -28,12 +29,12 @@ const groupSchema = new mongoose.Schema({
         type: String,
     },
     leader:{
-        type: String,
-        required: true
+        type: Mongoose.ObjectId,
+        ref:'user'
     },
     secretary:{
-        type: String,
-        required: true
+        type: Mongoose.ObjectId,
+        ref: 'user'
     }
     
 },{

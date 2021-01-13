@@ -18,14 +18,22 @@ let page = {
  * Get the add events page
  * Only available to the admin
  */
-router.get('/addevents', (req,res,next) => {
+router.get('/addevents', async (req,res,next) => {
 	if(!req.session.user){
 		res.redirect('../users/login')
 	} else {
+		
 		if(req.session.user.role !== "1"){
 			res.redirect('../users/home')
 		} else {
-			res.render('./admin/addevents', {page:page, user:req.session.user})
+			let users = []
+			await User.find({},{},{sort:{timestamp: -1}})
+				.then( user => {
+					for(let i = 0; i < user.length; i++){
+						users.push(`${user[i].firstname} ${user[i].lastname} (${user[i].email})`)
+					}
+				})
+			res.render('./admin/addevents', {page:page, user:req.session.user, users:users})
 		}
 	}
 })

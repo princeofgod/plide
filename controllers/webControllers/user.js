@@ -281,25 +281,10 @@ exports.createOne = async (body) => {
     };
 };
 
-exports.getOne = async (id) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-
-    try {
-        const data = await User.findById(id);
-
-        if(!data) {
-          return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
-
-        return data
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+exports.getOneByEmail = async (query) => {
+    await User.findOne({email:query},(err, user) => {
+        if(err) console.log("Couldn't get data!")
+    })
 };
 
 exports.getAll = async () => {

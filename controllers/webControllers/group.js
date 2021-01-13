@@ -55,63 +55,45 @@ exports.createOne = async (body) => {
     return groups
 };
 
-exports.getOne = async (id) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-
-    try {
-        const data = await Group.findById(id);
-
-        if(!data) {
-          return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
-
-        return data
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+exports.getOne = async (query) => {
+    await Group.findOne({email:query},(err, user) => {
+        if(err) console.log("Couldn't get data!")
+    })
 };
 
 exports.getAll = async () => {
-    const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-    try {
-        const data = await Group.find();
+    let groups
+    await Group.find({},{},{sort:{timestamp: -1}})
+				    .then( group => {
+                        console.log("Group before grouplist = ", group)
+                        groups = group
+                    })
 
-        return data;
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
-
+    return groups
+    // await Group.findOne({email:req.body["group_name"]},(err, user) => {
+    //     if(err) console.log(err)
+    // })
 };
 
-exports.Search = async (firstname, lastname) => {
-    try {
-        var page = 1;
-        var perPage = 10;
-        var query = {firstname: firstname, lastname: lastname}
+// exports.Search = async (firstname, lastname) => {
+//     try {
+//         var page = 1;
+//         var perPage = 10;
+//         var query = {firstname: firstname, lastname: lastname}
 
-        var options = {
-            sort: req.body.sort || {createdAt: -1},      
-            populate: populateOption.populate,      
-            lean: true,
-            page: page, 
-            limit: perPage
-        };
+//         var options = {
+//             populate: populateOption.populate,      
+//             lean: true,
+//             page: page, 
+//             limit: perPage
+//         };
         
-        const data = await Payment.paginate(query, options); 
+//         const data = await User.paginate(query, options); 
 
-        return data;
+//         return data;
 
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
-};
+//     } catch (error) {
+//         throw new Error("Internal ServerError")
+//     };
+// };
