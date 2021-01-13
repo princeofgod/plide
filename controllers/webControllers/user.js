@@ -41,7 +41,7 @@ exports.login = async (options) => {
         const {email, password, role} = options;
 
         // 1) check if user exist and  password is correct
-        const user = await User.findOne({email}).select('+password');
+        const user = await User.findOne({email},{runValidators:true}).select('+password');
 
         if (!user || !user.correctPassword(password, user.password)) {
             return 'Email/Password is incorrect'

@@ -69,6 +69,9 @@ const userSchema = new mongoose.Schema({
     collation: { locale: 'en', strength: 2 }
 })
 
+userSchema.virtual('fullname').get(() => {
+    return `${this.firstname} ${this.lastname}`
+})
 // encrypt the password using 'bcryptjs'
 userSchema.pre('save', async function hashPassword(next) {
     try {

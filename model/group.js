@@ -4,6 +4,7 @@ const mongoose = require('mongoose'),
 const groupSchema = new mongoose.Schema({
     name: {
         type: String,
+        required: true
     },
     slug: {
         type: String,
@@ -26,6 +27,14 @@ const groupSchema = new mongoose.Schema({
     federal: {
         type: String,
     },
+    leader:{
+        type: String,
+        required: true
+    },
+    secretary:{
+        type: String,
+        required: true
+    }
     
 },{
     timestamps: { createdAt: true, updatedAt: false }

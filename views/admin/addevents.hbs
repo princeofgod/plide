@@ -28,63 +28,21 @@
                                 <div class="mx-5 px-2 my-3">
                                     <label for="event-managers" class="">Event Managers</label>
                                     <div class="row">
-                                        <div class="col-6">
-                                            <select class="form-control mdb-select md-form mb-3 js-example-basic-single"
-                                                name="event-managers" id="yes" data-live-search="true">
-
-                                                <option value="" disabled selected>Group Leader</option>
-                                                <option value=""></option>
-                                                <option value="">Assistant group Leader</option>
-                                                <option value="">Secretary</option>
-                                            </select>
-                                            <input class="form-control" type="text" name="" id=""
-                                                placeholder="Group Leader">
-                                        </div>
-                                        <div class="col-6">
-                                            {{!-- <select class="form-control mdb-select md-form mb-3"
-                                                name="event-managers" id="" searchable="Search here.."
-                                                data-live-search="true">
-                                                <option value="" disabled selected>Select Post</option>
-                                                <option value="">Group Leader</option>
-                                                <option value="">Assistant group Leader</option>
-                                                <option value="">Secretary</option>
-                                            </select> --}}
-                                            <input class="form-control" type="text" name="" id=""
-                                                placeholder="Asssistant Group Leader">
+                                        <div class="col-12">
+                                            <input list="event_managers" name="event_managers" class="form-control">
+                                            <datalist id="event_managers">
+                                                {{#if users}}
+                                                {{#each users}}
+                                                <option value="{{this}}"></option>
+                                                {{/each}}
+                                                {{/if}}
+                                            </datalist>
                                         </div>
                                     </div>
-                                    <div class="row mt-2">
-                                        <div class="col-6">
-                                            {{!-- <select class="form-control mdb-select md-form mb-3"
-                                                name="event-managers" id="" searchable="Search here.."
-                                                data-live-search="true">
-                                                <option value="" disabled selected>Select Post</option>
-                                                <option value="">Group Leader</option>
-                                                <option value="">Assistant group Leader</option>
-                                                <option value="">Secretary</option>
-                                            </select> --}}
-                                            <input class="form-control" type="text" name="" id=""
-                                                placeholder="Secretary">
-                                        </div>
-                                        <div class="col-6">
-                                            {{!-- <select class="form-control mdb-select md-form mb-3"
-                                                name="event-managers" id="" searchable="Search here.."
-                                                data-live-search="true">
-                                                <option value="" disabled selected>Select Post</option>
-                                                <option value="">Group Leader</option>
-                                                <option value="">Assistant group Leader</option>
-                                                <option value="">Secretary</option>
-                                            </select> --}}
-                                            <input class="form-control" type="text" name="" id="">
-                                        </div>
-                                    </div>
-
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-
                                     <div class="row">
-
                                         <div class="col-6">
                                             <label for="start-date" class="">Start date</label>
                                             <input class="form-control" type="date" name="start-date" id="">

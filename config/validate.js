@@ -78,9 +78,10 @@ const loginValidation = [
  */
 const groupValidation =  [
     check("title").notEmpty().withMessage("Title is required").custom(async value => {
-        await Group.findOne({title:value}).then(group => {
-            if(group) throw new Error("Group with same name already exist");
-        })
+        await Group.findOne({name:value})
+            .then(group => {
+                if(group) throw new Error("Group with same name already exist");
+            })
     }),
     check("description").notEmpty().withMessage("Description is required"),
 ]

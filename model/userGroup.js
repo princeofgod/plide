@@ -1,21 +1,15 @@
 const mongoose = require('mongoose'),
     mongoosePaginate = require('mongoose-paginate-v2');
+const Mongoose = mongoose.Schema.Types;
 
 const userGroupSchema = new mongoose.Schema({
     USERID: {
-        type:String,
-        require:true
+        type: Mongoose.ObjectId,
+        ref: 'user'
     },
     GROUPID: {
-        type: String,
-        require: true
-    },
-    GroupLeader: {
-        type: String,
-        require: true
-    },
-    Secretary: {
-        type: String,
+        type: Mongoose.ObjectId,
+        ref: 'group'
     },
     
 });

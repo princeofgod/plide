@@ -46,19 +46,13 @@ exports.updateOne = async (id, body) => {
 };
 
 exports.createOne = async (body) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-    try {
-        const data = await Group.create(body);
-
-        return data;
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+    let newGroup = new Group(body);
+    let groups 
+    await newGroup.save()
+        .then( group => {
+            if(group) groups = group
+        })
+    return groups
 };
 
 exports.getOne = async (id) => {

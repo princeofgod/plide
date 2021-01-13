@@ -13,8 +13,9 @@
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-9">
                         <div class="mx-3 py-3" id="form-add">
-                            <form action="group/addgroup" class="" method="POST">
+                            <form action="addgroup" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
+                                    {{>messages}}
                                     <label for="title" class="">Group Title</label>
                                     <input class="form-control" type="text" name="title" id="">
                                 </div>
@@ -26,20 +27,30 @@
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="group-excos" class="">Group Excos</label>
-                                    <select class="form-control" name="group-excos" id="">
-                                        <option value="" disabled selected>Select Member</option>
-                                    </select>
+                                    <label for="group-excos" class="">Group Leader</label>
+                                    <input list="group-leader" name="group_leader" class="form-control">
+                                    <datalist id="group-leader">
+                                        {{#if users}}
+                                        {{#each users}}
+                                        <option value="{{this}}"></option>
+                                        {{/each}}
+                                        {{/if}}
+                                    </datalist>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="group-leader" class="">Group Leader</label>
-                                    <select class="form-control" name="group-leader" id="" searchable="Search here..">
-                                        <option value="" disabled selected>Select Member</option>
-                                    </select>
+                                    <label for="group-sec" class="">Group Secretary</label>
+                                    <input list="group-sec" name="group_sec" class="form-control">
+                                    <datalist id="group-sec">
+                                        {{#if users}}
+                                        {{#each users}}
+                                        <option value="{{this}}"></option>
+                                        {{/each}}
+                                        {{/if}}
+                                    </datalist>
                                 </div>
                                 {{!-- --}}
-                                <div class="mx-5 px-2 my-3">
+                                {{!-- <div class="mx-5 px-2 my-3">
                                     <label for="" class="">Contact Details</label>
                                     <div class="row">
                                         <div class="col-6">
@@ -52,7 +63,7 @@
                                                 placeholder="username@example.com">
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 {{!-- --}}
                                 <div class="mx-5 my-4 px-2 d-flex flex-row align-items-center justify-content-between">
                                     <button class="btn-white-2 px-0 mx-0"
