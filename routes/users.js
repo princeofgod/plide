@@ -215,20 +215,11 @@ router.post('/profiledata', async (req,res) => {
 		let body = req.body
 		console.log("Form to update = ", body)
 
-		// Sort out all the profile data arrangement in a controller
-		// At the end of the controller return the populated profile
 		let profileData = await userController.populateProfile(body)
 
-		// From here go to the controller and populate the table in d database using id as the reference 
 		let user = await userController.updateOne(req.session.user._id, profileData)
-		// rAssign the new value from the db to session
-		// req.session.user = user
-		// console.log('body', req.session.user._id)
-		// Comes back  to the route
-		// console.log("New User from route = ", user)
 		req.session.user = user
 		res.redirect('/users/profile')
-		
 	}
 })
 
@@ -239,9 +230,12 @@ router.post('/avatar', upload.single("picture"), async (req, res, next) => {
 	if(!result.isEmpty()){
 		const error = result.array()[0].msg
 	} else {
-		console.log("Request file = ", req.file.path)
-		let user = req.session.user
-		await User.findOneAndUpdate({_id:user._id},{$set:{profile_pic:req.file.filename}}, {new:true}, (err, user) => {
+		if(!req.file){
+			res.redirect("profile")
+		} else {
+			console.log("Request file = ", req.file.path)
+			let user = req.session.user
+			await User.findOneAndUpdate({_id:user._id},{$set:{profile_pic:req.file.filename}}, {new:true}, (err, user) => {
 			if(err){
 				console.log(err)
 			}
@@ -250,7 +244,9 @@ router.post('/avatar', upload.single("picture"), async (req, res, next) => {
 				req.session.user = user
 				res.redirect('profile')
 			}
-	})}
+			})
+		}
+	}
 })
 
 

@@ -12,7 +12,8 @@
                 <form action="usergroup" method="post">
                     <div class="modal-body">
                         <label for="event_title"> Fullname</label>
-                        <input list="fullname" type="text" class="form-control" name="fullname" id="">
+                        <input list="fullname" type="text" class="form-control" name="fullname" id="" autocomplete="off"
+                            required>
                         <datalist id="fullname">
                             {{#if users}}
                             {{#each users}}
@@ -22,7 +23,7 @@
                         </datalist>
                         <br>
                         <label for="group_name"> Group name</label>
-                        <input list="group_name" class="form-control" name="group_name" id="">
+                        <input list="group_name" class="form-control" name="group_name" id="" required>
                         <datalist id="group_name">
                             {{#if groups}}
                             {{#each groups}}
@@ -59,18 +60,19 @@
                                 <div class="mx-5 px-2 my-3">
                                     {{>messages}}
                                     <label for="title" class="">Group Title</label>
-                                    <input class="form-control" type="text" name="title" id="">
+                                    <input class="form-control" type="text" name="title" id="" required>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
                                     <label for="" class="">Description</label>
                                     <textarea class="form-control" name="description" id="" cols="30" rows="5"
-                                        style="resize: none;"></textarea>
+                                        style="resize: none;" required></textarea>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
                                     <label for="group-excos" class="">Group Leader</label>
-                                    <input list="group-leader" name="group_leader" class="form-control">
+                                    <input list="group-leader" name="group_leader" class="form-control"
+                                        autocomplete="off" required>
                                     <datalist id="group-leader">
                                         {{#if users}}
                                         {{#each users}}
@@ -83,7 +85,7 @@
                                 <div class="mx-5 px-2 my-3">
                                     <label for="group-sec" class="">Group Secretary</label>
                                     <input list="group-sec" name="group_sec" class="form-control"
-                                        placeholder="Search...">
+                                        placeholder="Search..." autocomplete="off" required>
                                     <datalist id="group-sec">
                                         {{#if users}}
                                         {{#each users}}
@@ -109,7 +111,7 @@
                                 </div> --}}
                                 {{!-- --}}
                                 <div class="mx-5 my-4 px-2 d-flex flex-row align-items-center justify-content-between">
-                                    <button class="btn-white-2 px-0 mx-0"
+                                    <button class="btn-white-2 px-0 mx-0" type="reset"
                                         style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%">cancel</button>
                                     <div class="d-flex flex-row justify-content-end" style="width:70%">
                                         <button class="btn-white-1 mr-3" style="width:30%">Save as draft</button>
@@ -127,7 +129,7 @@
                             id="add-group-btn" onclick="window.location.href='addGroup'">
                             <h3 class="font-weight-bold" style="font-size:1vw;">ADD GROUP</h3>
                             <p class="">Create new groups and customize it with your priority</p>
-                            <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
                                 <div class="d-flex align-items-center justify-content-center" id="add-div">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +146,7 @@
                             id="add-group-btn" data-toggle="modal" data-target="#exampleModalCenter">
                             <h3 class="font-weight-bold" style="font-size:1vw;">ADD USER</h3>
                             <p class="">Create new groups and customize it with your priority</p>
-                            <div class="d-flex flex-row align-items-center justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
                                 <div class="d-flex align-items-center justify-content-center" id="add-div">
 
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"

@@ -16,13 +16,14 @@
                             <form action="users/addevents" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
                                     <label for="event_title" class="">Event Title</label>
-                                    <input class="form-control" type="text" name="event_title" id="">
+                                    <input class="form-control" type="text" name="event_title" id="" autocomplete="off"
+                                        required>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
                                     <label for="event_description" class="">Description</label>
                                     <textarea class="form-control" name="event_description" id="" cols="30" rows="5"
-                                        style="resize: none;"></textarea>
+                                        style="resize: none;" required></textarea>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
@@ -45,11 +46,11 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <label for="start-date" class="">Start date</label>
-                                            <input class="form-control" type="date" name="start-date" id="">
+                                            <input class="form-control" type="date" name="start-date" id="" required>
                                         </div>
                                         <div class="col-6">
                                             <label for="end-date" class="">End date</label>
-                                            <input class="form-control" type="date" name="end-date" id="">
+                                            <input class="form-control" type="date" name="end-date" id="" required>
                                         </div>
                                     </div>
                                 </div>

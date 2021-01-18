@@ -77,13 +77,15 @@ const loginValidation = [
  * Validates the form that adds group
  */
 const groupValidation =  [
-    check("title").notEmpty().withMessage("Title is required").custom(async value => {
+    check("title").notEmpty().withMessage("All fields are required!").custom(async value => {
         await Group.findOne({name:value})
             .then(group => {
                 if(group) throw new Error("Group with same name already exist");
             })
     }),
-    check("description").notEmpty().withMessage("Description is required"),
+    check("description").notEmpty().withMessage("All fields are required!"),
+    check("group_leader").notEmpty().withMessage("All fields are required!"),
+    check("group_sec").notEmpty().withMessage("All fields are required!"),
 ]
 
 
@@ -186,4 +188,10 @@ const fileValidator =[
     })
 ]
 
-module.exports = {fileValidator, confirmRegisterToken, categoryValidation, registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,forgotPasswordValidation,tokenVerify}
+const userGroupValidator =[
+    check("fullname").notEmpty().withMessage("All fields are required"),
+    check("group_name").notEmpty().withMessage("All fields are required"),
+]
+module.exports = {userGroupValidator,fileValidator, confirmRegisterToken, categoryValidation,
+     registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,
+     forgotPasswordValidation,tokenVerify}

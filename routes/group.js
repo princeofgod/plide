@@ -4,7 +4,7 @@ const router = express.Router();
 const moment = require('moment')
 const groupController = require('../controllers/webControllers/group');
 const userController = require('../controllers/webControllers/user');
-const {groupValidation} = require("../config/validate");
+const {groupValidation, userGroupValidator} = require("../config/validate");
 const User = require('../model/user');
 const { validationResult } = require('express-validator');
 const { controllers } = require('chart.js');
@@ -46,14 +46,11 @@ router.get('/addgroup', async (req,res) => {
 						users.push(`${user[i].firstname} ${user[i].lastname} (${user[i].email})`)
 					}
 				})
-
 			let groups = []
 			let groupList = await groupController.getAll()
-				console.log("groupList = ", groupList)
 			for(let i = 0; i < groupList.length; i++){
 				groups.push(`${groupList[i].name}`)
 			}
-
 			res.render('./admin/addgroup', {user:req.session.user, page:page, users:users, groups:groups})
 		}
 	}
@@ -71,17 +68,14 @@ router.post('/addgroup', groupValidation, async (req,res) => {
 	} else {
 		console.log(req.body)
 
+		// Get email from the form
 		leader = req.body["group_leader"].split(" ")[2].replace(")","").replace("(","")
 		sec = req.body["group_sec"].split(" ")[2].replace(")","").replace("(","")
 
 		// Search the db for user using mail as query
-		leader = await User.findOne({email:leader},(err, user) => {
-			if(err) console.log(err)
-		})
-		sec = await User.findOne({email:sec},(err, user) => {
-			if(err) console.log(err)
-		})
-		
+		leader = await userController.getOneByEmail(leader)
+		sec = await userController.getOneByEmail(sec)
+
 		let body = {
 			name : req.body.title,
 			description: req.body.description,
@@ -89,7 +83,6 @@ router.post('/addgroup', groupValidation, async (req,res) => {
 			secretary: sec._id,
 		}
 
-		console.log('leader._id = ',leader._id)
 		let group = await groupController.createOne(body)
 		console.log(group)
 		if (group === undefined) res.render('./admin/addgroup', {user:req.session.user, page:page,error:"Could not save group!"})
@@ -97,25 +90,31 @@ router.post('/addgroup', groupValidation, async (req,res) => {
 	}
 })
 
-router.post('/updateEvent', async (req,res) => {
+router.post('/usergroup',userGroupValidator, async (req,res) => {
 	const result =validationResult(req)
 	if(!result.isEmpty()){
 		const error = result.array()[0].msg
-		// Render modal with error page
+		res.render("./admin/addgroup", {error : "User not added"})
 	} else {
 
 		let group = await groupController.getOne(req.body["group_name"])
-			// GO TO CONTROLLER AND GET USERS
-		let user = await userController.getOneByEmail(req.body["fullname"])
-		
-		let body = {
-			userID: user._id,
-			groupID: group._id
-		}
 
-		let newUserGroup = new UserGroup({body})
+		// Get the email of the user from the string in the group field
+			email = req.body.fullname.split(" ")[2].replace(")","").replace("(","")
+			// console.log("Full name", fullname)
+		user = await userController.getOneByEmail(email)
+		let body = {
+			user_id: user._id,
+			group_id: group._id
+		};
+		let newUserGroup = new UserGroup(body);
 		newUserGroup.save()
-			.then()
+			.then( user => {
+				return user
+			})
+		
+			res.render("./admin/addgroup", {success: "User successfully added to group!"})
+			// Should return a modal with success
 	}
 	
 })

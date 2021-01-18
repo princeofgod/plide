@@ -23,23 +23,28 @@
             <div class="">
                 <form id="reg-form" action="registerMember" method="POST" enctype="multipart/formdata"
                     style="width:25vw">
-                    <div class="form-group" id="">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="EMAIL">
+                    <div class="form-group" id="" required>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="EMAIL" required>
                     </div>
                     <div class="form-group" id="">
-                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="FULL NAME">
+                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="FULL NAME"
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="MOBILE NUMBER">
+                        <input type="tel" class="form-control" name="phone" id="phone" placeholder="MOBILE NUMBER"
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password" id="pass" placeholder="PASSWORD">
+                        <input type="password" class="form-control" name="password" id="pass" placeholder="PASSWORD"
+                            required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="password2" id="pass2" placeholder="PASSWORD">
+                        <input type="password" class="form-control" name="password2" id="pass2" placeholder="PASSWORD"
+                            required>
                     </div>
                     <div class="form-group form-check d-flex flex-row justify-content-start align-items-center">
-                        <input type="checkbox" class="form-check-input" name:"terms" id="check" style="width:auto;">
+                        <input type="checkbox" class="form-check-input" name:"terms" id="check" style="width:auto;"
+                            required>
                         <label class="form-check-label" for="terms" id="reg-label" style="font-size:1.1vw;"> Agree to
                             terms and policy.</label>
                     </div>

@@ -282,9 +282,10 @@ exports.createOne = async (body) => {
 };
 
 exports.getOneByEmail = async (query) => {
-    await User.findOne({email:query},(err, user) => {
+    return user = await User.findOne({email:query},(err, user) => {
         if(err) console.log("Couldn't get data!")
     })
+    
 };
 
 exports.getAll = async () => {

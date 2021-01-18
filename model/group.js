@@ -1,6 +1,6 @@
 const mongoose = require('mongoose'),
     mongoosePaginate = require('mongoose-paginate-v2');
-const Mongoose = mongoose.Schema.Types
+const Mongoose = mongoose.Schema.Types;
 
 const groupSchema = new mongoose.Schema({
     name: {

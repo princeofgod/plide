@@ -3,11 +3,11 @@ const mongoose = require('mongoose'),
 const Mongoose = mongoose.Schema.Types;
 
 const userGroupSchema = new mongoose.Schema({
-    userID: {
+    user_id: {
         type: Mongoose.ObjectId,
         ref: 'user'
     },
-    groupID: {
+    group_id: {
         type: Mongoose.ObjectId,
         ref: 'group'
     },

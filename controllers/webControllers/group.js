@@ -47,16 +47,17 @@ exports.updateOne = async (id, body) => {
 
 exports.createOne = async (body) => {
     let newGroup = new Group(body);
-    let groups 
+    let message
     await newGroup.save()
         .then( group => {
-            if(group) groups = group
+            if(group) message = "success!"
+            else message = "error!" 
         })
-    return groups
+    return message
 };
 
 exports.getOne = async (query) => {
-    await Group.findOne({email:query},(err, user) => {
+    return group = await Group.findOne({name:query},(err, info) => {
         if(err) console.log("Couldn't get data!")
     })
 };
@@ -66,14 +67,10 @@ exports.getAll = async () => {
     let groups
     await Group.find({},{},{sort:{timestamp: -1}})
 				    .then( group => {
-                        console.log("Group before grouplist = ", group)
                         groups = group
                     })
 
     return groups
-    // await Group.findOne({email:req.body["group_name"]},(err, user) => {
-    //     if(err) console.log(err)
-    // })
 };
 
 // exports.Search = async (firstname, lastname) => {
