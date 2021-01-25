@@ -159,7 +159,7 @@ body{
 
 /* -----------------USER MENU------------------ */
 
-ul {
+.menu {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -170,29 +170,29 @@ ul {
 border-radius: 35px;
   }
   
-  li a {
+  .menu-li a {
     display: block;
     color: #fff;
-    padding: 8px 16px;
+    padding: 8px 8px;
     text-decoration: none;
   }
   
-  li {
+  .menu-li {
     text-align: center;
     width:80%;
     margin:0 10%;
   } 
-  li:last-child {
+  .menu-li:last-child {
     border-bottom: none;
   }
   
-  li a.active {
+  .menu-li a.active {
     background-color: #fff;
     color: #124814;
     border-radius: 35px;
   }
   
-  li a:hover:not(.active) {
+  .menu-li a:hover:not(.active) {
     background-color: #fff;
     color: #124814;
     border-radius: 35px;
@@ -236,9 +236,9 @@ border-radius: 35px;
     margin-right:30px;
 }
 .img-holder{
-    width :107px;
-    height :107px;
-    border:solid 1px black;
+    width :8vw;
+    height :8vw;
+    /* border:solid 1px black; */
     border-radius:50%;
     /* background:url(../../images/img.png); */
 }
@@ -261,11 +261,12 @@ border-radius: 35px;
 .event-label{
     font-size:.8vw;
     color:#124814;
-    width:40%;
+    width:60%;
 }
 .name, .comments-icons{
     /* background-image: url('../../images/img1.png'); */
-    background-size:cover;
+    background-size:contain;
+    background-position: center;
     width:3vw;
     height:3vw;
     border-radius:50%;
@@ -304,8 +305,9 @@ border:none;
 }
 .event-name, .group-name{
     background: #FAFFF9;
-box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
-border-radius: 9.52381px;
+    box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
+    border-radius: 9.52381px;
+    /* width:100vw; */
 }
 
   /* ----------------------------------- */
@@ -750,9 +752,28 @@ border-radius: 15px;
     width:2.5vw;
     height:2.5vw;
     border-radius:50%;
-    left:5vw;
+    left:5.5vw;
     background-color:#124814;
     opacity:.8;
-    font-size:2vw;
-    color:#FFF
+    font-size:1vw;
+    color:#FFF;
+    display:flex;
+    align-items: center;
+}
+
+.hide-me{
+    display: none;
+    transition:ease-in .5s;
+}
+
+.show-me{
+    display:block;
+    transition:ease-in .5s;
+}
+#basic_info{
+    display:block;
+    cursor:pointer;
+}
+#added_info{
+    cursor: pointer;    
 }

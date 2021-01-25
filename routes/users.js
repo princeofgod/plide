@@ -8,11 +8,13 @@ const jwt = require('jsonwebtoken');
 const userController = require('../controllers/webControllers/user');
 const multer = require('multer');
 const User = require('../model/user');
+const Event = require('../model/event');
 // const { render } = require('../app');
 const moment = require('moment')
 const {fileValidator, confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
 const session = require('express-session');
-const MongoStore = require('connect-mongodb-session')(session)
+const MongoStore = require('connect-mongodb-session')(session);
+// const {total} = require('../config/helpers');
 const store = new MongoStore({
 	uri: 'mongodb://localhost:27017/MVC1',
 	collection: 'sessions'
@@ -40,6 +42,9 @@ const upload = multer({storage : storage});
 let page = {
 	newDate : moment().format("DD, MMMM YYYY")
 }
+
+let total = {}
+
 
 /**
  * Routing begins
@@ -260,12 +265,30 @@ router.get('/home', async function(req, res) {
     	res.redirect('/users/login')
   	}else{
 		page.pageTitle = "Dashboard",
-		page.title = 'PACES Admin Events'
+		page.title = 'PACES Admin Events';
+		// const total = {
+		// 	registered:10,
+		// 	events: 3,
+
+		// }
+		await User.countDocuments({}, (err, count) => {
+			total.registered = count
+		})
+		await Event.countDocuments({},(err,count)=> {
+			total.events = count
+		})
+		let date = new Date()
+		await User.find({createdAt:{$gt:new Date(date.getFullYear(), date.getMonth(), date.getDate())}}).countDocuments({}, (err, count) => {
+			total.registeredToday = count
+		})
+
+			// re
+		console.log("total", total.registered)
 		// Check for privileges
 		if(req.session.user.role === '1'){
-			res.render('./admin/adminDashboard', {user:req.session.user, page:page})
+			res.render('./admin/adminDashboard', {user:req.session.user, page:page,total:total})
 		} else {
-      		res.render('./users/userDashboard', {user:req.session.user, page:page})
+      		res.render('./users/userDashboard', {user:req.session.user, page:page, total:total})
     	}   
   	}  
 });

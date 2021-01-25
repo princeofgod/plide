@@ -223,24 +223,7 @@ exports.deleteOne = async (id) => {
 };
 
 exports.updateOne = async (id, body) => {
-    // const errors = validationResult(req);
-
-    // if (!errors.isEmpty()) {
-    //   return res.status(422).json({ errors: errors.array() });
-    // }
     try {
-
-        // if(id !== body._id) {
-        //     return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
-        // }; 
-
-        // const data = await User.findByIdAndUpdate(id, {$set: req.body}, {
-        //     new: true,
-        //     runValidators: true,
-        // });
-        // if (!data) {
-        //     return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        // };
          let user = await User.findByIdAndUpdate({_id:id}, {$set:body}, 
             {
                 new:true,
@@ -259,7 +242,6 @@ exports.updateOne = async (id, body) => {
             }
 		})
         return user;
-
     } catch (error) {
         throw new Error("Internal ServerError")
     };
@@ -273,44 +255,35 @@ exports.createOne = async (body) => {
     };
     try {
         const data = await User.create(body);
-
         return data;
-
     } catch (error) {
         throw new Error("Internal ServerError")
     };
 };
-
 exports.getOneByEmail = async (query) => {
     return user = await User.findOne({email:query},(err, user) => {
         if(err) console.log("Couldn't get data!")
+        return user
     })
-    
 };
 
 exports.getAll = async () => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     };
     try {
         const data = await User.find();
-
         return data;
-
     } catch (error) {
         throw new Error("Internal ServerError")
     };
-
 };
 
 exports.count = async () => {
     try {
         const data = await User.estimatedDocumentCount({});
-
         return data;
-
     } catch (error) {
         throw new Error("Internal ServerError")
     };
@@ -318,7 +291,6 @@ exports.count = async () => {
 
 exports.search = (User, config=null) => async (body) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     };
@@ -333,15 +305,11 @@ exports.search = (User, config=null) => async (body) => {
             page: page, 
             limit: perPage
         };
-
         if(config && config.populate) {
             options.populate = config.populate;
         };
-        
         const data = await User.paginate(query, options); 
-
         return data;
-
     } catch (error) {
         throw new Error("Internal ServerError")
     }
@@ -361,8 +329,16 @@ exports.populateProfile = (body) => {
         country: body.country,
         employment_status: body.employment_status
       }
-
       return profileData
+}
+
+exports.getManager = async (email) => {
+    const manager = await User.findOne({email:email}, (err,user) => {
+        return user._id
+    })
+    console.log("Manager for events == ",manager)
+    
+    return manager
 }
 
 // Authorization check if the user have rights to do this action

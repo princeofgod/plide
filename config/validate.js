@@ -95,7 +95,8 @@ const groupValidation =  [
  */
 const eventValidation = [
     check("event_title").notEmpty().withMessage("Event title is required!").custom(async value => {
-        await Event.findOne({name:value},(err, events => {
+        await Event.findOne({name:value}, ((err, events) => {
+            
             if (events) {
                 throw new Error("Event with same title already exists.");
             } else {
@@ -104,6 +105,7 @@ const eventValidation = [
         }))
     }),
     check("event_description").notEmpty().withMessage("Event description is required!"),
+    check("event_manager").notEmpty().withMessage("Event manager is required!")
 ]
 
 /**

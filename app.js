@@ -14,43 +14,37 @@ const groupRouter = require('./routes/group');
 const userGroupRouter = require('./routes/userGroup');
 const eventNomineeRouter = require('./routes/eventNominee');
 const categoryRouter = require('./routes/category');
-
+const Handlebars = require("handlebars");
 const hbs = require("express-handlebars");
+const {
+  allowInsecurePrototypeAccess,
+} = require("@handlebars/allow-prototype-access");
 const passport = require("passport");
-const flash = require('connect-flash')
+// const flash = require('connect-flash')
 const MongoDBStore = require('connect-mongodb-session')
 const mongoose = require('mongoose');
 const { v4 } = require('uuid');
-// const User = require('./model/user');
-// const { Store } = require('express-session');
 const store = exports = new MongoStore({
   uri: 'mongodb://localhost:27017/MVC1',
   // databaseName:'MVC1',
   collection: 'sessions'
 });
-
-
 const app = express();
-
 
 // Passport config
 require('./config/passport')(passport)
 
 const IN_PROD = process.env.NODE_ENV === 'development'
 
-// registering partials
-// handlebars.registerPartial('userMenu',)
-
-// view engine setup
-// app.set('views', path.join(__dirname, 'views'));
 app.engine(
   "hbs",
   hbs({
+    handlebars: allowInsecurePrototypeAccess(Handlebars),
     partialsDir: ["views/partials"],
     extname: ".hbs",
     layoutsDir: "views",
-    defaultLayout: "layout"
-  })
+    defaultLayout: "layout",
+  },)
 );
 
 app.set('view engine', 'hbs');
@@ -58,32 +52,11 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'images')));
 app.use(express.static(path.join(__dirname, 'fonts')))
 app.use(methodOverride('_method'));
 
-
-// app.use(session({
-//   // genid: function(req) {
-//   //   return genuuid() // use UUIDs for session IDs
-//   // },
-//   secret: "chinchin",
-//   name: /*process.env.SESS_NAME*/ 'minimie',
-//   keys: /*['key1', 'key2']*/'user_id',
-//   resave: false,
-//   saveUninitialized: false,
-//   store: store,
-//   // rolling: true,
-//   // unset: "destroy",
-//   cookie: {
-//       maxAge: 1000*60*60*1,
-//       sameSite: true,
-//       secure: true,
-//       httpOnly:true
-//   }
-// }));
 
 app.use(session({
   genid: (req) => {
@@ -96,12 +69,10 @@ app.use(session({
   cookie: { 
     secure: false,
     maxAge: 60*60*1000,
+    rolling:true
    }
 }))
-// passport middleware
-// app.use(passport.initialize())
-// app.use(passport.session())
-// app.use(flash())
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
@@ -113,11 +84,6 @@ app.use('/userGroup', userGroupRouter);
 app.use('/candidate', candidateRouter);
 
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -128,15 +94,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-// exports.sessionChecker = (req, res, next) => {
-//   if(req.session.user && req.cookies.user_id){
-//     res.render('home')
-//   } else {
-//     next()
-//   }
-// }
-
 
 module.exports = app;

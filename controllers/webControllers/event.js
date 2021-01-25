@@ -18,31 +18,38 @@ exports.deleteOne =  async (id) => {
     };
 };
 
-exports.updateOne =  async (id, body) => {
-    const errors = validationResult(req);
+exports.updateOne =  async (event) => {
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    try {
+    await Event.findOneAndUpdate({name:event.name},{$set:event},{runValidators:true,new:true}, (err,event) => {
+        if (err) {
+            console.log(err)
+            return event
+        }
+    })
+    // const errors = validationResult(req);
 
-        if(id !== body._id) {
-            return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
-        }; 
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // }
+    // try {
 
-        const data = await Event.findByIdAndUpdate(id, {$set: req.body}, {
-            new: true,
-            runValidators: true,
-        });
-        if (!data) {
-            return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
+    //     if(id !== body._id) {
+    //         return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
+    //     }; 
 
-        return data;
+    //     const data = await Event.findByIdAndUpdate(id, {$set: req.body}, {
+    //         new: true,
+    //         runValidators: true,
+    //     });
+    //     if (!data) {
+    //         return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
+    //     };
 
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+    //     return data;
+
+    // } catch (error) {
+    //     throw new Error("Internal ServerError")
+    // };
 };
 
 exports.createOne =  async (event) => {
@@ -90,3 +97,21 @@ exports.getAll =  async () => {
     };
 
 };
+
+exports.getRandom = async () => {
+    const getRandom = await Event.aggregate([
+        {$sample:{size:3}},
+        {$lookup:{ from: 'users', localField: 'event_manager', foreignField: '_id', as: 'users' }}
+    ],(err, res) => {
+        if (err) {
+            console.log(err)
+        }
+        return res
+    })
+    
+    console.log("getRandom====", getRandom[0])
+    getRandom[0].users = Object.assign({},getRandom[0].users)
+  
+    return getRandom;
+// })
+}

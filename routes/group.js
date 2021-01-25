@@ -19,17 +19,37 @@ let page ={
 /**
  * Routing for the add-group page
  */
-router.get('/groups', (req,res,next) => {
+router.get('/groups', async (req,res,next) => {
 	if(!req.session.user){
 	  	res.redirect('../users/login')
 	} else {
 		let user = req.session.user
-		
-		console.log("User in groups = ",user)
+		const groups = await Group.find({},{},{limit:3, sort:{timestamp:1}},(err,result) => {
+
+		})
+
+
+		// --------------------------------------------
+
+		if(groups.length <= 0){
+
+		} else{
+			groups[0].createdAt = `${groups[0].createdAt.getMonth()}, ${groups[0].createdAt.getFullYear()}`
+			groups.forEach(el => {
+				el.date = moment(groups[0].createdAt).format("D MMM, YYYY")
+			})
+			groups[0].newDate = moment(groups[0].createdAt).format("D MMM, YYYY")
+		}
+		// --------------------------------------------
+		// console.log("88888888888 = ", groups)
+		const randomGroups = await groupController.getRandom()
+
+
+		console.log("User in groups = ",randomGroups)
 	  	if(req.session.user.role !== "1"){
-			res.render('./users/usergroups', {user:user,page:page})
+			res.render('./users/usergroups', {user:user,page:page,randomGroups:randomGroups,groups:groups})
 	  	}else{
-			res.render('./admin/admingroup', {user:user,page:page})
+			res.render('./admin/admingroup', {user:user,page:page,randomGroups:randomGroups,groups:groups})
 	  	}
 	}
 })

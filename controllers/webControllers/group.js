@@ -73,6 +73,24 @@ exports.getAll = async () => {
     return groups
 };
 
+exports.getRandom = async () => {
+    const getRandom = await Group.aggregate([
+        {$sample:{size:3}},
+        {$lookup:{ from: 'users', localField: 'leader', foreignField: '_id', as: 'leader' }},
+        {$lookup:{ from: 'users', localField: 'secretary', foreignField: '_id', as: 'secretary' }}
+    ],(err, res) => {
+        if (err) {
+            console.log(err)
+        }
+        return res
+    })
+    
+    getRandom[0].leader = Object.assign({},getRandom[0].leader)
+    getRandom[0].secretary = Object.assign({},getRandom[0].secretary)
+    console.log(getRandom[0])
+    return getRandom;
+// })
+}
 // exports.Search = async (firstname, lastname) => {
 //     try {
 //         var page = 1;

@@ -1,12 +1,13 @@
 const mongoose = require('mongoose'),
     mongoosePaginate = require('mongoose-paginate-v2');
+    const Mongoose = mongoose.Schema.Types
 
 const eventSchema = new mongoose.Schema({
-    name: {
+    event_title: {
         type: String,
         require: true
     },
-    description: {
+    event_description: {
         type: String,
         require: true
     },
@@ -28,7 +29,10 @@ const eventSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    nominees: []
+    nominees: [],
+    event_manager: {
+        type : Mongoose.ObjectId,
+        ref : 'user'}
 },{
     timestamps: { createdAt: true, updatedAt: false }
 },{

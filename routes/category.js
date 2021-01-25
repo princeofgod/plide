@@ -4,6 +4,12 @@ const router = express.Router();
 const categoryController = require('../controllers/webControllers/category');
 const { categoryValidation } = require('../config/validate');
 const { validationResult } = require('express-validator');
+const moment = require("moment")
+let page = {
+  newDate : moment().format("DD, MMMM YYYY"),
+  title : 'PACES Categories',
+pageTitle : 'Category'
+}
 
 /**
  * 
@@ -33,7 +39,7 @@ router.post('/addCategory',categoryValidation, async (req,res) => {
 		// let error = 
 		res.render('login', {error:"You do not have enough privilege to access the requested page"})
 	  } else {
-		res.render('categories',{title: 'PACES categories', pageTitle: 'Fund a course'})
+		res.render('./admin/admin-category',{page:page, user:req.session.user})
 	  }
 	}
   })

@@ -13,7 +13,8 @@
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-9">
                         <div class="mx-3 py-3" id="form-add">
-                            <form action="users/addevents" class="" method="POST">
+                            {{>messages}}
+                            <form action="addevents" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
                                     <label for="event_title" class="">Event Title</label>
                                     <input class="form-control" type="text" name="event_title" id="" autocomplete="off"
@@ -27,11 +28,11 @@
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="event-managers" class="">Event Managers</label>
+                                    <label for="event-manager" class="">Event Manager</label>
                                     <div class="row">
                                         <div class="col-12">
-                                            <input list="event_managers" name="event_managers" class="form-control">
-                                            <datalist id="event_managers">
+                                            <input list="event_manager" name="event_manager" class="form-control">
+                                            <datalist id="event_manager">
                                                 {{#if users}}
                                                 {{#each users}}
                                                 <option value="{{this}}"></option>
