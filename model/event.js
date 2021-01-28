@@ -13,7 +13,6 @@ const eventSchema = new mongoose.Schema({
     },
     published:{
         type: Boolean,
-        default: false
     },
     slug: {
         type: String,
@@ -22,17 +21,17 @@ const eventSchema = new mongoose.Schema({
         type: String,
     },
     start_date: {
-        type: String,
+        type: Date,
         require: true
     },
     end_date: {
-        type: String,
+        type: Date,
         require: true
     },
     nominees: [],
     event_manager: {
         type : Mongoose.ObjectId,
-        ref : 'user'}
+        ref : 'User'}
 },{
     timestamps: { createdAt: true, updatedAt: false }
 },{

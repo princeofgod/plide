@@ -7,15 +7,18 @@
             <div class="col-12 p-0 m-0" id="main-top">
                 {{>topnav}}
             </div>
-            <div class="col-12" id="main-bot">
+            <div class="col-12" id="main-bot" style="border:solid 1px red;margin-top:-90px">
                 <div class="row">
                     <div class="col-9" id="main-bot-left">
                         <div class="row d-flex justify-content-between">
                             <div class="col-4">
-                                <div class=" info m-2">
+                                <div class=" info mx-2">
                                     <p class="" style="font-size: 1.1vw;">Total Registered</p>
-                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <p class="" style="font-size:1vw;">{{total.registered}}</p>
+                                    <div class="d-flex flex-row justify-content-between align-items-center mt-3">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="d-flex align-items-center justify-content-center"
+                                                style="font-size:1vw;">{{total.registered}}</p>
+                                        </div>
                                         <div class="d-flex align-items-center justify-content-center total-icon" id="">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -28,10 +31,13 @@
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class=" info m-2">
+                                <div class=" info mx-2">
                                     <p class="" style="font-size: 1.1vw;">Total Events</p>
                                     <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <p class="" style="font-size:1vw;">{{total.events}}</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <p class="d-flex align-items-center justify-content-center"
+                                                style="font-size:1vw;">{{total.events}}</p>
+                                        </div>
                                         <div class="d-flex align-items-center justify-content-center total-icon" id="">
                                             <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -45,10 +51,14 @@
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div class=" info m-2">
+                                <div class=" info mx-2">
                                     <p class="" style="font-size: 1.1vw;">Registered today</p>
                                     <div class="d-flex justify-content-between align-items-center mt-3">
-                                        <p class="" style="font-size:1vw;">{{total.registeredToday}}</p>
+                                        <d class="d-flex align-items-center justify-content-center">
+                                            <p class="d-flex align-items-center justify-content-center"
+                                                style="font-size:1vw;">{{total.registeredToday}}</p>
+                                        </d>
+
                                         <div class="d-flex align-items-center justify-content-center total-icon" id="">
                                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg">
@@ -74,11 +84,14 @@
                                                         <p class="progress-title mb-0 d-inline mr-5" id="" style="">
                                                             Total
                                                             registered</p>
-                                                        <p class="percent ml-3" id="reg-percent" style="width:60%;">60%
+                                                        <p class="percent ml-3" id="reg-percent" style="width:;">
+                                                            {{total.percentageRegisteredCurrentMonth}}%
                                                         </p>
                                                     </div>
-                                                    <div class="" id="d">
-                                                        <div class="" id="reg-progress"></div>
+                                                    <div class="d" id="">
+                                                        <div class="" id="reg-progress"
+                                                            style="width:{{total.percentageRegisteredCurrentMonth}}%">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
@@ -102,12 +115,13 @@
                                                             style="width:40vw;">Total
                                                             Events
                                                         </p>
-                                                        <P class="percent mr-0" id="event-percent" style="width:45%;">
-                                                            45%
+                                                        <P class="percent mr-0" id="event-percent" style="width:;">
+                                                            {{total.percentageEventCurrentMonth}}%
                                                         </P>
                                                     </div>
-                                                    <div class="" id="d">
-                                                        <div class="" id="event-progress"></div>
+                                                    <div class="d" id="">
+                                                        <div class="" id="event-progress"
+                                                            style="width:{{total.percentageEventCurrentMonth}}%"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
@@ -133,8 +147,8 @@
                                                         </p>
                                                         79%</p>
                                                     </div>
-                                                    <div class="" id="d">
-                                                        <div class="" id="fund-progress"></div>
+                                                    <div class="d" id="">
+                                                        <div class="" id="fund-progress" style=""></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">

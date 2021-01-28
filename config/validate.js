@@ -194,6 +194,38 @@ const userGroupValidator =[
     check("fullname").notEmpty().withMessage("All fields are required"),
     check("group_name").notEmpty().withMessage("All fields are required"),
 ]
+
+const scheduleVerification = [
+    check("group").notEmpty().withMessage("All fields are required!"),
+    check("start_time").custom((value,{req}) => {
+        console.log("I am here---")
+        console.log(value)
+        // let t = "08:30"; // hh:mm
+        let start_ms = Number(value.split(':')[0]) * 60 * 60 * 1000 + Number(value.split(':')[1]) * 60 * 1000;
+        
+        let end_ms = Number(req.body["end_time"].split(':')[0]) * 60 * 60 * 1000 + Number(req.body["end_time"].split(':')[1]) * 60 * 1000;
+        
+
+        if(start_ms > end_ms ){
+            throw new Error("Start time cannot be higher than end time.")
+        } else if(start_ms == end_ms){
+            throw new Error("Start time and end time cannot be the same.")
+        }
+    }),
+    check("date").custom(value => {
+        let date = new Date(),
+        year = parseInt(date.getFullYear()),
+        month = parseInt(date.getMonth()),
+        day = parseInt(date.getDate()),   
+        year2 = parseInt(value.split("-")[0]),
+        month2 = parseInt(value.split("-")[1]),
+        day2 = parseInt(value.split("-")[2])
+
+        if(year2 < year || month2 < month || day2 < day){
+            throw new Error("Chosen date is past.")
+        }
+    })
+]
 module.exports = {userGroupValidator,fileValidator, confirmRegisterToken, categoryValidation,
      registerValidation, loginValidation, groupValidation,eventValidation, resetPasswordValidation,
-     forgotPasswordValidation,tokenVerify}
+     forgotPasswordValidation,tokenVerify, scheduleVerification}

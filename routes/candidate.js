@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Candidates = require('../model/candidates');
-const candidateController = require('../controllers/webControllers/candidate');
+// const Candidates = require('../model/candidates');
+// const candidateController = require('../controllers/webControllers/candidate');
 
 /**
  * Post router to add candidates

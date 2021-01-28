@@ -9,6 +9,7 @@ const User = require('../model/user');
 const { validationResult } = require('express-validator');
 const { controllers } = require('chart.js');
 const UserGroup = require('../model/userGroup');
+const Schedule =require('../model/schedule');
 
 let page ={
 	title : 'PACES Groups',
@@ -26,30 +27,31 @@ router.get('/groups', async (req,res,next) => {
 		let user = req.session.user
 		const groups = await Group.find({},{},{limit:3, sort:{timestamp:1}},(err,result) => {
 
-		})
-
-
+		}).populate('leader', "firstname lastname")
 		// --------------------------------------------
 
 		if(groups.length <= 0){
 
 		} else{
-			groups[0].createdAt = `${groups[0].createdAt.getMonth()}, ${groups[0].createdAt.getFullYear()}`
 			groups.forEach(el => {
-				el.date = moment(groups[0].createdAt).format("D MMM, YYYY")
+				el.date = moment(groups.createdAt).format("D MMM, YYYY")
 			})
-			groups[0].newDate = moment(groups[0].createdAt).format("D MMM, YYYY")
 		}
+		console.log("list of groups ========", groups[0])
 		// --------------------------------------------
-		// console.log("88888888888 = ", groups)
 		const randomGroups = await groupController.getRandom()
+
+
+		const schedule = await Schedule.find({},{}, (err, res) => {
+			return res
+		})
 
 
 		console.log("User in groups = ",randomGroups)
 	  	if(req.session.user.role !== "1"){
-			res.render('./users/usergroups', {user:user,page:page,randomGroups:randomGroups,groups:groups})
+			res.render('./users/usergroups', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule})
 	  	}else{
-			res.render('./admin/admingroup', {user:user,page:page,randomGroups:randomGroups,groups:groups})
+			res.render('./admin/admingroup', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule})
 	  	}
 	}
 })

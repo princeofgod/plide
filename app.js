@@ -14,6 +14,8 @@ const groupRouter = require('./routes/group');
 const userGroupRouter = require('./routes/userGroup');
 const eventNomineeRouter = require('./routes/eventNominee');
 const categoryRouter = require('./routes/category');
+const helper = require('./config/helpers')
+
 const Handlebars = require("handlebars");
 const hbs = require("express-handlebars");
 const {

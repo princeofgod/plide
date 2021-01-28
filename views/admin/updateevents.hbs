@@ -14,8 +14,7 @@
                     <div class="col-9">
                         <div class="mx-3 py-3" id="form-add">
                             {{>messages}}
-                            <form action="addevents" class="" method="POST" id="eventform">
-                                <input type="text" name="button" id="publish" style="display:none">
+                            <form action="addevents" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
                                     <label for="event_title" class="">Event Title</label>
                                     <input class="form-control" type="text" name="event_title" id="" autocomplete="off"
@@ -59,17 +58,16 @@
                                 {{!-- --}}
                                 <div class="mx-5 my-4 px-2 d-flex flex-row align-items-center justify-content-between">
                                     <button class="btn-white-2 px-0 mx-0"
-                                        style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%"
-                                        onclick="window.location.href = 'events'">cancel</button>
+                                        style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%">cancel</button>
                                     <div class="d-flex flex-row justify-content-end" style="width:70%">
-                                        <button class="btn-white-1 mr-3" style="width:30%" id="saveasbtn">Save as
-                                            draft</button>
-                                        <button class="btn-green" style="width:30%" id="savebtn">Save</button>
+                                        <button class="btn-white-1 mr-3" style="width:30%">Save as draft</button>
+                                        <button class="btn-green" style="width:30%">Save</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
+
 
                     <div class="col-3 d-flex" style="">
                         <div class="p-3"
@@ -77,7 +75,7 @@
                             id="add-group-btn" onclick="window.location.href='addevents'">
                             <h3 class="font-weight-bold" style="font-size:1vw;">ADD EVENTS</h3>
                             <p class="">Create new events and customize it with your priority</p>
-                            <div class="d-flex flex-row align-items-center justify-content-center">
+                            <div class="d-flex flex-row align-items-center justify-content-between">
                                 <div class="d-flex align-items-center justify-content-center" id="add-div">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -94,6 +92,64 @@
 
             </div>
             <div class="col-3">
+                <div class="row">
+                    <div class="col-11 pt-3 event-activities " style="border:solid 1px black">
+                        <div class="">
+                            <h3 style="font-size:1vw;">Event Activities</h3>
+                        </div>
+                        <d class="d-flex flex-column justify-content-center align-items-center">
+                            <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
+                                <div class="col-2 comments-icons" style="background:url(comments.png)"></div>
+                                <div class="col-7" style="background-color: #124814;">
+                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <span class="mt-0"
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        about the post 11 mins ago</span>
+                                </div>
+                                <div class="col-2 px-1"><button class="view-btn">view</button></div>
+                            </div>
+                            {{!-- --}}
+                            <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
+                                <div class="col-2 comments-icons" style="background:url(comments.png)"></div>
+                                <div class="col-7" style="background-color: #124814;">
+                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <span class="mt-0"
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        about the post 11 mins ago</span>
+                                </div>
+                                <div class="col-2 px-1"><button class="view-btn">view</button></div>
+                            </div>
+                            {{!-- --}}
+                            <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
+                                <div class="col-2 comments-icons" style="background:url(comments.png)"></div>
+                                <div class="col-7" style="background-color: #124814;">
+                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <span class="mt-0"
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        about the post 11 mins ago</span>
+                                </div>
+                                <div class="col-2 px-1"><button class="view-btn">view</button></div>
+                            </div>
+                            {{!-- --}}
+                            <div class="row m-0 p-0 mt-2" style="font-size: 1vw;">
+                                <div class="col-2 comments-icons" style="background:url(comments.png)">
+
+                                </div>
+                                <div class="col-7" style="background-color: #124814;">
+                                    <p class="mb-0 font-weight-bolder">P.M.S</p>
+                                    <span class="mt-0"
+                                        style="font-size: .6vw;color:rgba(255, 255, 255, 0.63);">Commented
+                                        about the post 11 mins ago</span>
+                                </div>
+                                <div class="col-2 px-1"><button class="view-btn">view</button></div>
+                            </div>
+                        </d>
+                        {{!-- --}}
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button class="see-more my-3">See more</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="row my-4">
                     <div class="col-11 schedule pb-3" style="border:solid 1px black">
                         <div class="row p-3  schedule">
@@ -114,9 +170,8 @@
                                 </div>
                             </div>
                             <div class="col-8 schedule">
-                                <p class="m-0 p-0" style="font-size: 1vw;">{{this.group}} </p>
-                                <span class="time-schedule m-0 p-0">{{this.start_time}} - {{this.end_time}} on
-                                    ZOOM</span>
+                                <p class="m-0 p-0" style="font-size: 1vw;">Meeting with group A </p>
+                                <span class="time-schedule m-0 p-0">9:00AM - 10:30AM on ZOOM</span>
                             </div>
                         </div>
                         <div class="row schedule mt-3">
@@ -163,23 +218,10 @@
     </div>
 </div>
 <script>
-    const publish = document.getElementById("publish")
-    const saveas = document.getElementById("saveasbtn")
-    const save = document.getElementById("savebtn")
-    const eventForm = document.getElementById("eventform")
-
-    save.addEventListener('click', () => {
-        publish.value = save.innerText;
-        evenForm.submit()
-    })
-    saveas.addEventListener('click', () => {
-        publish.value = save.innerText;
-        evenForm.submit()
-    })
-
     $(document).ready(function () {
         $('.js-example-basic-single').select2({
             dropdownParent: $('#yes')
         });
+
     });
 </script>

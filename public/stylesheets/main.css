@@ -223,7 +223,7 @@ border-radius: 35px;
     outline:none;
 }
 .profile-form-label{
-    width:30%;
+    width:8%;
 }
 .profile-button{
     width: 110px;
@@ -319,7 +319,8 @@ border:none;
     font-size:1vw;
     /* background: #124814; */
     box-shadow: 0px 4px 40px -8px rgba(18, 72, 20, 0.3);
-    border-radius: 10px
+    border-radius: 10px;
+    /* height:200px; */
 }
 .view-btn{
     background: #FFFFFF;
@@ -716,23 +717,28 @@ border-radius: 15px;
     width:40vw;
 }
 #fund-progress{
-    width:79%;
+    /* width:79%; */
     height:5px;
     background-color: #0099DF;
+    border-radius:15px;
 }
 #reg-progress{
-    width:60%;
+    /* width:60%; */
     height:5px;
     background-color:#34CF4D;
+    border-radius:15px;
 }
 #event-progress{
-    width:45%;
+    /* width:45%; */
     height:5px;
     background-color:#E0CA3C;
+    border-radius:15px;
 }
 .d{
     width:100%;
     height:5px;
+    background-color: #c5c5c5;
+    border-radius:15px;
 }
 .stat-icons{
     height:3vw;

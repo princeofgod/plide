@@ -1,4 +1,5 @@
 <div class="row" style="height:100vh">
+
     <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
         {{>adminMenu}}
     </div>
@@ -13,71 +14,52 @@
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-9">
                         <div class="mx-3 py-3" id="form-add">
-                            {{>messages}}
-                            <form action="addevents" class="" method="POST" id="eventform">
-                                <input type="text" name="button" id="publish" style="display:none">
+                            <form action="addschedule" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="event_title" class="">Event Title</label>
-                                    <input class="form-control" type="text" name="event_title" id="" autocomplete="off"
-                                        required>
+                                    {{>messages}}
+                                    <label for="title" class="">Meeting with: </label>
+                                    <input class="form-control" type="text" name="group" id="" required>
                                 </div>
+
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="event_description" class="">Description</label>
-                                    <textarea class="form-control" name="event_description" id="" cols="30" rows="5"
-                                        style="resize: none;" required></textarea>
-                                </div>
-                                {{!-- --}}
-                                <div class="mx-5 px-2 my-3">
-                                    <label for="event-manager" class="">Event Manager</label>
                                     <div class="row">
-                                        <div class="col-12">
-                                            <input list="event_manager" name="event_manager" class="form-control">
-                                            <datalist id="event_manager">
-                                                {{#if users}}
-                                                {{#each users}}
-                                                <option value="{{this}}"></option>
-                                                {{/each}}
-                                                {{/if}}
-                                            </datalist>
+                                        <div class="col-4">
+                                            <label for="start-date" class="">Date</label>
+                                            <input class="form-control" type="date" name="date" id="" required>
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="start_time">Start Time</label>
+                                            <input class="form-control" type="time" name="start_time" id="">
+                                        </div>
+                                        <div class="col-4 mx-0 px-0">
+                                            <label for="end_time">End Time</label>
+                                            <input class="form-control" type="time" name="end_time" id="">
                                         </div>
                                     </div>
                                 </div>
                                 {{!-- --}}
-                                <div class="mx-5 px-2 my-3">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="start-date" class="">Start date</label>
-                                            <input class="form-control" type="date" name="start_date" id="" required>
-                                        </div>
-                                        <div class="col-6">
-                                            <label for="end-date" class="">End date</label>
-                                            <input class="form-control" type="date" name="end_date" id="" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                {{!-- --}}
+
                                 <div class="mx-5 my-4 px-2 d-flex flex-row align-items-center justify-content-between">
-                                    <button class="btn-white-2 px-0 mx-0"
-                                        style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%"
-                                        onclick="window.location.href = 'events'">cancel</button>
+                                    <button class="btn-white-2 px-0 mx-0" type="reset"
+                                        style="border: 1px solid rgba(196, 196, 196, 0.5);width:20%">cancel</button>
                                     <div class="d-flex flex-row justify-content-end" style="width:70%">
-                                        <button class="btn-white-1 mr-3" style="width:30%" id="saveasbtn">Save as
-                                            draft</button>
-                                        <button class="btn-green" style="width:30%" id="savebtn">Save</button>
+                                        <button class="btn-white-1 mr-3" style="width:30%">Save as draft</button>
+                                        <button class="btn-green" style="width:30%" type="submit">Save</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
 
-                    <div class="col-3 d-flex" style="">
+
+                    <div class="col-3 d-flex flex-column align-items-center justify-content-between" style="">
                         <div class="p-3"
                             style="width:98%;height:300px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;font-size:.7vw;cursor:pointer"
-                            id="add-group-btn" onclick="window.location.href='addevents'">
-                            <h3 class="font-weight-bold" style="font-size:1vw;">ADD EVENTS</h3>
-                            <p class="">Create new events and customize it with your priority</p>
-                            <div class="d-flex flex-row align-items-center justify-content-center">
+                            id="add-group-btn" onclick="window.location.href='addGroup'">
+                            <h3 class="font-weight-bold" style="font-size:1vw;">ADD GROUP</h3>
+                            <p class="">Create new groups and customize it with your priority</p>
+                            <div class="d-flex flex-row align-items-center">
                                 <div class="d-flex align-items-center justify-content-center" id="add-div">
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -86,7 +68,25 @@
                                             fill="#124814" />
                                     </svg>
                                 </div>
-                                <p class="font-weight-bold mt-3">Create New events</p>
+                                <p class="font-weight-bold mt-3">Create New Group</p>
+                            </div>
+                        </div>
+                        <div class="p-3"
+                            style="width:95%;height:200px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;font-size:.7vw;cursor:pointer"
+                            id="add-group-btn" data-toggle="modal" data-target="#exampleModalCenter">
+                            <h3 class="font-weight-bold" style="font-size:1vw;">ADD USER</h3>
+                            <p class="">Create new groups and customize it with your priority</p>
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="d-flex align-items-center justify-content-center" id="add-div">
+
+                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M15.375 7.375H8.625V0.625C8.625 0.279813 8.34519 0 8 0C7.65481 0 7.375 0.279813 7.375 0.625V7.375H0.625C0.279813 7.375 0 7.65481 0 8C0 8.34519 0.279813 8.625 0.625 8.625H7.375V15.375C7.375 15.7202 7.65481 16 8 16C8.34519 16 8.625 15.7202 8.625 15.375V8.625H15.375C15.7202 8.625 16 8.34519 16 8C16 7.65481 15.7202 7.375 15.375 7.375Z"
+                                            fill="#124814" />
+                                    </svg>
+                                </div>
+                                <p class="font-weight-bold mt-3">Create New Group</p>
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,6 @@
                 <div class="row my-4">
                     <div class="col-11 schedule pb-3" style="border:solid 1px black">
                         <div class="row p-3  schedule">
-                            {{!-- CONTINUE HERE TOMORROW --}}
                             <h3 class="schedule">Today's schedule</h3>
                         </div>
                         <div class="row schedule mt-3">
@@ -114,9 +113,8 @@
                                 </div>
                             </div>
                             <div class="col-8 schedule">
-                                <p class="m-0 p-0" style="font-size: 1vw;">{{this.group}} </p>
-                                <span class="time-schedule m-0 p-0">{{this.start_time}} - {{this.end_time}} on
-                                    ZOOM</span>
+                                <p class="m-0 p-0" style="font-size: 1vw;">Meeting with group A </p>
+                                <span class="time-schedule m-0 p-0">9:00AM - 10:30AM on ZOOM</span>
                             </div>
                         </div>
                         <div class="row schedule mt-3">
@@ -162,24 +160,3 @@
         </div>
     </div>
 </div>
-<script>
-    const publish = document.getElementById("publish")
-    const saveas = document.getElementById("saveasbtn")
-    const save = document.getElementById("savebtn")
-    const eventForm = document.getElementById("eventform")
-
-    save.addEventListener('click', () => {
-        publish.value = save.innerText;
-        evenForm.submit()
-    })
-    saveas.addEventListener('click', () => {
-        publish.value = save.innerText;
-        evenForm.submit()
-    })
-
-    $(document).ready(function () {
-        $('.js-example-basic-single').select2({
-            dropdownParent: $('#yes')
-        });
-    });
-</script>

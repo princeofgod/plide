@@ -30,11 +30,11 @@ const groupSchema = new mongoose.Schema({
     },
     leader:{
         type: Mongoose.ObjectId,
-        ref:'user'
+        ref:'User'
     },
     secretary:{
         type: Mongoose.ObjectId,
-        ref: 'user'
+        ref: 'User'
     }
     
 },{

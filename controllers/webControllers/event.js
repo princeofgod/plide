@@ -1,31 +1,41 @@
 const Event = require('../../model/event');
-exports.deleteOne =  async (id) => {
-    const errors = validationResult(req);
+exports.deleteOne =  async (eventTitle) => {
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    try {
-        const data = await Event.findByIdAndDelete({_id: id});
-        if (!data) {
-            return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
+    await Event.findOneAndDelete({event_title: eventTitle},(err, res) => {
+        if(err) {
+            console.log(err)
+        }
+        return res
+    })
+    // const errors = validationResult(req);
 
-        return data
+    // if (!errors.isEmpty()) {
+    //   return res.status(422).json({ errors: errors.array() });
+    // }
+    // try {
+    //     const data = await Event.findByIdAndDelete({_id: id});
+    //     if (!data) {
+    //         return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
+    //     };
 
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+    //     return data
+
+    // } catch (error) {
+    //     throw new Error("Internal ServerError")
+    // };
 };
 
 exports.updateOne =  async (event) => {
 
-    await Event.findOneAndUpdate({name:event.name},{$set:event},{runValidators:true,new:true}, (err,event) => {
+    
+    await Event.findOneAndUpdate({name:event.old_title},{$set:event},{runValidators:true,new:true}, (err,event) => {
         if (err) {
             console.log(err)
-            return event
         }
+        return event
     })
+
+    return event
     // const errors = validationResult(req);
 
     // if (!errors.isEmpty()) {
@@ -109,9 +119,13 @@ exports.getRandom = async () => {
         return res
     })
     
-    console.log("getRandom====", getRandom[0])
-    getRandom[0].users = Object.assign({},getRandom[0].users)
-  
+    // console.log("getRandom====", getRandom[0])
+    getRandom.forEach(el => {
+        el.users = Object.assign({},el.users)
+        el.users = el.users["0"]
+        // console.log(el)
+    })
+    console.log(getRandom[0])
     return getRandom;
 // })
 }

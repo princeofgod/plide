@@ -12,6 +12,8 @@ const Event = require('../model/event');
 // const { render } = require('../app');
 const moment = require('moment')
 const {fileValidator, confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
+const helper = require('../config/helpers');
+const Schedule = require('../model/schedule')
 const session = require('express-session');
 const MongoStore = require('connect-mongodb-session')(session);
 // const {total} = require('../config/helpers');
@@ -43,7 +45,7 @@ let page = {
 	newDate : moment().format("DD, MMMM YYYY")
 }
 
-let total = {}
+// let total = {}
 
 
 /**
@@ -270,25 +272,17 @@ router.get('/home', async function(req, res) {
 		// 	registered:10,
 		// 	events: 3,
 
+		const schedule = await Schedule.find({},{}, (err, res) => {
+			return res
+		})
 		// }
-		await User.countDocuments({}, (err, count) => {
-			total.registered = count
-		})
-		await Event.countDocuments({},(err,count)=> {
-			total.events = count
-		})
-		let date = new Date()
-		await User.find({createdAt:{$gt:new Date(date.getFullYear(), date.getMonth(), date.getDate())}}).countDocuments({}, (err, count) => {
-			total.registeredToday = count
-		})
-
+		const total = await helper.getStatistics()
 			// re
-		console.log("total", total.registered)
 		// Check for privileges
 		if(req.session.user.role === '1'){
-			res.render('./admin/adminDashboard', {user:req.session.user, page:page,total:total})
+			res.render('./admin/adminDashboard', {user:req.session.user, page:page,total:total,schedule:schedule})
 		} else {
-      		res.render('./users/userDashboard', {user:req.session.user, page:page, total:total})
+      		res.render('./users/userDashboard', {user:req.session.user, page:page, total:total,schedule:schedule})
     	}   
   	}  
 });
