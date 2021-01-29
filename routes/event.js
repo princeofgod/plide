@@ -101,18 +101,19 @@ router.get('/events',async (req,res) => {
 			return res
 		})
 
-		const randomEvents = await eventController.getRandom()
-		
+		const publishedEvents = await eventController.getRandom()
+		console.log("publishedEvents--------------",publishedEvents)
+
 		if(user.role !== "1"){
 			
 			page.pageTitle = 'Event'
 			page.title = 'PACES Events'
-			res.render("./users/events", {user:user, page:page, events:events,randomEvents:randomEvents, schedule: schedule})
+			res.render("./users/events", {user:user, page:page, events:events, schedule: schedule, publishedEvents:publishedEvents})
 		} else {
 			let user = req.session.user
 			page.pageTitle = 'Event'
 			page.title = 'PACES Admin Events'
-			res.render("./admin/adminEvents",{user :user,page:page,events:events,randomEvents:randomEvents , schedule: schedule})
+			res.render("./admin/adminEvents",{user :user,page:page,events:events , schedule: schedule, publishedEvents:publishedEvents})
 		}
 	}
 })

@@ -109,23 +109,29 @@ exports.getAll =  async () => {
 };
 
 exports.getRandom = async () => {
-    const getRandom = await Event.aggregate([
-        {$sample:{size:3}},
-        {$lookup:{ from: 'users', localField: 'event_manager', foreignField: '_id', as: 'users' }}
-    ],(err, res) => {
-        if (err) {
-            console.log(err)
-        }
-        return res
-    })
+    // const getRandom = await Event.aggregate([
+    //     {$sample:{size:3}},
+    //     {$lookup:{ from: 'users', localField: 'event_manager', foreignField: '_id', as: 'users' }}
+    // ],(err, res) => {
+    //     if (err) {
+    //         console.log(err)
+    //     }
+    //     return res
+    // })
     
+    const publishedEvents = await Event.find({published:true},{},(err, events) =>{
+        if (err){
+            console.log("Events encountered an error", err)
+        }
+        return events
+    }).populate('event_manager', "firstname lastname profile_pic")
     // console.log("getRandom====", getRandom[0])
-    getRandom.forEach(el => {
+    publishedEvents.forEach(el => {
         el.users = Object.assign({},el.users)
         el.users = el.users["0"]
         // console.log(el)
     })
-    console.log(getRandom[0])
-    return getRandom;
+    // console.log(getRandom[0])
+    return publishedEvents;
 // })
 }

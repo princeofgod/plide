@@ -12,8 +12,8 @@
             <div class="col-9">
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-10 d-flex flex-row">
-                        {{#if randomEvents}}
-                        {{#each randomEvents}}
+                        {{#if publishedEvents}}
+                        {{#each publishedEvents}}
                         <div class="col-4 d-flex flex-row justify-content-center align-items-center" style="">
 
                             <div class="event-name mx-2 w-100 py-2 pl-1 pr-1">
@@ -26,11 +26,11 @@
                                     <div
                                         class="col-12 pr-0 d-flex flex-column justify-content-center align-items-center">
                                         <div class="name"
-                                            style="background-image:url('../avatar/{{this.users.profile_pic}}')">
+                                            style="background-image:url('../avatar/{{this.event_manager.profile_pic}}')">
                                         </div>
                                         <div class="">
                                             <p class="mb-0 mt-1" style="font-size:.7vw">
-                                                {{this.users.firstname}} {{this.users.lastname}}</p>
+                                                {{this.event_manager.firstname}} {{this.event_manager.lastname}}</p>
                                             <span class="my-0 wrap-text align-self-center" style="font-size:.7vw">Team
                                                 Leader</span>
                                         </div>
