@@ -1,0 +1,116 @@
+<div class="row" style="height:100vh">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+        {{>adminMenu}}
+    </div>
+    <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
+        <div class="row ">
+            <div class="col-12" style="">
+                {{>adminTop}}
+            </div>
+        </div>
+        <div class="row px-4 pl-4 d-flex justify-content-center align-items-center" style="margin-top: auto;">
+
+
+            {{#if error}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            {{#if success}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            <div class="row w-100 mt-5" style="border:solid 1px red">
+                <div class="col-4" style="border:solid 1px red">
+                    <div class=""
+                        style="border:solid 1px black; height:15vw;width:15vw; margin-left:auto; margin-right:auto; margin-top:2vw;">
+
+                    </div>
+                    <div class="">
+                        <label for="">Employment Status</label> <br>
+                        <input class="form-control" type="text" name="" id="" value="{{member.employment_status}}">
+                    </div>
+                </div>
+                <div class="col-8" style="border:solid 1px red">
+                    <div class="row mt-3">
+
+                        <div class="col-6">
+                            <label for="firstname">First Name</label> <br>
+                            <input class="form-control" type="text" name="firstname" id="" value="{{member.firstname}}">
+                        </div>
+                        <div class="col-6">
+                            <label for="lastname">Lastname</label> <br>
+                            <input class="form-control" type="text" name="lastname" id="" value="{{member.lastname}}">
+                        </div>
+                    </div>
+                    <div class="row  mt-3">
+                        <div class="col-6">
+                            <label for="email">Email Address</label> <br>
+                            <input class="form-control" type="text" name="email" id="" value="{{member.email}}">
+                        </div>
+                        <div class="col-6">
+                            <label for="phone">Phone Number</label> <br>
+                            <input class="form-control" type="text" name="phone" id="" value="{{member.phone}}">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label for="address">Address</label> <br>
+                            <input class="form-control" type="text" name="address" id="" value="{{member.address}}">
+                        </div>
+                        <div class="col-6">
+                            <label for="state">State</label> <br>
+                            <input class="form-control" type="text" name="state" id="" value="{{member.state}}">
+                        </div>
+                    </div>
+                    {{#if memberGroups}}
+                    {{#each memberGroups}}
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <label for="group">Group</label> <br>
+                            <input class="form-control" type="text" name="group" id="" value="{{this.name}}">
+                        </div>
+                        <div class="col-6">
+                            <label for="position">Position</label> <br>
+                            <input class="form-control" type="text" name="position" id="">
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+
+                </div>
+                {{!-- <div class="col-4" style="border:solid 1px red">
+                    <div class="">
+                        <label for="lastname">Last Name</label> <br>
+                        <input class="form-control" type="text" name="lastname" id="">
+                    </div>
+                    <div class="">
+                        <label for="phone">Phone Number</label> <br>
+                        <input class="form-control" type="text" name="" id="">
+                    </div>
+                    <div class="">
+                        <label for="address">Address</label> <br>
+                        <input class="form-control" type="text" name="" id="">
+                    </div>
+                    <div class="">
+                        <label for="localgovt">Local Govt</label> <br>
+                        <input class="form-control" type="text" name="" id="">
+                    </div>
+                    <div class="">
+                        <label for="position">Position</label> <br>
+                        <input class="form-control" type="text" name="" id="">
+                    </div>
+                </div> --}}
+            </div>
+        </div>
+    </div>
+</div>

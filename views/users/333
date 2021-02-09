@@ -1,0 +1,88 @@
+function makePayment() {
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-04d1acc2ff07873b6c9c231bca2ad023-X",
+            tx_ref: transferRef,
+            amount: 54600,
+            currency: "NGN",
+            country: "NG",
+            payment_options: "card, ussd",
+            redirect_url: // specified redirect URL
+                "http://127.0.0.1:3002/payment/savePayment",
+            /*meta: {
+                consumer_id: 23,
+                consumer_mac: "92a3-912ba-1192a",
+            },*/
+            customer: {
+                email: email,
+                phone_number: phone,
+                name: fullname,
+            },
+            callback: function (data) {
+                //console.log(data);
+            },
+            onclose: function () {
+                console.log("I am data = ", data)
+            },
+            customizations: {
+                title: "My store",
+                description: "Payment for items in cart",
+                logo: "https://assets.piedpiper.com/logo.png",
+            },
+        });
+    }
+
+
+
+
+
+router.post("/savePayments", async (req,res) => {
+    console.log("REq.body in the post route ===", req.body)
+    console.log("requested =====",req.body)
+    
+	if(req.body.status == "successful") {
+        var options = {
+        'method': 'GET',
+        'url': `https://api.flutterwave.com/v3/transactions/${req.body['transaction_id']}/verify`,
+        'headers': {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer FLWSECK_TEST-879312b513e407c7d1a7ab757d84932f-X'
+        }
+        };
+        console.log("inside here")
+        var data
+         
+        await request(options, async function (error, response) { 
+        if (error) throw new Error(error);
+        
+        data = JSON.parse(response.body).data
+        console.log("Data inside dthe await ==", JSON.parse(response.body).data)
+
+
+        req.session.user = await User.findOne({email:data.customer.email}, async (err,user) => {
+            if (err) console.log(err)
+            return user
+        })
+
+        console.log("New session added ============ ", req.session.user)
+        var paymentData = {
+            userId : req.session.user._id,
+            trx_ref : data['tx_ref'],
+            payment_date : data['created_at'],
+            amount : data['amount'],
+            narration : 'Monthly',
+            purpose: 'membership'
+        }
+        console.log("Payment data to be stored", paymentData)
+
+        const returnedData = await paymentController.createOne(paymentData)
+
+        console.log("Returned data after save!!! === ", returnedData)
+        if(!returnedData) {
+            console.log("unable to save data!!!")
+        } else {
+            console.log("Data saved successfully!!!")
+        }
+        });
+	}
+	console.log("Thanks for paying ==")
+})

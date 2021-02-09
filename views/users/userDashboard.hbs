@@ -7,7 +7,7 @@
             <div class="col-12 p-0 m-0" id="main-top">
                 {{>topnav}}
             </div>
-            <div class="col-12" id="main-bot" style="border:solid 1px red;margin-top:-90px">
+            <div class="col-12" id="main-bot" style="margin-top:-90px">
                 <div class="row">
                     <div class="col-9" id="main-bot-left">
                         <div class="row d-flex justify-content-between">
@@ -144,11 +144,12 @@
                                                             style="width:40vw">
                                                             Fund a course</p>
                                                         <p class="percent" id="fund-percent" style="width:100%">
-                                                        </p>
-                                                        79%</p>
+                                                        </p>{{total.percentageFunded}}%</p>
                                                     </div>
                                                     <div class="d" id="">
-                                                        <div class="" id="fund-progress" style=""></div>
+                                                        <div class="" id="fund-progress"
+                                                            style="width:{{total.percentageFunded}}%">
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
@@ -184,25 +185,79 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-7" id="chart" style="height:150px;">
-                                            <canvas id="myChart"></canvas>
+                                        <div class="col-7" id="chart"
+                                            style="position: relative; height:20vh; width:80vw">
+                                            <canvas id="myChart" width="1" height="1" style="height:150px"></canvas>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-3" id="main-bot-right">
                         {{>right}}
+                        <div class="mt-4">
+                            <form>
+
+                                <input type="text" class="" style="display:none" value="{{user.email}}" id="email">
+                                <input type="text" class="" style="display:none" value="{{user.phone}}" id="phone">
+                                <input type="text" class="" style="display:none"
+                                    value="{{user.firstname}} {{user.lastname}}" id="fullname">
+
+                                <button class="btn-white-1" type="button" onClick="makePayment();"
+                                    style="height:40px;width:vw;font-size:1vw">Pay Membership Subscription</button>
+                            </form>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    {{!-- <form action="savePayment" method="POST" class="" id="flutter_response">
+        <input type="text" id="amount" style="display: none;">
+        <input type="text" id="flw_ref" style="display: none;">
+        <input type="text" id="tx_ref" style="display: none;">
+        <input type="text" id="transaction_id" style="display: none;">
+    </form> --}}
+    <input type="text" id="UserId" style="display: none;" value="{{user._id}}">
+
 </div>
 
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     let myChart = document.getElementById('myChart');
+    const email = document.getElementById('email').value;
+    const fullname = document.getElementById('fullname').value;
+    const phone = document.getElementById('phone').value;
+    const userId = document.getElementById('UserId').value;
+
+
+    /*async function checkResult = result => {
+         const data = await axios.get("http://127.0.0.1:3002/payments/getPayments").then((err,res) => {
+            if(err){
+                console.log(err)
+            }
+            data.forEach(el => {
+                if(result === data.)
+            })
+            return res
+        })
+        if()
+    }*/
+
+    /*function generateRef() {
+        let prefix = "hooli-tx-"
+
+        const count = 9;
+        for (let i = 0; i < count; i++) {
+            const possibleLetters = "abcdefghijklmnopqstuvwxyz1234567890"
+            prefix += possibleLetters.charAt(Math.floor(Math.random() * possibleLetters.length));
+        }
+    }*/
 
     let massPopChart = new Chart(myChart, {
         type: 'line',
@@ -210,11 +265,7 @@
             labels: ['', '', ''],
             datasets: [{
                 label: 'Population',
-                data: [
-                    100,
-                    300,
-                    200
-                ],
+                data: [],
                 borderColor: "#124814"
             }]
         },
@@ -239,4 +290,50 @@
             }
         }
     })
+
+    function makePayment() {
+        console.log("transferRef === ", transferRef)
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-ca0523b9912952630c7ac39073a8b0e6-X",
+            tx_ref: transferRef,
+            amount: 2000,
+            currency: "NGN",
+            country: "NG",
+            payment_options: "card, ussd",
+            redirect_url: // specified redirect URL
+                "http://127.0.0.1:3002/payment/savePayment",
+            meta: {
+                consumer_id: userId,
+                //consumer_mac: "92a3-912ba-1192a",
+            },
+            customer: {
+                email: email,
+                phone_number: phone,
+                name: fullname,
+            },
+            callback: function (data) {
+                //console.log(data);
+            },
+            onclose: function () {
+                // console.log("I am data = ", data)
+            },
+            customizations: {
+                title: "My store",
+                description: "Payment for items in cart",
+                logo: "https://assets.piedpiper.com/logo.png",
+            },
+        });
+    }
+
+    function generateRandomCharacter(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        //var charactersLength = characters.length;
+
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+    let transferRef = generateRandomCharacter(30);
 </script>

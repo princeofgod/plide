@@ -13,7 +13,8 @@ const eventRouter = require('./routes/event');
 const groupRouter = require('./routes/group');
 const userGroupRouter = require('./routes/userGroup');
 const eventNomineeRouter = require('./routes/eventNominee');
-const categoryRouter = require('./routes/category');
+const courseRouter = require('./routes/course');
+const paymentRouter = require('./routes/payment');
 const helper = require('./config/helpers')
 
 const Handlebars = require("handlebars");
@@ -31,6 +32,12 @@ const store = exports = new MongoStore({
   // databaseName:'MVC1',
   collection: 'sessions'
 });
+Handlebars.registerHelper('for', function(from, to, incr, block) {
+  var accum = '';
+  for(var i = from; i < to; i += incr)
+      accum += block.fn(i);
+  return accum;
+});
 const app = express();
 
 // Passport config
@@ -46,7 +53,31 @@ app.engine(
     extname: ".hbs",
     layoutsDir: "views",
     defaultLayout: "layout",
-  },)
+    helpers:{
+      'loop' : function(from, to, incr, block) {
+        var accum = '';
+        for(var i = from; i < to +1 ; i += incr)
+            accum += block.fn(i);
+        return accum;
+    },
+    'eq' : function(a, b, opts) {
+		if(a == b) // Or === depending on your needs
+			return opts.fn(this);
+		else
+			return opts.inverse(this);
+	},
+	'estimate' : function(a, b, opts) {
+		if(a > b) return a = b
+		else return a = a
+  },
+  'previous' : function(a, opts) {
+    if(a == 1){
+      return opts.fn(this)
+    } else {
+      return opts.inverse(this)
+    }
+  }
+  }})
 );
 
 app.set('view engine', 'hbs');
@@ -81,9 +112,10 @@ app.use('/users', usersRouter);
 app.use('/group', groupRouter);
 app.use('/event', eventRouter);
 app.use('/eventNominee', eventNomineeRouter);
-app.use('/category', categoryRouter);
+app.use('/course', courseRouter);
 app.use('/userGroup', userGroupRouter);
 app.use('/candidate', candidateRouter);
+app.use('/payment', paymentRouter);
 
 
 // error handler

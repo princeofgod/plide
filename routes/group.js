@@ -119,21 +119,33 @@ router.post('/usergroup',userGroupValidator, async (req,res) => {
 		res.render("./admin/addgroup", {error : "User not added"})
 	} else {
 
+
 		let group = await groupController.getOne(req.body["group_name"])
+
 
 		// Get the email of the user from the string in the group field
 			email = req.body.fullname.split(" ")[2].replace(")","").replace("(","")
 			// console.log("Full name", fullname)
-		user = await userController.getOneByEmail(email)
-		let body = {
-			user_id: user._id,
-			group_id: group._id
-		};
-		let newUserGroup = new UserGroup(body);
-		newUserGroup.save()
-			.then( user => {
-				return user
-			})
+		const user = await userController.getOneByEmail(email);
+
+		const newUpdate = await Group.findOneAndUpdate({name:req.body["group_name"]},{$push:{members:user._id}},{
+			new:true,
+			upsert:true
+		},(err, group) =>{
+			if(err) console.log(err)
+			if(group){
+				return group
+			}
+		})
+		// let body = {
+		// 	user_id: user._id,
+		// 	group_id: group._id
+		// };
+		// let newUserGroup = new UserGroup(body);
+		// newUserGroup.save()
+		// 	.then( user => {
+		// 		return user
+		// 	})
 		
 			res.render("./admin/addgroup", {success: "User successfully added to group!"})
 			// Should return a modal with success

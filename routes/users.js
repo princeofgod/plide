@@ -6,6 +6,8 @@ const { validationResult } = require('express-validator');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const userController = require('../controllers/webControllers/user');
+const userGroupController = require('../controllers/webControllers/userGroup');
+const courseController = require('../controllers/webControllers/course');
 const multer = require('multer');
 const User = require('../model/user');
 const Event = require('../model/event');
@@ -14,8 +16,11 @@ const moment = require('moment')
 const {fileValidator, confirmRegisterToken, resetPasswordValidation, loginValidation,registerValidation, result, forgotPasswordValidation, tokenVerify} = require('../config/validate');
 const helper = require('../config/helpers');
 const Schedule = require('../model/schedule')
+const axios = require('axios');
 const session = require('express-session');
+const { handlebars } = require('hbs');
 const MongoStore = require('connect-mongodb-session')(session);
+const loop = require("handlebars-loop")
 // const {total} = require('../config/helpers');
 const store = new MongoStore({
 	uri: 'mongodb://localhost:27017/MVC1',
@@ -261,24 +266,19 @@ router.post('/avatar', upload.single("picture"), async (req, res, next) => {
  * Routing for the home page
  */
 router.get('/home', async function(req, res) {
-  	console.log("Testing persistent login", req.session)
-  // Check for running session
+  	// Check for running session
   	if(!req.session.user){
     	res.redirect('/users/login')
   	}else{
 		page.pageTitle = "Dashboard",
 		page.title = 'PACES Admin Events';
-		// const total = {
-		// 	registered:10,
-		// 	events: 3,
-
+		
 		const schedule = await Schedule.find({},{}, (err, res) => {
 			return res
 		})
 		// }
 		const total = await helper.getStatistics()
-			// re
-		// Check for privileges
+		// Check role
 		if(req.session.user.role === '1'){
 			res.render('./admin/adminDashboard', {user:req.session.user, page:page,total:total,schedule:schedule})
 		} else {
@@ -287,43 +287,7 @@ router.get('/home', async function(req, res) {
   	}  
 });
 
-   
-/**
-* Routing for the payment page
-*/
-router.get('/payment', (req,res,next) => {
-    if(!req.session.user){
-      	res.redirect('/users/login')
-    }else{
-		let user = req.session.user
-            page.pageTitle = "Dashboard"
-            page.title = 'PACES Admin Events'
-           	res.render('payment', {user:user, page:page})
-    }
-})
-
-router.get('/payment-form', (req,res,next) => {
-    if(!req.session.user){
-      	res.redirect('/users/login')
-    }else{
-		page.pageTitle = "Fund a course"
-		page.title = 'PACES Fund a course'
-        res.render('./users/payment-form', {page:page, user:req.session.user})
-    }
-})
-  
-  
-router.get('/funding', function(req, res, next) {
-	if(!req.session.user) res.redirect('/users/login')
- 	else {
-		let user = req.session.user
-		page.pageTitle = "Fund a course"
-		page.title = 'PACES Fund a course'
-		if(user.role === '1') res.render('./admin/adminfundACourse', {user:user, page:page})
-		res.render('./users/fundACourse', {user:user, page:page});
-	 }
-});
-
+    
 // Routing for the logout page
 router.get('/logout', (req, res, next) => {
 	if(req.session){
@@ -338,5 +302,32 @@ router.get('/logout', (req, res, next) => {
 		})
 	}
 })
+
+router.get("/members", async (req, res) => {
+	if(!req.session.user){
+    	res.redirect('/users/login')
+  	}else{
+		if(req.session.user.role !== "1"){
+			res.redirect('../users/home')
+		} else {
+			const members = await userController.getAll(req)
+
+			page.pageTitle = "Members";
+			page.title = "PACES Members"
+			
+			res.render("./admin/members", {user:req.session.user, members:members, page:page,estimate: members.page * members.limit})
+		}
+	}
+})
+
+router.get('/viewUser', async (req, res) => {
+	console.log("I am here", req.query)
+	const member = await userController.getOneById(req.query.id)
+	console.log("returned member =====", member)
+	const memberGroups = await userGroupController.getById(req.query.id)
+	console.log(memberGroups)
+	res.render('./admin/full-info', {user:req.session.user, page: page, member:member, memberGroups : memberGroups })
+})
+
 
 module.exports = router;

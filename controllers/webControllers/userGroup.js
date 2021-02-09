@@ -1,4 +1,6 @@
 const UserGroup = require('../../model/userGroup');
+const Group = require('../../model/group');
+
 exports.deleteOne = async (id) => {
     const errors = validationResult(req);
 
@@ -98,3 +100,13 @@ exports.getAll = Model => async () => {
     };
 
 };
+
+exports.getById = async id => {
+    const usersGroup = await Group.find({leader:id}, ((err, res) => {
+        if(err) console.log(err)
+        else {
+            return res
+        }
+    })).populate('leader');
+    return usersGroup;
+}

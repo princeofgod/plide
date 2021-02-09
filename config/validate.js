@@ -2,7 +2,7 @@ const {check,param,query} = require("express-validator")
 const Group = require("../model/group")
 const User = require("../model/user")
 const Event = require("../model/event")
-const Category = require("../model/category")
+const Course = require("../model/course")
 const bcrypt = require("bcryptjs")
 const { NotExtended } = require("http-errors")
 // const { query } = require("express")
@@ -114,9 +114,9 @@ const eventValidation = [
  */
 const categoryValidation = [
     check("category_name").notEmpty().withMessage("Category name can't be left empty").custom(async value => {
-        await Category.findOne({name:value})
-            .then(category => {
-                if(category){
+        await Course.findOne({name:value})
+            .then(course => {
+                if(course){
                     throw new Error("Category with name already exists!");
                 }
             })

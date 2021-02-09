@@ -35,6 +35,9 @@ const userSchema = new mongoose.Schema({
     local_govt: {
         type: String,
     },
+    address:{
+        type : String,
+    },
     ward: {
         type: String,
     },

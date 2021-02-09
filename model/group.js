@@ -35,7 +35,8 @@ const groupSchema = new mongoose.Schema({
     secretary:{
         type: Mongoose.ObjectId,
         ref: 'User'
-    }
+    },
+    members :[],
     
 },{
     timestamps: { createdAt: true, updatedAt: false }

@@ -146,11 +146,10 @@
                                                             style="width:40vw">
                                                             Fund a course</p>
                                                         <p class="percent" id="fund-percent" style="width:100%">
-                                                        </p>
-                                                        79%</p>
+                                                        </p>{{total.percentageFunded}}%</p>
                                                     </div>
                                                     <div class="d" id="">
-                                                        <div class="" id="fund-progress" style=""></div>
+                                                        <div class="" id="fund-progress" style="width:{{total.percentageFunded}}%"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-2">
@@ -327,11 +326,7 @@
             labels: ['', '', ''],
             datasets: [{
                 label: 'Population',
-                data: [
-                    100,
-                    300,
-                    200
-                ],
+                data: [],
                 borderColor: "#124814"
             }]
         },

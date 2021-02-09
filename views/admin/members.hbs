@@ -1,0 +1,112 @@
+<div class="row" style="height:100vh">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+        {{>adminMenu}}
+    </div>
+    <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
+        <div class="row ">
+            <div class="col-12" style="">
+                {{>adminTop}}
+            </div>
+        </div>
+        <div class="row px-4 pl-4">
+
+
+            {{#if error}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            {{#if success}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            <div class="col-11 m-4" id="{{!-- form-add --}}">
+                <p class="" id="">Showing results {{members.pagingCounter}} - {{#estimate estimate
+                    members.totalDocs}}{{/estimate}} of {{members.totalDocs}}
+                </p>
+                <table id="members-list">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email Address</th>
+                        <th>Phone number</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                    {{#if members}}
+                    {{#each members.docs}}
+                    <tr>
+                        <td>{{this.firstname}}</td>
+                        <td>{{this.lastname}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.phone}}</td>
+                        <td>{{this.address}}</td>
+                        <td>
+                            <form action="viewUser" method="get" id="viewForm">
+                                <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
+                            </form>
+                            <button type="button" class="btn btn-primary" id="{{this._id}}"
+                                onclick='window.location.href="/users/viewUser/?id={{this._id}}"'>
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{/if}}
+                </table>
+                <nav aria-label="..." class="mt-3">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        {{#previous members.page}}
+                        <li class="page-item">
+                            <a class="page-link" href="/users/members?limit={{members.limit}}&page={{members.prevPage}}"
+                                tabindex="-1" disabled>Previous</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link" href="/users/members?limit={{members.limit}}&page={{members.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+                        {{/previous}}
+
+                        {{!-- <li class="page-item">
+                            <a class="page-link" href="/users/members?limit={{members.limit}}&page={{members.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li> --}}
+
+                        {{#if members}}
+                        {{#loop 1 members.totalPages 1}}
+                        <li class="page-item"><a class="page-link"
+                                href="/users/members?limit={{members.limit}}&page={{this}}">{{this}}
+                                {{members.limit}}</a>
+                        </li>
+                        {{/loop}}
+
+                        {{#eq members.page members.totalpages}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/users/members?limit={{members.limit}}&page={{members.nextPage}} disabled">Next</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/users/members?limit={{members.limit}}&page={{members.prevPage}}">Next</a>
+                        </li>
+                        {{/eq}}
+                        {{!-- {{/if}} --}}
+                        {{/if}}
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -267,17 +267,19 @@ exports.getOneByEmail = async (query) => {
     })
 };
 
-exports.getAll = async () => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    };
-    try {
-        const data = await User.find();
-        return data;
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+exports.getAll = async (req) => {
+    // const page = 1, limit = 20;
+    var limit = parseInt(req.query.limit) || 10;
+    var page = parseInt(req.query.page) || 1;
+    const members = await User.paginate({}, {page:page, limit:limit,pagination:true,sort:{firstname:1}/*, select: "firstname lastname email phone address"*/})
+    // const members = User.paginate({}, {}, (err, res) => {
+    //     if (err) console.log(err)
+    //     if (res) return res
+    // }).sort({firstname:1})
+    //   .skip((page - 1) * limit)
+    //   .limit(limit * 1)
+console.log(members.docs)
+    return members
 };
 
 exports.count = async () => {
@@ -341,6 +343,19 @@ exports.getManager = async (email) => {
     return manager
 }
 
+exports.getOneById = async id => {
+    const user = await User.findOne({_id: id}).then(res => {
+        return res
+    })
+    .catch(err => {
+        console.log(err)
+    })
+    return user
+} 
+
+exports.test = async (flutter) => {
+    console.log("yy",flutter)
+}
 // Authorization check if the user have rights to do this action
 // exports.restrictTo = (...permission) => {
 //     return (req, res, next) => {

@@ -11,6 +11,10 @@ const userGroupSchema = new mongoose.Schema({
         type: Mongoose.ObjectId,
         ref: 'group'
     },
+    position:{
+        type : String,
+        
+    }
     
 });
 

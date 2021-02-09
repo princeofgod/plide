@@ -686,10 +686,10 @@ width:95%;
     font-size:.8vw;
 }
 #form-add{
-    border: 1px solid rgba(18, 72, 20, 0.5);
-box-sizing: border-box;
-box-shadow: 0px 2.97867px 30.5314px -12.6594px rgba(18, 72, 20, 0.35);
-border-radius: 15px;
+    /* border: 1px solid rgba(18, 72, 20, 0.5); */
+    box-sizing: border-box;
+    box-shadow: 0px 2.97867px 30.5314px -12.6594px rgba(18, 72, 20, 0.35);
+    /* border-radius: 15px; */
 }
 .drag-drop{
     background-color: #fff;
@@ -782,4 +782,20 @@ border-radius: 15px;
 }
 #added_info{
     cursor: pointer;    
+}
+#members-list{
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid rgba(18, 72, 20, 0.5);
+    box-sizing: border-box;
+    box-shadow: 0px 2.97867px 30.5314px -12.6594px rgba(18, 72, 20, 0.35);
+    border-radius: 15px;
+}
+#members-list td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 4px 8px;
+}
+#members-list tr:nth-child(even) {
+    background-color: #dddddd;
 }
