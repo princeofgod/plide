@@ -799,3 +799,10 @@ width:95%;
 #members-list tr:nth-child(even) {
     background-color: #dddddd;
 }
+#view-info{
+    background:#FFF;
+    box-shadow: 0px 9px 39px rgba(196, 196, 196, 0.25);
+    border-radius: 10px;
+    padding-bottom: 20px;
+    margin-top:20px;
+}

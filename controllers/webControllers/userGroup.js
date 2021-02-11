@@ -102,11 +102,21 @@ exports.getAll = Model => async () => {
 };
 
 exports.getById = async id => {
-    const usersGroup = await Group.find({leader:id}, ((err, res) => {
-        if(err) console.log(err)
-        else {
-            return res
-        }
-    })).populate('leader');
+    console.log("Got here")
+    const usersGroup = await UserGroup.find({user_id : id})
+                                .populate('group_id')
+                                .then( res => {
+        return res
+    }).catch( err => {
+        console.log(err)
+    })
+    // const usersGroup = await UserGroup.find({user_id: id}, ((err, res) => {
+    //     if(err) console.log(err)
+    //     else {
+    //         return res
+    //     }
+    //     console.log("here too ")
+    // })).populate('group_id', 'name');
+    console.log("populated userGroup", usersGroup)
     return usersGroup;
 }

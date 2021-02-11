@@ -21,6 +21,19 @@ exports.deleteOne = async (id) => {
     };
 };
 
+exports.getById = async (id) => {
+    const course = await Course.findOne({_id:id},( err, res) => {
+        if (err) console.log(err)
+        if(res){
+            console.log("returned res====", res)
+            return res
+        }
+    });
+    console.log("group in webcontrollers === ", course)
+    return course;
+}
+
+
 exports.updateOne = async (id, body) => {
     const errors = validationResult(req);
 

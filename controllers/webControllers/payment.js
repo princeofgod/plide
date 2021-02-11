@@ -2,6 +2,9 @@ const Payment = require('../../model/payment');
 const User = require('../../model/user')
 const request = require('request')
 const axios = require('axios');
+const Group = require('../../model/group');
+const groupController = require('../webControllers/group')
+const courseController = require('../webControllers/course')
 // const paymentController = require('../webControllers')
 exports.createOne = async (paymentData) => {
     const data = await Payment.create(paymentData);
@@ -37,8 +40,21 @@ exports.verifyPayment = async (data) => {
                     trx_ref : receivedData['tx_ref'],
                     payment_date : receivedData['created_at'],
                     amount : receivedData['amount'],
-                    narration : 'Monthly',
-                    purpose: 'membership'
+                    narration : '',
+                    purpose: ''
+                }
+                console.log(" sdmnsbdmbvmsbdmvmsbdvmnsbdvm", paymentData)
+
+                if(paymentData.trx_ref.includes("course")){
+                    paymentData.purpose = 'course'
+                    console.log("group id--------------",receivedData.meta['group_id'])
+                    const course = await courseController.getById(receivedData.meta['group_id'])
+                    console.log("Returned group ====", course)
+                    paymentData.narration = course.name
+
+                } else if(paymentData.trx_ref.includes("subscribe")){
+                    paymentData.purpose = 'membership'
+                    paymentData.narration = 'Monthly subscription'
                 }
                 console.log("Payment data to be stored", paymentData)
 

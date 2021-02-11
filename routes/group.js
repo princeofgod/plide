@@ -106,6 +106,27 @@ router.post('/addgroup', groupValidation, async (req,res) => {
 		}
 
 		let group = await groupController.createOne(body)
+		console.log("GROUP ========", group)
+		// Add the secretary and the leader to the User group with position
+
+		let usersToBeAdded = [leader, sec]
+		usersToBeAdded.forEach( async (el,index)=> {
+			
+			const newUserGroup = {
+				user_id:el._id,
+				group_id:group._id,
+				position:""
+			}
+			if(index == 0) {
+				newUserGroup.position = "leader"
+			} else if(index == 1) {
+				newUserGroup.position = "secretary"
+			}
+
+			await UserGroup.create(newUserGroup)
+		})
+		
+		
 		console.log(group)
 		if (group === undefined) res.render('./admin/addgroup', {user:req.session.user, page:page,error:"Could not save group!"})
 		else res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
@@ -128,24 +149,24 @@ router.post('/usergroup',userGroupValidator, async (req,res) => {
 			// console.log("Full name", fullname)
 		const user = await userController.getOneByEmail(email);
 
-		const newUpdate = await Group.findOneAndUpdate({name:req.body["group_name"]},{$push:{members:user._id}},{
-			new:true,
-			upsert:true
-		},(err, group) =>{
-			if(err) console.log(err)
-			if(group){
-				return group
-			}
-		})
-		// let body = {
-		// 	user_id: user._id,
-		// 	group_id: group._id
-		// };
-		// let newUserGroup = new UserGroup(body);
-		// newUserGroup.save()
-		// 	.then( user => {
-		// 		return user
-		// 	})
+		// const newUpdate = await Group.findOneAndUpdate({name:req.body["group_name"]},{$push:{members:user._id}},{
+		// 	new:true,
+		// 	upsert:true
+		// },(err, group) =>{
+		// 	if(err) console.log(err)
+		// 	if(group){
+		// 		return group
+		// 	}
+		// })
+		let body = {
+			user_id: user._id,
+			group_id: group._id,
+		};
+		let newUserGroup = new UserGroup(body);
+		newUserGroup.save()
+			.then( user => {
+				return user
+			})
 		
 			res.render("./admin/addgroup", {success: "User successfully added to group!"})
 			// Should return a modal with success

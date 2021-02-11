@@ -5,15 +5,15 @@ const Mongoose = mongoose.Schema.Types;
 const userGroupSchema = new mongoose.Schema({
     user_id: {
         type: Mongoose.ObjectId,
-        ref: 'user'
+        ref: 'User'
     },
     group_id: {
         type: Mongoose.ObjectId,
-        ref: 'group'
+        ref: 'Group'
     },
     position:{
         type : String,
-        
+        default:'member'
     }
     
 });

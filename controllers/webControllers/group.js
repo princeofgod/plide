@@ -48,12 +48,15 @@ exports.updateOne = async (id, body) => {
 exports.createOne = async (body) => {
     let newGroup = new Group(body);
     let message
-    await newGroup.save()
+    const group = await newGroup.save()
         .then( group => {
-            if(group) message = "success!"
+            if(group) {
+                message = "success!";
+                return group
+            }
             else message = "error!" 
         })
-    return message
+    return group
 };
 
 exports.getOne = async (query) => {
@@ -61,6 +64,17 @@ exports.getOne = async (query) => {
         if(err) console.log("Couldn't get data!")
     })
 };
+exports.getById = async (id) => {
+    const group = await Group.findOne({_id:id},( err, res) => {
+        if (err) console.log(err)
+        if(res){
+            console.log("returned res====", res)
+            return res
+        }
+    });
+    console.log("group in webcontrollers === ", group)
+    return group;
+}
 
 exports.getAll = async () => {
 

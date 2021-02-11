@@ -325,7 +325,7 @@ router.get('/viewUser', async (req, res) => {
 	const member = await userController.getOneById(req.query.id)
 	console.log("returned member =====", member)
 	const memberGroups = await userGroupController.getById(req.query.id)
-	console.log(memberGroups)
+	// console.log(memberGroups)
 	res.render('./admin/full-info', {user:req.session.user, page: page, member:member, memberGroups : memberGroups })
 })
 

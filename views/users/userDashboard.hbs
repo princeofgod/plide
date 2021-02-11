@@ -234,7 +234,7 @@
     const fullname = document.getElementById('fullname').value;
     const phone = document.getElementById('phone').value;
     const userId = document.getElementById('UserId').value;
-
+    let transferRef = "subscribe-"
 
     /*async function checkResult = result => {
          const data = await axios.get("http://127.0.0.1:3002/payments/getPayments").then((err,res) => {
@@ -292,10 +292,10 @@
     })
 
     function makePayment() {
-        console.log("transferRef === ", transferRef)
+        //console.log("transferRef === ", transferRef)
         FlutterwaveCheckout({
             public_key: "FLWPUBK_TEST-ca0523b9912952630c7ac39073a8b0e6-X",
-            tx_ref: transferRef,
+            tx_ref: transferRef + generated,
             amount: 2000,
             currency: "NGN",
             country: "NG",
@@ -335,5 +335,6 @@
         }
         return result;
     }
-    let transferRef = generateRandomCharacter(30);
+    let generated = generateRandomCharacter(20);
+
 </script>
