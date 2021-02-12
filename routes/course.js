@@ -4,7 +4,8 @@ const router = express.Router();
 const courseController = require('../controllers/webControllers/course');
 const { categoryValidation } = require('../config/validate');
 const { validationResult } = require('express-validator');
-const moment = require("moment")
+const moment = require("moment");
+const helper = require('../config/helpers');
 let page = {
   newDate : moment().format("DD, MMMM YYYY"),
   title : 'PACES Categories',
@@ -103,7 +104,8 @@ router.get('/payment?:id', async (req,res) => {
 			course.date = moment(course["createdAt"]).format("D MMM, YYYY")
 		}
 		console.log("coursepppppppppppppp ",course)
-		res.render('payment', {user:user, page:page,course:course})
+		const paymentStat = await helper.paymentStat(course.name)
+		res.render('payment', {user:user, page:page,course:course,donor:paymentStat.donor, recent:paymentStat.recent})
     }
 })
 

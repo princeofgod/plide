@@ -64,3 +64,18 @@ exports.setScheduleTime = async (data) => {
 
     return data
 }
+
+exports.paymentStat = async (courseName) => {
+	const paymentStat = { };
+
+	await Payment.find({narration:courseName}).countDocuments().then(value => {
+		paymentStat.donor = value;
+	}).catch(err => console.log(err))
+
+	await Payment.find({narration:courseName}).populate('userId').limit(3).sort("ascending").then(value => {
+		paymentStat.recent = value
+	}).catch(err => console.log(err))
+	console.log("payments =====", paymentStat.recent)
+
+	return paymentStat;
+}

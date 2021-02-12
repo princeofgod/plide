@@ -29,11 +29,61 @@
             </div>
             {{/if}}
 
-            <div class="col-11 m-4" id="{{!-- form-add --}}">
+            <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
                 <p class="" id="">Showing results {{members.pagingCounter}} - {{#estimate estimate
                     members.totalDocs}}{{/estimate}} of {{members.totalDocs}}
                 </p>
-                <table id="members-list">
+                <div class="card d-flex flex-row w-100 member-card-header" style="">
+                    <div class="member-card-image" style="width:15%">
+                        Image
+                    </div>
+                    <ul class="list-group list-group-flush d-flex flex-row  w-100 h-100" style="border:none;">
+                        {{!-- <li class="list-group-item text-center px-1 m-0" style="width:10%">FirstName</li> --}}
+                        <li class="list-group-item text-center px-0 m-0" style="width:10%;border:none;">FirstName</li>
+                        <li class="list-group-item text-center px-0 m-o" style="width:10%;border:none;">LastName</li>
+                        <li class="list-group-item text-center px-0" style="width:30%;border:none;">EmailAddress</li>
+                        <li class="list-group-item text-center px-0" style="width:13%;border:none;">Phone</li>
+                        <li class="list-group-item text-center px-0" style="width:29%;border:none;">Location</li>
+                        <li class="list-group-item text-center px-0"
+                            style="width:8%;border:none;float:right;clear:both">View</li>
+                    </ul>
+                </div>
+                {{#if members}}
+                {{#each members.docs}}
+                <div class="card d-flex flex-row align-items-center w-100 mt-2 member-card pl-2" style="height:20vh;">
+                    {{!-- <div class="member-card-header"
+                        style="background-image: url('../avatar/{{this.profile_pic}}');">
+
+                    </div> --}}
+                    <div class="member-card-image"
+                        style="width:15%;height:80%;background-image: url('../avatar/{{this.profile_pic}}')">
+
+                    </div>
+                    <ul class="list-group list-group-flush d-flex flex-row w-100">
+                        {{!-- <li class="list-group-item text-center px-1" style="width:10%;border:none">
+                            {{this.profile_pic}} --}}
+                        <li class="list-group-item text-center px-0" style="width:10%;border:none">{{this.firstname}}
+                        </li>
+                        <li class="list-group-item text-center px-0" style="width:10%;border:none;">{{this.lastname}}
+                        </li>
+                        <li class="list-group-item text-center px-0" style="width:30%;border:none;">{{this.email}}</li>
+                        <li class="list-group-item text-center px-0 " style="width:13%;border:none;">{{this.phone}}</li>
+                        <li class="list-group-item text-center px-0 " style="width:28%;border:none;">
+                            bkadlkalkhfakshfdkhdfkhdkfhhskdhfkshdfkjhkl</li>
+                        <li class="list-group-item text-center px-0" style="width: 9%;border:none;">
+                            <form action="viewUser" method="get" id="viewForm">
+                                <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
+                            </form>
+                            <button type="button" class="btn btn-primary" id="{{this._id}}"
+                                onclick='window.location.href="/users/viewUser?id={{this._id}}"'>
+                                View
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                {{/each}}
+                {{/if}}
+                {{!-- <table id="members-list">
                     <tr>
                         <th>Firstname</th>
                         <th>Lastname</th>
@@ -55,14 +105,14 @@
                                 <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
                             </form>
                             <button type="button" class="btn btn-primary" id="{{this._id}}"
-                                onclick='window.location.href="/users/viewUser?id={{this._id}}"'>
+                                onclick='//window.location.href="/users/viewUser?id={{this._id}}"'>
                                 View
                             </button>
                         </td>
                     </tr>
                     {{/each}}
                     {{/if}}
-                </table>
+                </table> --}}
                 <nav aria-label="..." class="mt-3">
                     <ul class="pagination pagination-sm justify-content-center">
                         {{#previous members.page}}

@@ -1,0 +1,110 @@
+<div class="row" style="height:100vh">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+        {{>adminMenu}}
+    </div>
+    <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
+        <div class="row ">
+            <div class="col-12" style="">
+                {{>adminTop}}
+            </div>
+        </div>
+        <div class="row px-4 pl-4">
+
+
+            {{#if error}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            {{#if success}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            <div class="col-11 m-4" id="{{!-- form-add --}}">
+                <p class="" id="">Showing results {{payment.pagingCounter}} - {{#estimate estimate
+                    payment.totalDocs}}{{/estimate}} of {{payment.totalDocs}}
+                </p>
+                <table id="members-list">
+                    <tr>
+                        {{!-- <th>S/N</th> --}}
+                        <th>Username</th>
+                        <th>Transaction ref</th>
+                        <th>Transaction_id</th>
+                        <th>Payment Date</th>
+                        <th>Amount</th>
+                        <th>Narration</th>
+                        <th>Purpose</th>
+                    </tr>
+                    {{#if payment}}
+                    {{#each payment.docs}}
+                    <tr>
+                        {{!-- <td></td> --}}
+                        <td>{{this.userId.firstname}} {{this.userId.lastname}}</td>
+                        <td>{{this.trx_ref}}</td>
+                        <td>{{this.transaction_id}}</td>
+                        <td>{{this.payment_date}}</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{this.purpose}}</td>
+                        <td>{{this.narration}}</td>
+                    </tr>
+                    {{/each}}
+                    {{/if}}
+                </table>
+                <nav aria-label="..." class="mt-3">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        {{#previous payment.page}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.prevPage}}"
+                                tabindex="-1" disabled>Previous</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+                        {{/previous}}
+
+                        {{!-- <li class="page-item">
+                            <a class="page-link" href="/users/payment?limit={{payment.limit}}&page={{payment.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li> --}}
+
+                        {{#if payment}}
+                        {{#loop 1 payment.totalPages 1}}
+                        <li class="page-item"><a class="page-link"
+                                href="/payment/getpayments?limit={{payment.limit}}&page={{this}}">{{this}}
+                                {{payment.limit}}</a>
+                        </li>
+                        {{/loop}}
+
+                        {{#eq payment.page payment.totalpages}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.nextPage}} disabled">Next</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.prevPage}}">Next</a>
+                        </li>
+                        {{/eq}}
+                        {{!-- {{/if}} --}}
+                        {{/if}}
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+</div>

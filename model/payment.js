@@ -9,7 +9,7 @@ const paymentSchema = new mongoose.Schema({
     trx_ref : {
         type :String,
     },
-    pay_ref :{
+    transaction_id :{
         type: String,
     },
     payment_date : {

@@ -73,7 +73,7 @@
                     {{!-- --}}
                     <div class="row my-3">
                         <div class="mr-2 ml-4">
-                            <p class="font-weight-bold my-0">27</p>
+                            <p class="font-weight-bold my-0">{{donor}}</p>
                             <p class="" style="rgba(18, 72, 20, 0.5);">donors</p>
                         </div>
                         <div class="mx-2">
@@ -114,8 +114,14 @@
                                     d="M17.0619 19.7701C16.8786 19.7701 16.6932 19.728 16.523 19.639L6.40033 14.3491C5.87778 14.076 5.69461 13.465 5.99244 12.9849C6.28907 12.505 6.95664 12.336 7.48039 12.611L17.6031 17.9009C18.1256 18.1739 18.3088 18.785 18.0109 19.2651C17.8092 19.589 17.4405 19.7701 17.0619 19.7701Z"
                                     fill="#124814" />
                             </svg>
-                            SHARE
+                            <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text=Hello%20world"
+                                data-size="large">
+                                SHARE</a>
+
                         </button>
+                        <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title"
+                            data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle
+                            popover</button>
                         {{!-- <div class="mt-4"> --}}
                             {{!-- <form> --}}
                                 <input type="text" class="" style="display:none" value="{{user.email}}" id="email">
@@ -142,8 +148,8 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <button type="button" class="btn btn-primary"
-                                                    onclick="makePayment()">Save changes</button>
+                                                <button type="button" id="pay" class="btn btn-primary"
+                                                    onclick="makePayment()">Make Payment</button>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +185,40 @@
                 {{!-- --}}
                 <div class="row flex-column">
                     <div class="col">
+                        {{#if recent}}
+                        {{#each recent}}
                         <div class="row">
+                            <div class="col-2">
+                                <div class="donator-icon d-flex align-items-center justify-content-center"
+                                    style="background-image:url("
+                                    ../avatar/{{this.userId.profile_pic}}");background-position:50%;background-size:contain">
+
+                                    {{!-- <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
+                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg> --}}
+
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <p class="font-weight-bold">{{this.userId.firstname}} {{this.userId.lastname}}</p>
+                                <p class="font-weight-bold"># {{this.amount}} <span class=""
+                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
+                                        mos</span></p>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{/if}}
+
+
+
+
+                        {{!-- <div class="row">
                             <div class="col-2">
                                 <div class="donator-icon d-flex align-items-center justify-content-center" style="">
                                     <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
@@ -222,29 +261,7 @@
                                         style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
                                         mos</span></p>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="donator-icon d-flex align-items-center justify-content-center" style="">
-                                    <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
-                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <p class="font-weight-bold">Gabriel Esan</p>
-                                <p class="font-weight-bold"># 35,000 <span class=""
-                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
-                                        mos</span></p>
-                            </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="my-4 d-flex justify-content-between">
@@ -266,6 +283,8 @@
     const fullname = document.getElementById('fullname').value;
     const phone = document.getElementById('phone').value;
     const amountToDonate = document.getElementById('amountToDonate');
+    const paybtn = document.getElementById('pay');
+
     function generateRandomCharacter(length) {
         var result = '';
         var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -278,6 +297,11 @@
     }
     let transferRef = "course-";
     let generated = generateRandomCharacter(23);
+    function getAmount() {
+        paybtn.addEventListener('click', (e) => {
+
+        })
+    }
     function makePayment() {
         console.log("got here")
         FlutterwaveCheckout({
@@ -287,8 +311,8 @@
             "currency": "NGN",
             "country": "NG",
             "payment_options": "card, ussd",
-            //redirect_url: // specified redirect URL --}}
-            //  "http://127.0.0.1:3002/payment/savePayment",
+            redirect_url: // specified redirect URL --}}
+                "http://127.0.0.1:3002/payment/savePayment",
             meta: {
                 group_id: document.getElementById('courseId').value,
                 //consumer_mac: "92a3-912ba-1192a",
@@ -317,5 +341,9 @@
             },
         });
     }
+
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    })
 
 </script>

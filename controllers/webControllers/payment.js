@@ -12,6 +12,7 @@ exports.createOne = async (paymentData) => {
 }
 
 exports.verifyPayment = async (data) => {
+    console.log("Entered here o")
     if(data.status == "successful") {
         var options = {
         'method': 'GET',
@@ -34,12 +35,14 @@ exports.verifyPayment = async (data) => {
                         return user
                 })
                 console.log("New session added ============ ", user)
+                console.log("received data from flutterwave", receivedData)
 
                 var paymentData = {
                     userId : user._id,
                     trx_ref : receivedData['tx_ref'],
                     payment_date : receivedData['created_at'],
                     amount : receivedData['amount'],
+                    transaction_id:receivedData['id'],
                     narration : '',
                     purpose: ''
                 }
@@ -130,4 +133,22 @@ exports.verifyPayment = async (data) => {
         // return obj
         // });
     }
+}
+
+exports.getAll = async (data) => {
+    var limit = parseInt(data.query) || 10;
+    var page = parseInt(data.query) || 1;
+    var options = {
+        sort: { payment_date: 1 },
+        populate: 'userId',
+        // select:'firstname lastname',
+        // lean: true,
+        // offset: offset, 
+        limit: limit,
+        page: page,
+        // pagination :true,
+      };
+    const payments = await Payment.paginate({}, options/*, select: "firstname lastname email phone address"*/)
+
+    return payments;
 }
