@@ -55,7 +55,7 @@ router.get('/getPayments', async (req, res) => {
 
 			page.pageTitle = "Payments";
 			page.title = "PACES Payments"
-			
+			console.log(payments)
 			res.render("./admin/viewpayment", {user:req.session.user, payment:payments, page:page,estimate: payments.page * payments.limit})
 		}
 	}

@@ -60,12 +60,6 @@ app.engine(
             accum += block.fn(i);
         return accum;
     },
-    'eq' : function(a, b, opts) {
-		if(a == b) // Or === depending on your needs
-			return opts.fn(this);
-		else
-			return opts.inverse(this);
-	},
 	'estimate' : function(a, b, opts) {
 		if(a > b) return a = b
 		else return a = a
@@ -76,9 +70,17 @@ app.engine(
     } else {
       return opts.inverse(this)
     }
-  }
+  },
+  'next' : function(a,opts){
+    if(a == false){
+      return opts.fn(this)
+    } else {
+      return opts.inverse(this)
+    }
+  },
   }})
 );
+// Handlebars.registerHelper('paginate', require('handlebars-paginate'));
 
 app.set('view engine', 'hbs');
 

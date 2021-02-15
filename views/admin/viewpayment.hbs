@@ -61,24 +61,22 @@
                 </table>
                 <nav aria-label="..." class="mt-3">
                     <ul class="pagination pagination-sm justify-content-center">
+
                         {{#previous payment.page}}
-                        <li class="page-item">
+                        <li class="page-item disabled">
                             <a class="page-link"
-                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.prevPage}}"
-                                tabindex="-1" disabled>Previous</a>
+                                href="/payment/getPayments?limit={{payment.limit}}&page={{payment.prevPage}}"
+                                tabindex="-1">Previous</a>
                         </li>
                         {{else}}
                         <li class="page-item">
                             <a class="page-link"
-                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.prevPage}}"
+                                href="/payment/getPayments?limit={{payment.limit}}&page={{payment.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{/previous}}
 
-                        {{!-- <li class="page-item">
-                            <a class="page-link" href="/users/payment?limit={{payment.limit}}&page={{payment.prevPage}}"
-                                tabindex="-1">Previous</a>
-                        </li> --}}
+
 
                         {{#if payment}}
                         {{#loop 1 payment.totalPages 1}}
@@ -88,17 +86,20 @@
                         </li>
                         {{/loop}}
 
-                        {{#eq payment.page payment.totalpages}}
-                        <li class="page-item">
+
+                        {{#next payment.hasNextPage}}
+                        <li class="page-item disabled">
                             <a class="page-link"
-                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.nextPage}} disabled">Next</a>
+                                href="../payment/getPayments?limit={{payment.limit}}&page={{payment.nextPage}}">Next</a>
                         </li>
                         {{else}}
-                        <li class="page-item">
+                        <li class="page-item ">
                             <a class="page-link"
-                                href="/payment/getpayments?limit={{payment.limit}}&page={{payment.prevPage}}">Next</a>
+                                href="../payment/getPayments?limit={{payment.limit}}&page={{payment.nextPage}}">Next</a>
                         </li>
-                        {{/eq}}
+                        {{/next}}
+
+
                         {{!-- {{/if}} --}}
                         {{/if}}
                     </ul>

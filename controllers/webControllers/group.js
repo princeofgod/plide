@@ -106,9 +106,9 @@ exports.getRandom = async () => {
 // })
 }
 
-exports.getAllPaginate = async () => {
-    var limit = 10;
-    var page =  1;
+exports.getAllPaginate = async (req) => {
+    var limit = parseInt(req.query.limit) || 10;
+    var page = parseInt(req.query.page) || 1;
     const displayGroups = Group.paginate({}, {page:page, limit:limit,pagination:true,sort:{name:1}, populate: 'leader secretary', })
     return displayGroups;
 }

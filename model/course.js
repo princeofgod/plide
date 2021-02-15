@@ -10,10 +10,7 @@ const courseSchema = new mongoose.Schema({
         type: String,
         require: true
     },
-    logo_pic: {
-        type: String,
-    },
-    organizerId: {
+    organiserId: {
         type: Mongoose.ObjectId,
         ref: 'User'
     },

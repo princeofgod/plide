@@ -177,12 +177,17 @@ router.get('/viewgroups', async (req, res) => {
 	if(!req.session.user){
     	res.redirect('/users/login')
   	}else{
-		const displayGRoups = await groupController.getAllPaginate();
+		const displayGRoups = await groupController.getAllPaginate(req);
 
 		page.title = "PACES Group"
 		page.pageTitle = "Group"
 		console.log(displayGRoups)
-		res.render('viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+
+		if(req.session.user.role === '1'){
+			res.render('./admin/adminviewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+		} else {
+			res.render('viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+		}
 	}
 
 })

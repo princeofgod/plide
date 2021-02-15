@@ -113,3 +113,11 @@ exports.getFundableCourses = async () => {
     })
     return courses
 }
+
+exports.getAllPaginated = async (req) => {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 2;
+
+    const course = Course.paginate({},{page:page, limit:limit, paginate:true, sort:{name:1}});
+    return course;
+}

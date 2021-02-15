@@ -346,9 +346,7 @@ exports.getOneById = async id => {
     return user
 } 
 
-exports.test = async (flutter) => {
-    console.log("yy",flutter)
-}
+
 // Authorization check if the user have rights to do this action
 // exports.restrictTo = (...permission) => {
 //     return (req, res, next) => {

@@ -136,8 +136,8 @@ exports.verifyPayment = async (data) => {
 }
 
 exports.getAll = async (data) => {
-    var limit = parseInt(data.query) || 10;
-    var page = parseInt(data.query) || 1;
+    var limit = parseInt(data.query.limit) || 15;
+    var page = parseInt(data.query.page) || 1;
     var options = {
         sort: { payment_date: 1 },
         populate: 'userId',

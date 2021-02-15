@@ -133,4 +133,22 @@ router.post('/updateShare', (req, res) => {
 		}
 	})
 })
+
+router.get('/viewcourses', async (req,res) => {
+	if(!req.session.user){
+    	res.redirect('/users/login')
+  	}else{
+		const courses = await courseController.getAllPaginated(req);
+		page.pageTitle = "Cause";
+		page.title = "PACES Cause"
+		console.log(courses)
+
+		if(req.session.user.role === '1') {
+			res.render('./admin/viewcourse', {course:courses, page:page, estimate: courses.page *courses.limit, pagination:{page:courses.page,}})
+	
+		}
+		res.render('./users/viewcourse', {course:courses, page:page, estimate: courses.page *courses.limit, pagination:{page:courses.page,}})
+	}
+
+})
   module.exports = router; 
