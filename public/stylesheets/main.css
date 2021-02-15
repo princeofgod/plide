@@ -307,7 +307,8 @@ border:none;
     background: #FAFFF9;
     box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
     border-radius: 9.52381px;
-    /* width:100vw; */
+    max-width:20vw;
+    width:20vw
 }
 
   /* ----------------------------------- */
@@ -511,7 +512,9 @@ border:none;
     box-shadow: 0px 7px 35px -14px rgba(18, 72, 20, 0.3);
     border-radius: 10px;
     color:#124814;
+    max-width:10vw
 }
+
 .fund-btn{
     background: #124814;
     box-shadow: 0px 3.95577px 15.8231px rgba(159, 159, 159, 0.25);
@@ -709,7 +712,7 @@ width:95%;
 }
 .wrap-text{
     white-space: nowrap;
-    width: 90%;
+    width: 60%;
     overflow: hidden;
     text-overflow: ellipsis; 
 }
@@ -805,7 +808,9 @@ width:95%;
     border-radius: 10px;
     padding-bottom: 20px;
     margin-top:20px;
+    font-size: 1vw;
 }
+
 .member-card{
     box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
     border-radius: 9.52381px;
@@ -828,7 +833,7 @@ width:95%;
     box-shadow: 0px 3.80952px 39.0476px -16.1905px rgba(18, 72, 20, 0.35);
     border-radius: 9.52381px;
     border:none;
-    background-size:cover;
+    background-size:contain;
     background-position: 50%;
     padding:1vw;
 }

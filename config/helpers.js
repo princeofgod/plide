@@ -66,10 +66,19 @@ exports.setScheduleTime = async (data) => {
 }
 
 exports.paymentStat = async (courseName) => {
-	const paymentStat = { };
-
+	const paymentStat = {
+		totalDonation : 0,
+	};
+let courseAmount = 0
 	await Payment.find({narration:courseName}).countDocuments().then(value => {
 		paymentStat.donor = value;
+	}).catch(err => console.log(err))
+
+	await Payment.find({narration:courseName}).then(value => {
+		value.forEach(el => {
+			paymentStat.totalDonation += parseInt(el.amount)
+			// console.log("Total donations ", paymentStat.totalDonation)
+		})
 	}).catch(err => console.log(err))
 
 	await Payment.find({narration:courseName}).populate('userId').limit(3).sort("ascending").then(value => {
@@ -77,5 +86,15 @@ exports.paymentStat = async (courseName) => {
 	}).catch(err => console.log(err))
 	console.log("payments =====", paymentStat.recent)
 
+	await Course.findOne({name:courseName}).then(course => {
+		// courseAmount = parseInt(course.amount_needed)
+		courseAmount = course.amount_needed
+		console.log("Course Amount ======", courseAmount)
+		console.log("Course Amount ======", paymentStat.totalDonation)
+	})
+	paymentStat.percentagePaid = (paymentStat.totalDonation/courseAmount) * 100
+	console.log()
+
+	
 	return paymentStat;
 }

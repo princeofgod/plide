@@ -49,7 +49,7 @@
                         <div class="col-7">
                             <div class="row mt-3">
                                 <div class="col-10 ">
-                                    <label for="category_name" class="">Category</label>
+                                    <label for="category_name" class="">Cause</label>
                                     <input type="text" name="category_name" id="" class="form-control">
                                 </div>
                             </div>
@@ -82,16 +82,27 @@
                                 </div>
                             </div>
                             <div class="row mt-3">
-                                <div class="col"><label for="needs-fund" style="d-block">Needs to be
-                                        funded?</label><br />
-                                    <div class="d-inline justify-content-center align-items-center p-1 "
-                                        style="background-color: #fff;">
-                                        <input class="mt-1" type="radio" name="needs-fund" id="" value="false">No
+                                <div class="col-10 d-flex flex-row justify-content-between">
+                                    <div class="col-5 px-0">
+                                        <label for="needs-fund" style="d-block">Needs to be
+                                            funded?</label><br />
+                                        <div class="d-inline justify-content-center align-items-center p-1 "
+                                            style="background-color: #fff;">
+                                            <input class="mt-1" type="radio" name="needs-fund" id="" value="false">No
+                                        </div>
+                                        <div class="d-inline justify-content-center align-items-center p-1 "
+                                            style="background-color: #124814;color:#fff">
+                                            <input class="mt-1" type="radio" name="needs-fund" id="" value="true"> Yes
+                                        </div>
+
                                     </div>
-                                    <div class="d-inline justify-content-center align-items-center p-1 "
-                                        style="background-color: #124814;color:#fff">
-                                        <input class="mt-1" type="radio" name="needs-fund" id="" value="true"> Yes
+                                    <div class="col-5 px-0">
+                                        <label for="amount_needed">Amount Needed</label> <br>
+                                        <input class="form-control" type="text" name="amount_needed" id="">
                                     </div>
+                                </div>
+
+                                <div class="">
 
                                 </div>
                             </div>

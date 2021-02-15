@@ -20,15 +20,25 @@ const courseSchema = new mongoose.Schema({
     need_funds: {
         type: Boolean,
     },
+    amount_needed: {
+        type: String,
+    },
     sponsors: {
         type: String
     },
-    logo: {
+    logo : {
         type: String,
     },
-    createdAt:{
+    createdAt : {
         type: Date,
         default: Date.now
+    },
+    phone : {
+        type: String
+    },
+    shares : {
+        type : Number,
+        default : 0
     }
 })
 

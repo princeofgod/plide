@@ -173,6 +173,19 @@ router.post('/usergroup',userGroupValidator, async (req,res) => {
 	}
 	
 })
+router.get('/viewgroups', async (req, res) => {
+	if(!req.session.user){
+    	res.redirect('/users/login')
+  	}else{
+		const displayGRoups = await groupController.getAllPaginate();
+
+		page.title = "PACES Group"
+		page.pageTitle = "Group"
+		console.log(displayGRoups)
+		res.render('viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+	}
+
+})
 router.get('/logout', (req,res) => {
 	res.redirect('../users/logout')
 })

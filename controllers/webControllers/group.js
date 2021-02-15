@@ -105,6 +105,15 @@ exports.getRandom = async () => {
     return getRandom;
 // })
 }
+
+exports.getAllPaginate = async () => {
+    var limit = 10;
+    var page =  1;
+    const displayGroups = Group.paginate({}, {page:page, limit:limit,pagination:true,sort:{name:1}, populate: 'leader secretary', })
+    return displayGroups;
+}
+
+
 // exports.Search = async (firstname, lastname) => {
 //     try {
 //         var page = 1;

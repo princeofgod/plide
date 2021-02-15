@@ -100,12 +100,12 @@ router.get('/payment?:id', async (req,res) => {
 		page.pageTitle = "Dashboard"
 		page.title = 'PACES Admin Events'
 		const course = await courseController.getOne(req.query.id)
-		if(!course === undefined){
+		if(course != undefined){
 			course.date = moment(course["createdAt"]).format("D MMM, YYYY")
 		}
 		console.log("coursepppppppppppppp ",course)
 		const paymentStat = await helper.paymentStat(course.name)
-		res.render('payment', {user:user, page:page,course:course,donor:paymentStat.donor, recent:paymentStat.recent})
+		res.render('payment', {user:user, page:page,course:course,donor:paymentStat.donor, recent:paymentStat.recent, paymentStat:paymentStat})
     }
 })
 
@@ -119,5 +119,18 @@ router.get('/payment-form', async (req,res) => {
         res.render('./users/payment-form', {page:page, user:req.session.user})
     }
 })
-  
+
+router.post('/updateShare', (req, res) => {
+	console.log("REq. body ", req.body)
+
+	Course.updateOne({_id:req.body.id},{$inc : {shares : 1}},{new :true}, (err, course) => {
+		if(err) {
+			console.log(err)
+		}
+		if (course) {
+			console.log("New value ========= ", course.shares)
+			res.json({course:course})
+		}
+	})
+})
   module.exports = router; 

@@ -268,18 +268,11 @@ exports.getOneByEmail = async (query) => {
 };
 
 exports.getAll = async (req) => {
-    // const page = 1, limit = 20;
     var limit = parseInt(req.query.limit) || 10;
     var page = parseInt(req.query.page) || 1;
-    const members = await User.paginate({}, {page:page, limit:limit,pagination:true,sort:{firstname:1}/*, select: "firstname lastname email phone address"*/})
-    // const members = User.paginate({}, {}, (err, res) => {
-    //     if (err) console.log(err)
-    //     if (res) return res
-    // }).sort({firstname:1})
-    //   .skip((page - 1) * limit)
-    //   .limit(limit * 1)
-console.log(members.docs)
-    return members
+    const members = await User.paginate({}, {page:page, limit:limit,pagination:true,sort:{firstname:1}})
+    
+    return members;
 };
 
 exports.count = async () => {

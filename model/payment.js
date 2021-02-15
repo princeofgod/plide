@@ -27,6 +27,7 @@ const paymentSchema = new mongoose.Schema({
     }
 })
 
-paymentSchema.plugin(mongoosePaginate)
-const Payment = mongoose.model('Payment', paymentSchema)
-module.exports = Payment
+paymentSchema.plugin(mongoosePaginate);
+
+const Payment = mongoose.model('Payment', paymentSchema);
+module.exports = Payment;

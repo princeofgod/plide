@@ -141,12 +141,9 @@ exports.getAll = async (data) => {
     var options = {
         sort: { payment_date: 1 },
         populate: 'userId',
-        // select:'firstname lastname',
-        // lean: true,
-        // offset: offset, 
         limit: limit,
         page: page,
-        // pagination :true,
+        pagination :true,
       };
     const payments = await Payment.paginate({}, options/*, select: "firstname lastname email phone address"*/)
 

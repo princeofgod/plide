@@ -34,7 +34,7 @@
                     members.totalDocs}}{{/estimate}} of {{members.totalDocs}}
                 </p>
                 <div class="card d-flex flex-row w-100 member-card-header" style="">
-                    <div class="member-card-image" style="width:15%">
+                    <div class="member-card-image" style="width:3vw:height:3vw">
                         Image
                     </div>
                     <ul class="list-group list-group-flush d-flex flex-row  w-100 h-100" style="border:none;">
@@ -50,13 +50,13 @@
                 </div>
                 {{#if members}}
                 {{#each members.docs}}
-                <div class="card d-flex flex-row align-items-center w-100 mt-2 member-card pl-2" style="height:20vh;">
+                <div class="card d-flex flex-row align-items-center w-100 mt-2 member-card pl-2" style="">
                     {{!-- <div class="member-card-header"
                         style="background-image: url('../avatar/{{this.profile_pic}}');">
 
                     </div> --}}
                     <div class="member-card-image"
-                        style="width:15%;height:80%;background-image: url('../avatar/{{this.profile_pic}}')">
+                        style="width:3vw;height:3vw;background-image: url('../avatar/{{this.profile_pic}}')">
 
                     </div>
                     <ul class="list-group list-group-flush d-flex flex-row w-100">
@@ -68,8 +68,8 @@
                         </li>
                         <li class="list-group-item text-center px-0" style="width:30%;border:none;">{{this.email}}</li>
                         <li class="list-group-item text-center px-0 " style="width:13%;border:none;">{{this.phone}}</li>
-                        <li class="list-group-item text-center px-0 " style="width:28%;border:none;">
-                            bkadlkalkhfakshfdkhdfkhdkfhhskdhfkshdfkjhkl</li>
+                        <li class="list-group-item text-center px-0 " style="width:28%;border:none;">{{this.address}}
+                        </li>
                         <li class="list-group-item text-center px-0" style="width: 9%;border:none;">
                             <form action="viewUser" method="get" id="viewForm">
                                 <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
@@ -83,36 +83,7 @@
                 </div>
                 {{/each}}
                 {{/if}}
-                {{!-- <table id="members-list">
-                    <tr>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email Address</th>
-                        <th>Phone number</th>
-                        <th>Location</th>
-                        <th></th>
-                    </tr>
-                    {{#if members}}
-                    {{#each members.docs}}
-                    <tr>
-                        <td>{{this.firstname}}</td>
-                        <td>{{this.lastname}}</td>
-                        <td>{{this.email}}</td>
-                        <td>{{this.phone}}</td>
-                        <td>{{this.address}}</td>
-                        <td>
-                            <form action="viewUser" method="get" id="viewForm">
-                                <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
-                            </form>
-                            <button type="button" class="btn btn-primary" id="{{this._id}}"
-                                onclick='//window.location.href="/users/viewUser?id={{this._id}}"'>
-                                View
-                            </button>
-                        </td>
-                    </tr>
-                    {{/each}}
-                    {{/if}}
-                </table> --}}
+
                 <nav aria-label="..." class="mt-3">
                     <ul class="pagination pagination-sm justify-content-center">
                         {{#previous members.page}}
@@ -136,7 +107,7 @@
                         {{#loop 1 members.totalPages 1}}
                         <li class="page-item"><a class="page-link"
                                 href="/users/members?limit={{members.limit}}&page={{this}}">{{this}}
-                                {{members.limit}}</a>
+                            </a>
                         </li>
                         {{/loop}}
 
@@ -148,7 +119,7 @@
                         {{else}}
                         <li class="page-item">
                             <a class="page-link"
-                                href="/users/members?limit={{members.limit}}&page={{members.prevPage}}">Next</a>
+                                href="/users/members?limit={{members.limit}}&page={{members.nextPage}}">Next</a>
                         </li>
                         {{/eq}}
                         {{!-- {{/if}} --}}

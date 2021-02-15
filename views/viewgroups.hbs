@@ -1,0 +1,137 @@
+<div class="row" style="height:100vh">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+        {{>userMenu}}
+    </div>
+    <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
+        <div class="row ">
+            <div class="col-12" style="">
+                {{>topnav}}
+            </div>
+        </div>
+        <div class="row px-4 pl-4">
+
+
+            {{#if error}}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            {{#if success}}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{success}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {{/if}}
+
+            {{#if groups}}
+            <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
+                <p class="" id="">Showing results {{groups.pagingCounter}} - {{#estimate estimate
+                    groups.totalDocs}}{{/estimate}} of {{groups.totalDocs}}
+                </p>
+                <table id="members-list">
+                    <tr>
+                        <th>Group Name</th>
+                        <th>Group Description</th>
+                        <th>Group Leader</th>
+                        <th>Group Secretary</th>
+                    </tr>
+
+                    {{#each groups.docs}}
+
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.leader.firstname}} {{this.leader.lastname}}</td>
+                        <td>{{this.secretary.firstname}} {{this.secretary.lastname}}</td>
+                    </tr>
+
+
+                    {{/each}}
+
+                </table>
+                {{!-- <table id="groups-list">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email Address</th>
+                        <th>Phone number</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                    {{#if groups}}
+                    {{#each groups.docs}}
+                    <tr>
+                        <td>{{this.firstname}}</td>
+                        <td>{{this.lastname}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.phone}}</td>
+                        <td>{{this.address}}</td>
+                        <td>
+                            <form action="viewUser" method="get" id="viewForm">
+                                <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
+                            </form>
+                            <button type="button" class="btn btn-primary" id="{{this._id}}"
+                                onclick='//window.location.href="/users/viewUser?id={{this._id}}"'>
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{/if}}
+                </table> --}}
+                <nav aria-label="..." class="mt-3">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        {{!-- {{#previous groups.page}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}" tabindex="-1"
+                                disabled>Previous</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+                        {{/previous}} --}}
+
+                        {{!-- <li class="page-item">
+                            <a class="page-link" href="/users/groups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li> --}}
+
+
+                        {{#loop 1 groups.totalPages 1}}
+                        <li class="page-item"><a class="page-link"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{this}}">{{this}}
+                            </a>
+                        </li>
+                        {{/loop}}
+
+                        {{!-- {{#eq groups.page groups.totalpages}} --}}
+                        {{!-- <li class="page-item">
+                            <a class="page-link"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}} disabled">Next</a>
+                        </li> --}}
+                        {{!-- {{else}} --}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}">Next</a>
+                        </li>
+                        {{!-- {{/eq}} --}}
+                        {{!-- {{/if}} --}}
+
+                    </ul>
+                </nav>
+                {{/if}}
+
+            </div>
+        </div>
+    </div>
+</div>
