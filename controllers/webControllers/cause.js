@@ -1,4 +1,4 @@
-const Course = require('../../model/course');
+const Cause = require('../../model/cause');
 
 
 
@@ -9,7 +9,7 @@ exports.deleteOne = async (id) => {
       return res.status(422).json({ errors: errors.array() });
     }
     try {
-        const data = await Course.findByIdAndDelete({_id: id});
+        const data = await Cause.findByIdAndDelete({_id: id});
         if (!data) {
             return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
         };
@@ -22,7 +22,7 @@ exports.deleteOne = async (id) => {
 };
 
 exports.getById = async (id) => {
-    const course = await Course.findOne({_id:id},( err, res) => {
+    const course = await Cause.findOne({_id:id},( err, res) => {
         if (err) console.log(err)
         if(res){
             console.log("returned res====", res)
@@ -46,7 +46,7 @@ exports.updateOne = async (id, body) => {
             return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
         }; 
 
-        const data = await Course.findByIdAndUpdate(id, {$set: req.body}, {
+        const data = await Cause.findByIdAndUpdate(id, {$set: req.body}, {
             new: true,
             runValidators: true,
         });
@@ -68,11 +68,11 @@ exports.createOne = async (body) => {
     //   return res.status(422).json({ errors: errors.array() });
     // };
     try {
-        // Save category
+        // Save cause
         body.name = body.category_name;
         body.description = body.category_description;
 
-        let newCourse = new Course(body);
+        let newCourse = new Cause(body);
         newCourse.save()
             .then(item => {
         console.log(newCourse)
@@ -84,7 +84,7 @@ exports.createOne = async (body) => {
 };
 
 exports.getOne = async (id) => {
-    const course = await Course.findOne({_id:id},(err, course) => {
+    const course = await Cause.findOne({_id:id},(err, course) => {
         if(err) console.log(err)
         if(course) {
             return course;
@@ -95,29 +95,29 @@ exports.getOne = async (id) => {
 };
 
 exports.getAll = async () => {
-    const categories = await Course.find({},{},(err,category) => {
+    const causes = await Cause.find({},{},(err,cause) => {
         if (err) console.log(err)
-        if (category){
-            return category
+        if (cause){
+            return cause
         } 
-    })
+    });
 
-    return categories
+    return causes;
 };
 exports.getFundableCourses = async () => {
-    const courses = await Course.find({need_funds: true}, (err, res) => {
+    const causes = await Cause.find({need_funds: true}, (err, res) => {
         if(err) console.log(err)
         else{
             return res
         }
     })
-    return courses
+    return causes
 }
 
 exports.getAllPaginated = async (req) => {
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 2;
+    const limit = parseInt(req.query.limit) || 10;
 
-    const course = Course.paginate({},{page:page, limit:limit, paginate:true, sort:{name:1}});
-    return course;
+    const cause = Cause.paginate({},{page:page, limit:limit, paginate:true, sort:{name:1}});
+    return cause;
 }

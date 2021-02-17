@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'),
     mongoosePaginate = require('mongoose-paginate-v2');
 const Mongoose = mongoose.Schema.Types;
-const courseSchema = new mongoose.Schema({
+const causeSchema = new mongoose.Schema({
     name: {
         type: String,
         require: true
@@ -39,6 +39,6 @@ const courseSchema = new mongoose.Schema({
     }
 })
 
-courseSchema.plugin(mongoosePaginate)
-const Course = mongoose.model('Course', courseSchema)
-module.exports = Course
+causeSchema.plugin(mongoosePaginate)
+const Cause = mongoose.model('Cause', causeSchema)
+module.exports = Cause

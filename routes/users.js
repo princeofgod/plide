@@ -39,7 +39,6 @@ const storage = multer.diskStorage({
         cb(null, './images/avatar')
       },
       filename: function (req, file, cb) {
-		//   console.log(req.session.user._id)
 		  let s = req.session.user._id.toString()
         cb(null, s+"."+file.originalname.split(".")[1])
 	  },
@@ -73,7 +72,7 @@ router.post('/login',loginValidation, async (req, res, next) => {
 		await User.findOne({email:req.body.email})
 			.then(user => {
 				req.session.user = user
-				res.redirect("home")
+				res.redirect("../users/home")
 			})
 			.catch(error =>	console.log(error)
 			)
@@ -129,7 +128,6 @@ router.post('/registerMember', registerValidation, async (req, res, next) => {
  * Routing for account confirmation
  */
 router.get('/confirm_account',confirmRegisterToken, async(req, res, next) => {
-	// console.log("random characters = ", req.query.random_character)
 	const result = validationResult(req)
 
 	if(!result.isEmpty()){
@@ -141,18 +139,15 @@ router.get('/confirm_account',confirmRegisterToken, async(req, res, next) => {
 			.then(async (user) => {
 				if(!user) console.log(error)
 				if(user) {
-					// if (err) console.log(err)
 					if(user){
-						console.log('user confirm = ',user)
 						await User.findOneAndUpdate({email:user.email},{$set: {isActive : true} }, {new:true, runValidators:true}, (err,user) => {
-							console.log("returned user = ", user)
 							if(err) console.log(err)
 							req.session.user = user
 						})
 					}
 				}
 			})
-		res.redirect('/users/home')
+		res.redirect('../users/home')
 	}
 })
 
@@ -184,7 +179,6 @@ router.get('/resetpassword', (req,res,next) => {
 });
 
 router.post('/resetpassword', resetPasswordValidation, async(req,res) => {
-	console.log("req.session in reset password route = ", req.session)
 	const result = validationResult(req)
 	if(!result.isEmpty()){
 		const error = result.array()[0].msg
@@ -210,28 +204,33 @@ router.get("/changePassword", (req, res) => {
 
 router.get('/profile', async (req, res, next) => {
   	if(!req.session.user){
-    	res.redirect('..users/login')
+    	res.redirect('../users/login')
   	} else {
     	user = req.session.user
 		user.fullname = user.firstname + " " + user.lastname
 
-		if(user.role === '1') res.render('./admin/adminprofile',{user :user, page:page})
-		else res.render('./users/profile', {user :user, page:page})
+		if(user.role === '1') {
+			// page.pageTitle = "Dashboard",
+			page.title = 'PACES Admin Profile';
+			res.render('./admin/adminprofile',{user :user, page:page})
+		}
+		else {
+			res.render('./users/profile', {user :user, page:page})
+
+		}
 	}
 })
 
 router.post('/profiledata', async (req,res) => {
 	if(!req.session.user) res.redirect("../users/login")
 	else {
-		console.log("Form to update = ", req.body)
 		let body = req.body
-		console.log("Form to update = ", body)
 
 		let profileData = await userController.populateProfile(body)
 
 		let user = await userController.updateOne(req.session.user._id, profileData)
 		req.session.user = user
-		res.redirect('/users/profile')
+		res.redirect('../users/profile')
 	}
 })
 
@@ -271,7 +270,7 @@ router.get('/home', async function(req, res) {
     	res.redirect('/users/login')
   	}else{
 		page.pageTitle = "Dashboard",
-		page.title = 'PACES Admin Events';
+		page.title = 'PACES Admin Home';
 		
 		const schedule = await Schedule.find({},{}, (err, res) => {
 			return res
@@ -305,7 +304,7 @@ router.get('/logout', (req, res, next) => {
 
 router.get("/members", async (req, res) => {
 	if(!req.session.user){
-    	res.redirect('/users/login')
+    	res.redirect('../users/login')
   	}else{
 		if(req.session.user.role !== "1"){
 			res.redirect('../users/home')
@@ -321,11 +320,8 @@ router.get("/members", async (req, res) => {
 })
 
 router.get('/viewUser', async (req, res) => {
-	console.log("I am here", req.query)
 	const member = await userController.getOneById(req.query.id)
-	console.log("returned member =====", member)
 	const memberGroups = await userGroupController.getById(req.query.id)
-	// console.log(memberGroups)
 	res.render('./admin/full-info', {user:req.session.user, page: page, member:member, memberGroups : memberGroups })
 })
 

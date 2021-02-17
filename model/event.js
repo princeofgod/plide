@@ -21,14 +21,34 @@ const eventSchema = new mongoose.Schema({
         type: String,
     },
     start_date: {
-        type: Date,
+        type: String,
         require: true
     },
     end_date: {
-        type: Date,
+        type: String,
         require: true
     },
-    nominees: [],
+    nominees: [
+        {
+            id:{
+                type: Mongoose.ObjectId,
+                ref: 'User'
+            },
+            firstname : {
+                type: String
+            },
+            lastname : {
+                type: String
+            },
+            phone : {
+                type: String
+            },
+            email : {
+                type: String
+            }
+        }
+    
+    ],
     event_manager: {
         type : Mongoose.ObjectId,
         ref : 'User'}

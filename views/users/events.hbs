@@ -12,8 +12,8 @@
             <div class="col-9">
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-10 d-flex flex-row">
-                        {{#if randomEvents}}
-                        {{#each randomEvents}}
+                        {{#if events}}
+                        {{#each events}}
                         <div class="col-4 pr-0 d-flex flex-row justify-content-center align-items-center" style="">
 
                             <div class="event-name mx-2 w-100 py-2 pl-1 pr-1">
@@ -25,9 +25,18 @@
                                 <div class="row pl-1 pr-4 event-managers">
                                     <div
                                         class="col-12 pr-0 d-flex flex-column justify-content-center align-items-center">
+                                        {{#image this.user.profile_pic}}
                                         <div class="name"
                                             style="background-image:url('../avatar/{{this.users.profile_pic}}')">
                                         </div>
+                                        {{else}}
+                                        <div class="name">
+                                            <img src="../../all-img.svg" alt="" class="">
+                                        </div>
+
+
+                                        {{/image}}
+
                                         <div class="">
                                             <p class="mb-0 mt-1" style="font-size:.7vw">
                                                 {{this.users.firstname}} {{this.users.lastname}}</p>
@@ -56,7 +65,7 @@
                         {{/if}}
                     </div>
 
-                    <div class="col-2 d-flex align-items-center"
+                    <div class="col-2 d-flex flex-column align-items-center"
                         style="width:60%px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;">
                         <div class="mr-2" style="font-size:.7vw;cursor:pointer" id="add-group-btn"
                             onclick="window.location.href='addevents'">
@@ -73,6 +82,11 @@
                                 </div>
                                 <p class="font-weight-bold mt-3">Create New Event</p>
                             </div>
+                        </div>
+                        <div class="">
+                            <button class="show-more" onclick="window.location.href='../event/viewevents'">
+                                Show more
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -127,9 +141,9 @@
                 </div>
             </div>
             <div class="col-3">
-                <div class="row">
+                {{!-- <div class="row">
 
-                </div>
+                </div> --}}
                 <div class="row my-4">
                     <div class="col-11 schedule pb-3" style="border:solid 1px black">
                         <div class="row p-3  schedule">

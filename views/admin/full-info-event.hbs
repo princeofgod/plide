@@ -29,87 +29,55 @@
             </div>
             {{/if}}
 
-            <div class=" row w-100" id="view-info">
-                <div class="col-4">
-
-                    <div class="my-4"
-                        style="border:solid 1px black; height:15vw;width:15vw; margin-left:auto; margin-right:auto; margin-top:2vw;border-radius:10px;background-image:url('../avatar/{{member.profile_pic}}');background-size:cover;background-position:50%">
-                        <img src='../avatar/{{member.profile_pic}}' alt="" class="w-100 h-100"
-                            style="border-radius: 10px;">
-                    </div>
-                    <div class="">
-                        <label for="">Employment Status</label> <br>
-                        <input class="form-control" type="text" name="" id="" value="{{member.employment_status}}"
-                            style="font-size: 1vw;" disabled>
-                    </div>
-                </div>
-                <div class="col-8">
+            <div class=" row w-75" id="view-info">
+                <div class="col-12">
                     <div class="row mt-3">
 
                         <div class="col-6">
-                            <label for="firstname">First Name</label> <br>
-                            <input class="form-control" type="text" name="firstname" id="" value="{{member.firstname}}"
+                            <label for="firstname">Name</label> <br>
+                            <input class="form-control" type="text" name="firstname" id="" value="{{event.event_title}}"
                                 style="font-size: 1vw;" disabled>
                         </div>
                         <div class="col-6">
-                            <label for="lastname">Lastname</label> <br>
-                            <input class="form-control" type="text" name="lastname" id="" value="{{member.lastname}}"
-                                style="font-size: 1vw;" disabled>
+                            <label for="lastname">Description</label> <br>
+                            <input class="form-control" type="text" name="lastname" id=""
+                                value="{{event.event_description}}" style="font-size: 1vw;" disabled>
                         </div>
                     </div>
                     <div class="row  mt-3">
                         <div class="col-6">
-                            <label for="email">Email Address</label> <br>
-                            <input class="form-control" type="text" name="email" id="" value="{{member.email}}"
+                            <label for="email">Date Published</label> <br>
+                            <input class="form-control" type="text" name="email" id="" value="{{event.date}}"
                                 style="font-size: 1vw;" disabled>
                         </div>
                         <div class="col-6">
-                            <label for="phone">Phone Number</label> <br>
-                            <input class="form-control" type="text" name="phone" id="" value="{{member.phone}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <label for="gender">Gender</label> <br>
-                            <input class="form-control" type="text" name="gender" id="" value="{{member.gender}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
-                        <div class="col-6">
-                            <label for="country">Country</label> <br>
-                            <input class="form-control" type="text" name="country" id="" value="{{member.country}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-6">
-                            <label for="address">Address</label> <br>
-                            <input class="form-control" type="text" name="address" id="" value="{{member.address}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
-                        <div class="col-6">
-                            <label for="state">City</label> <br>
-                            <input class="form-control" type="text" name="state" id="" value="{{member.state}}"
+                            <label for="phone">Event Manager</label> <br>
+                            <input class="form-control" type="text" name="phone" id=""
+                                value="{{event.event_manager.firstname}} {{event.event_manager.lastname}}"
                                 style="font-size: 1vw;" disabled>
                         </div>
                     </div>
 
-                    {{#if memberGroups}}
-                    {{#each memberGroups}}
-                    <div class="row mt-3">
-                        <div class="col-6">
+                    <label for="nominees" class="mt-5">Nominees</label> <br>
+                    <div class="row d-flex flex-row ">
+                        {{!-- <div class="col-6">
                             <label for="group">Group</label> <br>
                             <input class="form-control" type="text" name="group" id="" value="{{this.group_id.name}}"
                                 style="font-size: 1vw;" disabled>
+                        </div> --}}
+
+                        {{#if event.nominees}}
+                        {{#each event.nominees}}
+                        {{event.nominees}}
+                        <div class="col-6 mt-2">
+
+                            <input class="form-control" type="text" name="nominees" class="mt-5" id=""
+                                value="{{this.firstname}} {{this.lastname}}" style="font-size: 1vw;" disabled>
                         </div>
-                        <div class="col-6">
-                            <label for="position">Position</label> <br>
-                            <input class="form-control" type="text" name="position" id="" value="{{this.position}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
+                        {{/each}}
+                        {{/if}}
                     </div>
-                    {{/each}}
-                    {{/if}}
+
 
                     {{!-- <div class=""> --}}
                         <div class="row mt-4 d-flex justify-content-end" style="">

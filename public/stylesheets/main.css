@@ -197,6 +197,10 @@ border-radius: 35px;
     color: #124814;
     border-radius: 35px;
     text-decoration: none;
+    text-align:center;
+    /* transition: cubic-bezier(0.785, 0.135, 0.15, 0.86); */
+    transition:ease-in .5s;
+    transform-style: flat;
   }
   /*-------------------- PROFILE ---------------------*/
 #profile{
@@ -836,4 +840,11 @@ width:95%;
     background-size:contain;
     background-position: 50%;
     padding:1vw;
+}
+.event-x{
+    line-height:12px;
+    width:30%;
+    height: 6vh;
+    font-size: 1vw;
+    padding: 2px;
 }

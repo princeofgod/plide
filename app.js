@@ -13,7 +13,7 @@ const eventRouter = require('./routes/event');
 const groupRouter = require('./routes/group');
 const userGroupRouter = require('./routes/userGroup');
 const eventNomineeRouter = require('./routes/eventNominee');
-const courseRouter = require('./routes/course');
+const causeRouter = require('./routes/cause');
 const paymentRouter = require('./routes/payment');
 const helper = require('./config/helpers')
 
@@ -78,6 +78,13 @@ app.engine(
       return opts.inverse(this)
     }
   },
+  'image' : function(a,opts){
+    if( a =='' || a == undefined || a == null || !a ){
+      return opts.fn(this)
+    } else {
+      return opts.inverse(this)
+    }
+  }
   }})
 );
 // Handlebars.registerHelper('paginate', require('handlebars-paginate'));
@@ -114,7 +121,7 @@ app.use('/users', usersRouter);
 app.use('/group', groupRouter);
 app.use('/event', eventRouter);
 app.use('/eventNominee', eventNomineeRouter);
-app.use('/course', courseRouter);
+app.use('/cause', causeRouter);
 app.use('/userGroup', userGroupRouter);
 app.use('/candidate', candidateRouter);
 app.use('/payment', paymentRouter);

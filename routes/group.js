@@ -49,8 +49,10 @@ router.get('/groups', async (req,res,next) => {
 
 		console.log("User in groups = ",randomGroups)
 	  	if(req.session.user.role !== "1"){
+			page.title = 'PACES Admin Group';
 			res.render('./users/usergroups', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule})
 	  	}else{
+			page.title = 'PACES Group';
 			res.render('./admin/admingroup', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule})
 	  	}
 	}
@@ -186,7 +188,7 @@ router.get('/viewgroups', async (req, res) => {
 		if(req.session.user.role === '1'){
 			res.render('./admin/adminviewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
 		} else {
-			res.render('viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+			res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
 		}
 	}
 

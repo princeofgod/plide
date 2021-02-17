@@ -1,0 +1,373 @@
+<div class="row" style="height:100vh;">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar">
+        {{>userMenu}}
+    </div>
+    <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden">
+        <div class="row" #>
+            <div class="col-12">
+                {{>topnav}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h4 class="font-weight-bold p-0 ml-3" style="font-size:1.3vw;">{{cause.name}}</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 px-5">
+                <div class="row org-img my-3" style="background-image:url(" ../logo/npm.png")">
+
+                </div>
+                {{!-- <div class="row my-4">
+                    <div class="col-4 ">
+                        <div class="d-flex flex-row align-items-center justify-content-center">
+                            <div class="joint-img" style="z-index:1;background-image:url(" ../Raima.png");"></div>
+                            <div class="joint-img" style="z-index:3;background:url(Sanni.png);"></div>
+                            <div class="joint-img" style="z-index:4;background:url(Mariam.png);"></div>
+                            <div class="joint-img" style="z-index:5;background:url(John.png);"></div>
+                        </div>
+                    </div>
+                    <div class="col-8">Raiman and his team are organizing this fund raiser for the Youth Political Party
+                    </div>
+                </div> --}}
+                <div class="row d-flex justify-content-center">
+                    <div class="col-5">
+                        <div class="about" style="">
+                            <p class="text-center pt-2" style="font-size:.9vw;color: rgba(18, 72, 20, 0.5);">Created
+                                {{cause.date}}</p>
+                        </div>
+                    </div>
+                    {{!-- <div class="col-4">
+                        <div class="about">
+                            <p class="text-center pt-2" style="font-size:.9vw;color: rgba(18, 72, 20, 0.5);">
+                                Organization</p>
+                        </div>
+                    </div> --}}
+                    <div class="col-5">
+                        <div class="about">
+                            <p class="text-center pt-2" style="font-size:.9vw;color: rgba(18, 72, 20, 0.5);">Currency:
+                                Naira</p>
+                        </div>
+                    </div>
+                </div>
+                {{!-- --}}
+                <div class="row my-3">
+                    <p class="mx-3">
+                        {{cause.description}}
+                    </p>
+                </div>
+                <h4 class="font-weight-bold px-0" style="font-size:1vw;">Organizer</h4>
+                <div class="d-flex flex-row align-items-center justify-content-between">
+                    <p class="" style="font-size:.8vw;width:50%;">{{cause.organiserId.firstname}} and his team.</p>
+                    <input type="text" name="" id="phone_cause" value="{{cause.phone}}"
+                        style="display:none;color:#124814;font-size:1.5vw">
+                    <button class="mb-1 border-rounded w-25" id="contact-btn">Contact</button>
+                </div>
+            </div>
+            <div class="col-5 py-3 px-5" id="donation-info" style="height:650px;">
+                <div class="" style="">
+                    <p class="font-weight-bold"> # {{paymentStat.totalDonation}} raised of #{{cause.amount_needed}}</p>
+                    <div class="" style="height: 5px;width:100%;background-color:#EFEFFA;border-radius:16px;">
+                        <div class=""
+                            style="height: 5px;width:{{paymentStat.percentagePaid}}%;background-color:#34CF4D;border-radius:16px;">
+                        </div>
+                    </div>
+                    {{!-- --}}
+                    <div class="row my-3">
+                        <div class="mr-2 ml-4">
+                            <p class="font-weight-bold my-0">{{donor}}</p>
+                            <p class="" style="rgba(18, 72, 20, 0.5);">donors</p>
+                        </div>
+                        <div class="mx-2">
+                            <p class="font-weight-bold my-0">{{cause.shares}}</p>
+                            <p class="" style="rgba(18, 72, 20, 0.5);">shares</p>
+                        </div>
+
+                    </div>
+                    {{!-- --}}
+                    <div class="row d-flex align-items-center justify-content-center mt-3">
+
+
+                        {{!-- <div class="mt-4"> --}}
+                            {{!-- <form> --}}
+                                <input type="text" class="" style="display:none" value="{{user.email}}" id="email">
+                                <input type="text" class="" style="display:none" value="{{user.phone}}" id="phone">
+                                <input type="text" class="" style="display:none"
+                                    value="{{user.firstname}} {{user.lastname}}" id="fullname">
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="donation" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLongTitle">Enter Amount to
+                                                    donate</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="text" class="form-control" name="" id="amountToDonate">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <button type="button" id="pay" class="btn btn-primary"
+                                                    onclick="makePayment()">Make Payment</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="text" name="" id="causeId" value="{{cause._id}}" style="display:none">
+                                <button class="mt-3 mb-1  org-btn" style="background-color:#124814; color:#fff;"
+                                    type="button" data-toggle="modal" data-target="#donation">
+                                    <svg width="24" height="36" viewBox="0 0 24 36" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M9.10661 28.9365L7.89581 29.832C7.26426 30.3 6.54265 30.546 5.81133 30.546C4.45332 30.546 3.19387 29.7135 2.4394 28.32C2.24957 27.969 2.10355 27.5955 1.99158 27.21C1.28821 28.1565 0.876953 29.4075 0.876953 30.75C0.876953 33.645 2.7874 36 5.13598 36C7.48455 36 9.395 33.645 9.395 30.75C9.395 30.1245 9.28429 29.5155 9.10661 28.9365Z"
+                                            fill="white" />
+                                        <path
+                                            d="M23.6312 4.56019L15.1132 0.0602195C14.8625 -0.0717562 14.5705 0.0182432 14.3989 0.280718L11.9652 4.03067C11.8508 4.20764 11.807 4.43869 11.8459 4.66067C11.8849 4.88264 12.0029 5.06869 12.1684 5.17064L21.3593 10.8346C21.6173 10.9936 21.8923 11.0746 22.1746 11.0746C22.6431 11.0746 23.1055 10.8436 23.445 10.4401C23.8028 10.0141 24.0011 9.43963 24.0011 8.82314V5.25016C23.9999 4.94866 23.8551 4.67866 23.6312 4.56019Z"
+                                            fill="white" />
+                                        <path
+                                            d="M4.5293 30.2565V32.25C4.5293 32.664 4.80189 33 5.13775 33C5.4736 33 5.74619 32.664 5.74619 32.25V30.537C5.32392 30.528 4.91991 30.4185 4.5293 30.2565Z"
+                                            fill="white" />
+                                        <path
+                                            d="M20.8131 12.1771L10.5805 5.86968L4.50351 8.67914C3.86221 8.97466 3.31462 9.53715 2.96177 10.2616L0.435574 15.4516C-0.102258 16.5571 -0.144867 17.9055 0.323604 19.0575L2.11604 23.4765C2.44339 22.551 2.97147 21.7995 3.65778 21.315C4.56312 20.6746 5.25188 20.1631 5.78122 19.7491C5.75446 19.7296 5.73496 19.6951 5.70701 19.6785C5.59749 18.8595 5.27379 18.1365 4.96714 17.6071C5.89803 17.1136 7.14288 16.2241 7.77443 15.3166C8.25996 15.6676 9.02412 16.1191 9.97938 16.3501C9.26871 17.4346 8.5447 18.7771 8.28186 19.6711C8.05917 19.7956 7.72697 20.0086 7.21469 20.3746C6.57219 20.9295 5.64249 21.639 4.26258 22.617C3.63952 23.058 3.20391 23.8425 3.03478 24.825C2.99828 25.0365 2.98368 25.248 2.97883 25.4595C2.97763 25.527 2.98248 25.593 2.98368 25.6605C2.98733 25.8076 2.99708 25.953 3.01653 26.0985C3.02629 26.1705 3.03724 26.241 3.04939 26.313C3.07614 26.457 3.11145 26.5996 3.1528 26.7391C3.17105 26.8006 3.18685 26.862 3.20756 26.9236C3.27572 27.1185 3.35478 27.3106 3.45335 27.4906C3.56897 27.7051 3.70889 27.888 3.85246 28.0606C3.94007 28.161 4.03379 28.2526 4.1299 28.3381C4.17736 28.3816 4.22601 28.4221 4.27472 28.4626C4.82111 28.8856 5.47822 29.0731 6.12192 28.9981C6.20103 28.9876 6.28134 28.9786 6.3604 28.9591C6.46507 28.9351 6.56848 28.9051 6.6707 28.8661C6.87513 28.7851 7.07837 28.692 7.27059 28.5496L11.4517 25.4581C12.1064 25.2616 15.359 24.0616 17.8232 19.1477C19.2627 16.2782 20.2313 13.8272 20.8178 12.1832C20.8167 12.1786 20.8155 12.1771 20.8131 12.1771Z"
+                                            fill="white" />
+                                    </svg>
+                                    DONATE NOW
+                                </button>
+                                {{!--
+                            </form> --}}
+                            {{!--
+                        </div> --}}
+                        <div class="mt-2 mb-3 org-btn d-flex align-items-center justify-content-center"
+                            style="background-color:#fff;">
+                            {{!-- <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M23.1826 3.99995C23.1826 5.79493 21.5954 7.25007 19.6372 7.25007C17.679 7.25007 16.0918 5.79493 16.0918 3.99995C16.0918 2.20515 17.679 0.750008 19.6372 0.750008C21.5954 0.750008 23.1826 2.20515 23.1826 3.99995Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M19.637 8.00006C17.2304 8.00006 15.2734 6.20599 15.2734 3.99994C15.2734 1.79407 17.2304 0 19.637 0C22.0436 0 24.0006 1.79407 24.0006 3.99994C24.0006 6.20599 22.0436 8.00006 19.637 8.00006ZM19.637 1.5C18.1327 1.5 16.9098 2.62207 16.9098 3.99994C16.9098 5.37799 18.1327 6.50006 19.637 6.50006C21.1414 6.50006 22.3643 5.37799 22.3643 3.99994C22.3643 2.62207 21.1414 1.5 19.637 1.5Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M23.1826 20.0001C23.1826 21.7949 21.5954 23.25 19.6372 23.25C17.679 23.25 16.0918 21.7949 16.0918 20.0001C16.0918 18.2051 17.679 16.7499 19.6372 16.7499C21.5954 16.7499 23.1826 18.2051 23.1826 20.0001Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M19.637 24C17.2304 24 15.2734 22.2059 15.2734 20.0001C15.2734 17.794 17.2304 15.9999 19.637 15.9999C22.0436 15.9999 24.0006 17.794 24.0006 20.0001C24.0006 22.2059 22.0436 24 19.637 24ZM19.637 17.4999C18.1327 17.4999 16.9098 18.622 16.9098 20.0001C16.9098 21.3779 18.1327 22.5 19.637 22.5C21.1414 22.5 22.3643 21.3779 22.3643 20.0001C22.3643 18.622 21.1414 17.4999 19.637 17.4999Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M7.90937 12C7.90937 13.795 6.32194 15.2499 4.36377 15.2499C2.40579 15.2499 0.818359 13.795 0.818359 12C0.818359 10.205 2.40579 8.75006 4.36377 8.75006C6.32194 8.75006 7.90937 10.205 7.90937 12Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M4.36359 15.9999C1.95718 15.9999 0 14.2061 0 12C0 9.79395 1.95718 8.00006 4.36359 8.00006C6.77021 8.00006 8.72739 9.79395 8.72739 12C8.72739 14.2061 6.77021 15.9999 4.36359 15.9999ZM4.36359 9.50006C2.85926 9.50006 1.63637 10.6219 1.63637 12C1.63637 13.3781 2.85926 14.4999 4.36359 14.4999C5.86813 14.4999 7.09101 13.3781 7.09101 12C7.09101 10.6219 5.86813 9.50006 4.36359 9.50006Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M6.93966 11.5201C6.55993 11.5201 6.19119 11.339 5.99044 11.0151C5.6926 10.5361 5.87598 9.92505 6.39853 9.65094L16.521 4.36102C17.0435 4.086 17.7101 4.25409 18.0091 4.73492C18.307 5.21393 18.1236 5.82495 17.6011 6.09906L7.47839 11.389C7.3082 11.478 7.12283 11.5201 6.93966 11.5201Z"
+                                    fill="#124814" />
+                                <path
+                                    d="M17.0619 19.7701C16.8786 19.7701 16.6932 19.728 16.523 19.639L6.40033 14.3491C5.87778 14.076 5.69461 13.465 5.99244 12.9849C6.28907 12.505 6.95664 12.336 7.48039 12.611L17.6031 17.9009C18.1256 18.1739 18.3088 18.785 18.0109 19.2651C17.8092 19.589 17.4405 19.7701 17.0619 19.7701Z"
+                                    fill="#124814" />
+                            </svg> --}}
+
+                            <span>Share </span>
+
+                            <iframe class="mx-2"
+                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button_count&size=small&width=78&height=20&appId"
+                                width="78" height="20" style="border:none;overflow:hidden" scrolling="no"
+                                frameborder="0" allowfullscreen="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            <a class="twitter-share-button mx-2 "
+                                href="https://twitter.com/intent/tweet?text=http://127.0.0.1:3002/cause/payment?id={{cause._id}}"
+                                data-size="large" id="tweet">
+                                <i class="fab fa-twitter-square fa-2x" style="color:#1c9cea"></i></a>
+                            {{!-- <a class="facebook-share-button mx-2"
+                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D{{cause_id}}&amp;src=sdkpreparse"
+                                data-layout="button" data-size="large" id="facebook">
+                                <i class="fab fa-facebook-square fa-2x"></i></a> --}}
+
+                            {{!-- <iframe
+                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button&size=large&width=78&height=28&appId"
+                                width="78" height="28" style="border:none;overflow:hidden" scrolling="no"
+                                frameborder="0" allowfullscreen="true"
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+
+                            <div class="fb-share-button"
+                                data-href="http://127.0.0.1:3002/cause/payment?id=6017fe62d360513fd0ce3055"
+                                data-layout="button" data-size="large"><a target="_blank"
+                                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&amp;src=sdkpreparse"
+                                    class="fb-xfbml-parse-ignore">Share</a></div> --}}
+                        </div>
+                    </div>
+
+                </div>
+                {{!-- --}}
+                <div class="row flex-column">
+                    <div class="col">
+                        {{#if recent}}
+                        {{#each recent}}
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="donator-icon d-flex align-items-center justify-content-center"
+                                    style="background-image:url("
+                                    ../avatar/{{this.userId.profile_pic}}");background-position:50%;background-size:contain">
+
+                                    {{!-- <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
+                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg> --}}
+
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <p class="font-weight-bold m-0 p-0">{{this.userId.firstname}} {{this.userId.lastname}}
+                                </p>
+                                <p class="font-weight-bold"># {{this.amount}} <span class=""
+                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
+                                        mos</span></p>
+                            </div>
+                        </div>
+                        {{/each}}
+                        {{/if}}
+
+
+
+
+                        {{!-- <div class="row">
+                            <div class="col-2">
+                                <div class="donator-icon d-flex align-items-center justify-content-center" style="">
+                                    <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
+                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <p class="font-weight-bold">Gabriel Esan</p>
+                                <p class="font-weight-bold"># 35,000 <span class=""
+                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
+                                        mos</span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="donator-icon d-flex align-items-center justify-content-center" style="">
+                                    <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
+                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
+                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <p class="font-weight-bold">Gabriel Esan</p>
+                                <p class="font-weight-bold"># 35,000 <span class=""
+                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
+                                        mos</span></p>
+                            </div>
+                        </div> --}}
+                    </div>
+
+                    <div class="my-4 d-flex justify-content-between">
+                        <button class="see-all ml-3">See all</button>
+                        <div class="more-donations d-flex align-items-center justify-content-center mr-3"><a href=""
+                                class="">See top donations</a></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v9.0"
+    nonce="KFu02Iju"></script>
+<script>
+    const email = document.getElementById('email').value;
+    const fullname = document.getElementById('fullname').value;
+    const phone = document.getElementById('phone').value;
+    const amountToDonate = document.getElementById('amountToDonate');
+    const paybtn = document.getElementById('pay');
+    const tweetLink = document.getElementById('tweet');
+    const facebookLink = document.getElementById('facebook');
+    const contactBtn = document.getElementById("contact-btn")
+
+    contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactBtn.innerText = document.getElementById('phone_cause').value;
+    })
+
+    function generateRandomCharacter(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        //var charactersLength = characters.length;
+
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
+    let transferRef = "cause-";
+    let generated = generateRandomCharacter(24);
+
+    function makePayment() {
+        console.log("got here");
+        FlutterwaveCheckout({
+            "public_key": "FLWPUBK_TEST-ca0523b9912952630c7ac39073a8b0e6-X",
+            "tx_ref": transferRef + generated,
+            "amount": amountToDonate.value,
+            "currency": "NGN",
+            "country": "NG",
+            "payment_options": "card, ussd",
+            redirect_url: // specified redirect URL --}}
+                "http://127.0.0.1:3002/payment/savePayment",
+            meta: {
+                group_id: document.getElementById('causeId').value,
+                //consumer_mac: "92a3-912ba-1192a",
+            },
+            "customer": {
+                "email": email,
+                "phone_number": phone,
+                "name": fullname,
+            },
+            callback: function (data) {
+
+            },
+            /*onclose: function () {
+                // close modal
+            },*/
+            customizations: {
+                title: "Subscription Payment",
+                description: "Payment for items in cart",
+                logo: "https://localhost:3002/images/logo.svg",
+            },
+        });
+    }
+
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
+    });
+
+</script>

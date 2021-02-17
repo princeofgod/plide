@@ -4,7 +4,7 @@ const request = require('request')
 const axios = require('axios');
 const Group = require('../../model/group');
 const groupController = require('../webControllers/group')
-const courseController = require('../webControllers/course')
+const causeController = require('./cause')
 // const paymentController = require('../webControllers')
 exports.createOne = async (paymentData) => {
     const data = await Payment.create(paymentData);
@@ -48,12 +48,12 @@ exports.verifyPayment = async (data) => {
                 }
                 console.log(" sdmnsbdmbvmsbdmvmsbdvmnsbdvm", paymentData)
 
-                if(paymentData.trx_ref.includes("course")){
-                    paymentData.purpose = 'course'
+                if(paymentData.trx_ref.includes("cause")){
+                    paymentData.purpose = 'cause'
                     console.log("group id--------------",receivedData.meta['group_id'])
-                    const course = await courseController.getById(receivedData.meta['group_id'])
-                    console.log("Returned group ====", course)
-                    paymentData.narration = course.name
+                    const cause = await causeController.getById(receivedData.meta['group_id'])
+                    console.log("Returned group ====", cause)
+                    paymentData.narration = cause.name
 
                 } else if(paymentData.trx_ref.includes("subscribe")){
                     paymentData.purpose = 'membership'

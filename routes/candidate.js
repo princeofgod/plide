@@ -24,10 +24,10 @@ router.get('/candidates', (req,res,next) => {
       // Check for privileges and render specific pages
 		user= req.session.user
 		if(user.role === '1'){
-			res.render('candidates', {title: 'PACES Candidates', pageTitle: 'Fund a course'})
+			res.render('candidates', {title: 'PACES Candidates', pageTitle: 'Fund a cause'})
   
       	} else {
-        	res.render('candidates', {title: 'PACES Candidates', pageTitle: 'Fund a course'})
+        	res.render('candidates', {title: 'PACES Candidates', pageTitle: 'Fund a cause'})
       	}
     }
 })

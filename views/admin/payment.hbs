@@ -53,14 +53,15 @@
                 {{!-- --}}
                 <div class="row my-3">
                     <p class="mx-3">
-                        {{course.description}} <a href="" class="">read more</a>
+                        {{course.description}}
                     </p>
                 </div>
                 <h4 class="font-weight-bold px-0" style="font-size:1vw;">Organizer</h4>
                 <div class="d-flex flex-row align-items-center justify-content-between">
-                    <p class="" style="font-size:.8vw;width:50%;">Raiman and his team are organizing this fund raiserfor
-                        the Youth Political Party</p>
-                    <button class="mb-1" id="contact-btn">Contact</button>
+                    <p class="" style="font-size:.8vw;width:50%;">{{course.organiserId.firstname}} and his team.</p>
+                    <input type="text" name="" id="phone_course" value="{{course.phone}}"
+                        style="display:none;color:#124814;font-size:1.5vw">
+                    <button class="mb-1 border-rounded w-25" id="contact-btn">Contact</button>
                 </div>
             </div>
             <div class="col-5 py-3 px-5" id="donation-info" style="height:650px;">
@@ -311,7 +312,12 @@
     const paybtn = document.getElementById('pay');
     const tweetLink = document.getElementById('tweet');
     const facebookLink = document.getElementById('facebook');
+    const contactBtn = document.getElementById("contact-btn")
 
+    contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        contactBtn.innerText = document.getElementById('phone_course').value;
+    })
 
     function generateRandomCharacter(length) {
         var result = '';

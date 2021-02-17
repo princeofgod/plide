@@ -1,9 +1,12 @@
 const User = require('../model/user');
 const Event = require('../model/event');
-const Course = require('../model/course');
+const Cause = require('../model/cause');
 const Payment = require('../model/payment');
 // const Event = require('../model/event');
 
+/**
+ * General site user statistics
+ */
 exports.getStatistics = async () => {
     const total = {}
     
@@ -17,7 +20,7 @@ exports.getStatistics = async () => {
 		await User.find({createdAt:{$gt:new Date(date.getFullYear(), date.getMonth(), date.getDate())}}).countDocuments({}, (err, count) => {
 			total.registeredToday = count
 		})
-		await Course.find({need_funds:true}).countDocuments({}, (err, count) => {
+		await Cause.find({need_funds:true}).countDocuments({}, (err, count) => {
 			total.fundedCourse = count
 		})
 		// Total registered this month
@@ -65,6 +68,10 @@ exports.setScheduleTime = async (data) => {
     return data
 }
 
+
+/**
+ * Provides additional stats about payment to feed the view
+ */
 exports.paymentStat = async (courseName) => {
 	const paymentStat = {
 		totalDonation : 0,
@@ -77,20 +84,15 @@ let courseAmount = 0
 	await Payment.find({narration:courseName}).then(value => {
 		value.forEach(el => {
 			paymentStat.totalDonation += parseInt(el.amount)
-			// console.log("Total donations ", paymentStat.totalDonation)
 		})
 	}).catch(err => console.log(err))
 
 	await Payment.find({narration:courseName}).populate('userId').limit(3).sort("ascending").then(value => {
 		paymentStat.recent = value
 	}).catch(err => console.log(err))
-	console.log("payments =====", paymentStat.recent)
 
-	await Course.findOne({name:courseName}).then(course => {
-		// courseAmount = parseInt(course.amount_needed)
+	await Cause.findOne({name:courseName}).then(course => {
 		courseAmount = course.amount_needed
-		console.log("Course Amount ======", courseAmount)
-		console.log("Course Amount ======", paymentStat.totalDonation)
 	})
 	paymentStat.percentagePaid = (paymentStat.totalDonation/courseAmount) * 100
 	console.log()

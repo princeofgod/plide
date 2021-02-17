@@ -233,12 +233,8 @@ exports.updateOne = async (id, body) => {
             async (err,user) => {
 			    // THe below should repopulate the profile page with the new values
                 if(err) console.log(err)
-            
             if(user){
-                console.log("uSER FOUND AND SENT")
-                console.log("From controllers = ", user)
-            } else {
-                console.log("uSER NOT FOUND AND SENT")
+                return user
             }
 		})
         return user;
@@ -261,10 +257,11 @@ exports.createOne = async (body) => {
     };
 };
 exports.getOneByEmail = async (query) => {
-    return user = await User.findOne({email:query},(err, user) => {
+    const user = await User.findOne({email:query},(err, user) => {
         if(err) console.log("Couldn't get data!")
         return user
     })
+    return user;
 };
 
 exports.getAll = async (req) => {
@@ -331,7 +328,6 @@ exports.getManager = async (email) => {
     const manager = await User.findOne({email:email}, (err,user) => {
         return user._id
     })
-    console.log("Manager for events == ",manager)
     
     return manager
 }

@@ -97,8 +97,8 @@
 
                                     </div>
                                     <div class="col-5 px-0">
-                                        <label for="amount_needed">Amount Needed</label> <br>
-                                        <input class="form-control" type="text" name="amount_needed" id="">
+                                        <label for="amount_needed" id='amount-label'>Amount Needed</label> <br>
+                                        <input class="form-control" type="text" name="amount_needed" id="amount">
                                     </div>
                                 </div>
 
@@ -124,3 +124,21 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    const amtInput = document.getElementById('amount');
+    const amt_label = document.getElementById('amount-label');
+    const amtInput = document.getElementById('amount-label');
+
+    document.body.addEventListener('click', (e) => {
+        if (e.value == 'true') {
+            amtInput.setAttribute('disabled', false)
+            amt_label.setAttribute('disabled', false)
+        } else if (e.value == 'false') {
+            amtInput.setAttribute('disabled', true)
+            amt_label.setAttribute('disabled', true)
+        }
+    })
+
+</script>
