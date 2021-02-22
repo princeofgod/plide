@@ -3,22 +3,11 @@ const Cause = require('../../model/cause');
 
 
 exports.deleteOne = async (id) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    try {
-        const data = await Cause.findByIdAndDelete({_id: id});
-        if (!data) {
-            return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
-
-        return data
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+   const del = await Cause.deleteOne({_id: id}).then(res => {
+       return res;
+   }).catch(err => {
+       console.log(err)
+   })
 };
 
 exports.getById = async (id) => {
@@ -72,10 +61,10 @@ exports.createOne = async (body) => {
         body.name = body.category_name;
         body.description = body.category_description;
 
-        let newCourse = new Cause(body);
-        newCourse.save()
+        let newCause = new Cause(body);
+        newCause.save()
             .then(item => {
-        console.log(newCourse)
+        console.log(newCause)
         return item
     })
     } catch (error) {
@@ -84,14 +73,14 @@ exports.createOne = async (body) => {
 };
 
 exports.getOne = async (id) => {
-    const course = await Cause.findOne({_id:id},(err, course) => {
+    const cause = await Cause.findOne({_id:id},(err, result) => {
         if(err) console.log(err)
-        if(course) {
-            return course;
+        if(result) {
+            return result;
         }
-    }).populate("organizer","firstname ")
-    console.log("course controller", course)
-    return course;
+    }).populate("organizerId","firstname lastname")
+    console.log("cause controller", cause)
+    return cause;
 };
 
 exports.getAll = async () => {

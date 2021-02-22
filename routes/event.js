@@ -337,12 +337,78 @@ router.get('/view-event-info', async (req,res) => {
 			console.log(req.query)
 
 			const events = await eventController.getOneById(req.query.id)
+			const users = await userController.getAllNoPagination()
 			// console.log("event kjkjdkjf==========", event)
 			console.log(events.createdAt)
 			events.date = moment(events.createdAt).format("DD, MMMM YYYY")
-			res.render('./admin/full-info-event', {user:req.session.user, page:page, event: events,})
+			console.log(users)
+			const nominees =[]
+			users.forEach( el=> {
+				nominees.push(`${el.firstname} ${el.lastname} (${el.email})`);
+			})
+			console.log("Nominees achieved -----------------", nominees)
+
+			const schedule = await Schedule.find({},{}, (err, res) => {
+				return res
+			})
+			res.render('./admin/full-info-event', {user:req.session.user, page:page, event: events, users: nominees, schedule:schedule})
 		}
 	}
+})
+router.post('/add-nominee', async (req, res) => {
+	console.log(req.body);
+	// Save to nominee field in the events table
+	// and save with both event id and user id in the event nominee table
+
+	/**To continue here */
+	req.body.nominee = req.body.nominee.split(",");
+	console.log("kjshdfkjskjdhk= ",req.body.nominee);
+	const nominees =[];
+	const candidates =[];
+
+	// for(let i = 0; i<req.body.nominee.length; i++){
+	// 	nominees.push(req.body.nominee[i].split(' ')[2].replace("(","").replace(")",""));
+	// }
+	
+	// Save to the events field in the events model
+	for(let i = 0;i < req.body.nominee.length; i++){
+		let email = req.body.nominee[i].split(" ")[2].replace(")","").replace("(","");
+		console.log(`${i} = ${email}`)
+		let candidate = await userController.getOneByEmail(email);
+		console.log("Candidate to push -----------",candidate);
+
+		candidates.push({
+			id:candidate._id,
+			firstname:candidate.firstname,
+			lastname:candidate.lastname,
+			phone:candidate.phone,
+			email:candidate.email,
+		});
+	}
+	console.log("nominees in array ---------------", candidates);
+
+	for(let i = 0;i < candidates.length; i++){
+		const contest = await eventController.updateNominee(req.body.event,candidates[i]);
+		console.log("Candidate updated to db", contest);
+	}
+	
+	// Save to the event nominee model
+	const event = await eventController.getOne(req.body["event"]);
+	for(let i = 0; i < candidates.length; i++){
+		const newEventNominees = new EventNominee({
+			userID: candidates[i].id,
+			eventID: event._id
+		});
+
+		newEventNominees.save().then( response => {
+			if(response){
+				console.log(response);
+			};
+		});
+	};
+	// req.session.candidates = '';
+
+	res.end("Success !!!");
 })
   
 module.exports = router; 

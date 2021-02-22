@@ -2,10 +2,23 @@ const express = require('express');
 const Cause = require('../model/cause');
 const router = express.Router();
 const causeController = require('../controllers/webControllers/cause');
+const userController = require('../controllers/webControllers/user')
 const { categoryValidation } = require('../config/validate');
 const { validationResult } = require('express-validator');
 const moment = require("moment");
 const helper = require('../config/helpers');
+var multer  = require('multer');
+var storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+	  cb(null, __dirname + '/../images/cause')
+	},
+	filename: function (req, file, cb) {
+	  cb(null, file.fieldname + '-' + Date.now() + "." +file.originalname.split(".")[1])
+	}
+  })
+
+  var upload = multer({ storage:storage });
+
 let page = {
   newDate : moment().format("DD, MMMM YYYY"),
   title : 'PACES Causes',
@@ -13,27 +26,34 @@ pageTitle : 'Cause'
 }
 
 /**
- * 
+ * Route for saving causes
  */
-router.post('/addCause',categoryValidation, async (req,res) => {
+router.post('/addCause', upload.single('image'), categoryValidation, async (req,res) => {
 	console.log("Cause ------", req.body)
+	console.log("Cause ------", req.file)
 	
     const result = validationResult(req)
     if(!result.isEmpty()){
-      	const error = result.array()[0].msg
-      	res.render('add-cause', { error:error })
+		  const error = result.array()[0].msg
+		  console.log("error ======",error)
+      	res.render('./admin/add-cause', { error:error })
     } else {
+
 		if (req.body['needs-fund'] === "true") {
 			req.body['need_funds'] = true
 		} else {
 			req.body['need_funds'] = false
 		}
+		email = req.body["organizer"].split(" ")[2].replace(")","").replace("(","")
+
 		let body = req.body;  
-	
+		const organizer  = await userController.getOneByEmail(email)
+		body.organizerId = organizer._id;
+		body.image = req.file.filename;
 		await causeController.createOne(body)
 
-		res.redirect('../cause/causes')
-		// res.render("./admin/add-cause", {success: `New cause ${body.name} has been created`})
+		// res.redirect('../cause/causes')
+		res.render("./admin/add-cause", {success: `New cause ${body.name} has been created`})
     }
 })
 
@@ -81,10 +101,11 @@ router.get('/funding', async (req, res, next) => {
 
 		const causes = await causeController.getFundableCourses()
 		console.log("ggggggg==", causes)
+		const payment = helper.recentCauses()
 		if(user.role === '1'){
-			res.render('./admin/adminfundACourse', {user:user, page:page,causes:causes})
+			res.render('./admin/adminfundACause', {user:user, page:page,causes:causes,paymentStat:payment})
 		} else {
-			res.render('./users/fundACourse', {user:user, page:page,causes:causes});
+			res.render('./users/fundACause', {user:user, page:page,causes:causes, paymentStat:payment});
 		}
 	 }
 });
@@ -102,13 +123,15 @@ router.get('/payment?:id', async (req,res) => {
 		let user = req.session.user
 		page.pageTitle = "Dashboard"
 		page.title = 'PACES Admin Events'
+		console.log(req.query)
 		const cause = await causeController.getOne(req.query.id)
 		if(cause != undefined){
 			cause.date = moment(cause["createdAt"]).format("D MMM, YYYY")
 		}
 		console.log("coursepppppppppppppp ",cause)
 		const paymentStat = await helper.paymentStat(cause.name)
-		if(req.session.user === '1'){
+		console.log('recent--------------', paymentStat.recent)
+		if(req.session.user.role === '1'){
 			res.render('./admin/payment', {user:user, page:page,cause:cause,donor:paymentStat.donor, recent:paymentStat.recent, paymentStat:paymentStat})
 		}else {
 			res.render('./users/payment', {user:user, page:page,cause:cause,donor:paymentStat.donor, recent:paymentStat.recent, paymentStat:paymentStat})
@@ -153,9 +176,16 @@ router.get('/viewcauses', async (req,res) => {
 		if(req.session.user.role === '1') {
 			res.render('./admin/viewcause', {cause:causes, page:page, estimate: causes.page *causes.limit, pagination:{page:causes.page,}})
 	
+		} else {
+			res.render('./users/viewcause', {cause:causes,user:req.session.user, page:page, estimate: causes.page *causes.limit, pagination:{page:causes.page,}})
 		}
-		res.render('./users/viewcause', {cause:causes,user:req.session.user, page:page, estimate: causes.page *causes.limit, pagination:{page:causes.page,}})
 	}
 
+})
+
+router.post('/delete', async (req, res) => {
+	console.log("delete form", req.body);
+	const del = await causeController.deleteOne(req.body['cause_name'])
+	res.redirect('../cause/viewcauses')
 })
   module.exports = router; 

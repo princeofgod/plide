@@ -268,13 +268,12 @@ border-radius: 35px;
     width:60%;
 }
 .name, .comments-icons{
-    /* background-image: url('../../images/img1.png'); */
     background-size:contain;
-    background-position: center;
+    background-position: 50%;
+    background-repeat:no-repeat;
     width:3vw;
     height:3vw;
     border-radius:50%;
-    /* background:url(John.png); */
 }
 .event-managers p{
      font-size:.5vw;
@@ -292,7 +291,7 @@ border-radius: 35px;
 border-radius: 4.65385px;
 text-align:center;
 height: 40px;
-margin:45px 0px;
+margin:0px 0px;
 background-color:#fff;
 border:none;
 }
@@ -525,7 +524,7 @@ border:none;
     border-radius: 2.63718px;
     border:solid 1px #124814;
     color:#fff;
-    width:6vw;
+    width:5vw;
 }
 .org-div{
     background: #FAFFF9;
@@ -551,7 +550,7 @@ border:none;
     color:#124814;
 }
 .org-img{
-    background: #F7F7F7;
+    /* background: #F7F7F7; */
     box-shadow: 0px 3.63402px 37.2487px -15.4446px rgba(18, 72, 20, 0.35);
     border-radius: 9.08504px;
     width:100%;
@@ -584,7 +583,10 @@ border:none;
     width:4vw;
     height:4vw;
     border-radius:50%;
-    background: rgba(18, 72, 20, 0.28);
+    border:solid 1px;
+    background-position:50%;
+    background-size: cover;
+    /* background: rgba(18, 72, 20, 0.28); */
  }
  #donation-info{
     background: #FAFFF9;
@@ -698,13 +700,43 @@ width:95%;
     box-shadow: 0px 2.97867px 30.5314px -12.6594px rgba(18, 72, 20, 0.35);
     /* border-radius: 15px; */
 }
-.drag-drop{
+.drop-zone{
     background-color: #fff;
     box-shadow: 0px 3.63402px 37.2487px -15.4446px rgba(18, 72, 20, 0.35);
     border-radius: 9.08504px;
     width:80%;
     height:45%;
+    border:dashed 3px #124814;
 }
+.drop-zone--over{
+    border-style: solid;
+}
+.drop-zone__input {
+    display: none;
+  }
+  
+  .drop-zone__thumb {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #cccccc;
+    background-size: cover;
+    position: relative;
+  }
+  
+  .drop-zone__thumb::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    text-align: center;
+  }
 .joint-img{
     width:5vh;
     height:5vh;
@@ -847,4 +879,16 @@ width:95%;
     height: 6vh;
     font-size: 1vw;
     padding: 2px;
+}
+.admin-view-img{
+    border:solid 1px black;
+    height:15vw;
+    width:15vw;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:2vw;
+    border-radius:10px;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:50%;
 }

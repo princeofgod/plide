@@ -91,12 +91,38 @@ let courseAmount = 0
 		paymentStat.recent = value
 	}).catch(err => console.log(err))
 
+	await Payment.find({narration:courseName}).populate('userId').sort("ascending").then(value => {
+		paymentStat.all = value
+	}).catch(err => console.log(err))
+
+	
 	await Cause.findOne({name:courseName}).then(course => {
 		courseAmount = course.amount_needed
 	})
 	paymentStat.percentagePaid = (paymentStat.totalDonation/courseAmount) * 100
 	console.log()
+	
 
 	
 	return paymentStat;
+}
+
+exports.recentCauses = async () => {
+	const recentlyFunded = await Payment.find({purpose:'course'}).limit(4).sort({payment_date:-1}).then(async item => {
+		console.log("item", item)
+		const causes=[];
+
+		for(let i = 0 ; i < item.length ; i++){
+			let newItem = await Cause.find({name:item[i].narration}).then(result => {
+				return result;
+			}).then( result => causes.push(newItem)).catch(err=>{
+				console.log(err)
+			})
+		}
+
+		console.log("causes-----------", causes)
+		return causes;
+	}).catch(err => console.log(err))
+
+	return recentlyFunded;
 }

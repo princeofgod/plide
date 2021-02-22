@@ -36,6 +36,10 @@ const causeSchema = new mongoose.Schema({
     shares : {
         type : Number,
         default : 0
+    },
+    image : {
+        type: String,
+        default: "default.svg"
     }
 })
 

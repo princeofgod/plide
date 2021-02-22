@@ -1,5 +1,5 @@
 <div class="row" style="height:100vh">
-    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar">
         {{>adminMenu}}
     </div>
     <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
@@ -8,110 +8,177 @@
                 {{>adminTop}}
             </div>
         </div>
-        <div class="row px-4 pl-4 d-flex justify-content-center align-items-center" style="margin-top: auto;">
-
-
-            {{#if error}}
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                {{success}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="row ml-3">
+            <div class="w-25">
+                <button type="submit" class="btn-green mt-2 ml-auto w-25" onclick="window.history.back()">Back</button>
             </div>
-            {{/if}}
+        </div>
 
-            {{#if success}}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{success}}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {{/if}}
-
-            <div class=" row w-75" id="view-info">
-                <div class="col-12">
-                    <div class="row mt-3">
-
-                        <div class="col-6">
-                            <label for="firstname">Name</label> <br>
-                            <input class="form-control" type="text" name="firstname" id="" value="{{event.event_title}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
-                        <div class="col-6">
-                            <label for="lastname">Description</label> <br>
-                            <input class="form-control" type="text" name="lastname" id=""
-                                value="{{event.event_description}}" style="font-size: 1vw;" disabled>
-                        </div>
+        {{!-- Modal for add nominees --}}
+        <div class="modal fade" id="add-nominee" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Select Nominees to add.</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="row  mt-3">
-                        <div class="col-6">
-                            <label for="email">Date Published</label> <br>
-                            <input class="form-control" type="text" name="email" id="" value="{{event.date}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
-                        <div class="col-6">
-                            <label for="phone">Event Manager</label> <br>
-                            <input class="form-control" type="text" name="phone" id=""
-                                value="{{event.event_manager.firstname}} {{event.event_manager.lastname}}"
-                                style="font-size: 1vw;" disabled>
-                        </div>
+                    <div class="modal-body">
+
+                        <form action="add-nominee" method="post" class="" id="update-nominee">
+                            <input type="text" name="event" id="" value="{{event.event_title}}" style="display: none;">
+                            <input list="nominee" name="nominee" class="flexdatalist form-control" data-min-length="1"
+                                data-searchContain="false" multiple="multiple" style="z-index:1900!">
+                            <datalist id="nominee">
+                                {{#if users}}
+                                {{#each users}}
+                                <option value="{{this}}"></option>
+                                {{/each}}
+                                {{/if}}
+                            </datalist>
+                        </form>
                     </div>
-
-                    <label for="nominees" class="mt-5">Nominees</label> <br>
-                    <div class="row d-flex flex-row ">
-                        {{!-- <div class="col-6">
-                            <label for="group">Group</label> <br>
-                            <input class="form-control" type="text" name="group" id="" value="{{this.group_id.name}}"
-                                style="font-size: 1vw;" disabled>
-                        </div> --}}
-
-                        {{#if event.nominees}}
-                        {{#each event.nominees}}
-                        {{event.nominees}}
-                        <div class="col-6 mt-2">
-
-                            <input class="form-control" type="text" name="nominees" class="mt-5" id=""
-                                value="{{this.firstname}} {{this.lastname}}" style="font-size: 1vw;" disabled>
-                        </div>
-                        {{/each}}
-                        {{/if}}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"
+                            onclick="document.getElementById('update-nominee').submit();">Save changes</button>
                     </div>
-
-
-                    {{!-- <div class=""> --}}
-                        <div class="row mt-4 d-flex justify-content-end" style="">
-                            <button class="mr-3 btn" type="button" onclick="history.back()" class="btn btn-green"
-                                style="margin-left:50vw;width:20vw">Back</button>
-                        </div>
-                        {{!--
-                    </div> --}}
-
                 </div>
-                {{!-- <div class="col-4" style="border:solid 1px red">
-                    <div class="">
-                        <label for="lastname">Last Name</label> <br>
-                        <input class="form-control" type="text" name="lastname" id="">
-                    </div>
-                    <div class="">
-                        <label for="phone">Phone Number</label> <br>
-                        <input class="form-control" type="text" name="" id="">
-                    </div>
-                    <div class="">
-                        <label for="address">Address</label> <br>
-                        <input class="form-control" type="text" name="" id="">
-                    </div>
-                    <div class="">
-                        <label for="localgovt">Local Govt</label> <br>
-                        <input class="form-control" type="text" name="" id="">
-                    </div>
-                    <div class="">
-                        <label for="position">Position</label> <br>
-                        <input class="form-control" type="text" name="" id="">
-                    </div>
-                </div> --}}
             </div>
+        </div>
+        {{!-- Modal for add nominees --}}
 
+        <div class="row mt-2">
+            <div class="col-6" style="">
+                <div class=" mx-0 ml-3 py-3" id="" style="border-radius: 15px;border:solid 1px;">
+                    {{>messages}}
+                    <form action="addevents" class="" method="POST" id="eventform">
+                        <input type="text" name="button" id="publish" style="display:none">
+                        <div class="mx-5 px-2 my-3">
+                            <label for="event_title" class="" style="font-size:1vw">Event Title</label>
+                            <input class="form-control" type="text" name="event_title" id="" style="font-size:1vw"
+                                value="{{event.event_title}}" disabled>
+                        </div>
+                        {{!-- --}}
+                        <div class="mx-5 px-2 my-3">
+                            <label for="event_description" class="">Description</label>
+                            <input type="text" class="form-control" name="event_description" id="" cols="30" rows="5"
+                                style="resize: none;" style="font-size:1vw" value="{{event.event_description}}"
+                                disabled></input>
+                        </div>
+                        {{!-- --}}
+                        <div class="mx-5 px-2 my-3">
+                            <label for="event-manager" class="">Event Manager</label>
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="text" name="event_manager" class="form-control" style="font-size:1vw"
+                                        value="{{event.event_manager.firstname}} {{event.event_manager.lastname}}"
+                                        disabled>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- --}}
+                        <div class="mx-5 px-2 my-3">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="start-date" class="">Start date</label>
+                                    <input class="form-control" type="date" name="start_date" id=""
+                                        value="{{event.start_date}}" disabled>
+                                </div>
+                                <div class="col-6">
+                                    <label for="end-date" class="">End date</label>
+                                    <input class="form-control" type="date" name="end_date" id=""
+                                        value="{{event.end_date}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        {{!-- --}}
+                    </form>
+                </div>
+
+            </div>
+            <div class="col-3 mx-0 px-0">
+                <div class="py-3 px-2"
+                    style="border:solid 1px rgba(18, 72, 20, 0.5);box-sizing: border-box;border-radius:15px;">
+                    <h3 style="font-size:1vw;" class="font-weight-bold ml-3">Nominees</h3>
+
+                    {{#if event.nominees}}
+                    <form action="" class="px-3">
+                        {{#each event.nominees}}
+
+                        <input type="text" class="form-control my-1 " value="{{this.firstname}} {{this.lastname}}"
+                            style="font-size:1vw" disabled>
+
+                        {{/each}}
+                    </form>
+                    <div class="row mt-3 px-3">
+                        <button class="ml-3 btn-white-1 ml-auto mr-3" data-toggle="modal" data-target="#add-nominee"> +
+                            Add
+                            more
+                            nominees</button>
+                    </div>
+                    {{else}}
+                    <div class="">
+                        <p class="ml-3">No nominees selected</p>
+                        <button class="ml-3 btn-white-1" data-toggle="modal" data-target="#add-nominee"> + Add
+                            now</button>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+            <div class="col-3 px-2 mb-5">
+                <div class="pb-3" style="border-radius: 15px;background-color: #124814;border:solid 1px black">
+                    {{!-- CONTINUE HERE TOMORROW --}}
+                    <h3 class="text-bold ml-2 mb-4" style="font-size:1vw;font-weight:bold;color:white">Today's schedule
+                    </h3>
+                    {{#if schedule}}
+                    {{#each schedule}}
+                    <div class="row mx-0" style="background-color: #124814;">
+                        <div class="col-3 schedule mt-3">
+                            <div class="d-flex justify-content-center align-items-center"
+                                style="background-color:#fff;border:solid 1px;width:3vw;height:3vw;border-radius:50%;">
+                                <svg width="22" height="16" viewBox="0 0 22 16" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M15.1584 4.23285C15.1584 6.58254 13.2852 8.4666 10.9491 8.4666C8.61303 8.4666 6.73984 6.58254 6.73984 4.23285C6.73984 1.88227 8.61303 0 10.9491 0C13.2852 0 15.1584 1.88227 15.1584 4.23285ZM10.949 16C7.51785 16 4.58809 15.456 4.58809 13.2802C4.58809 11.1034 7.49904 10.5396 10.949 10.5396C14.3802 10.5396 17.31 11.0836 17.31 13.2604C17.31 15.4362 14.399 16 10.949 16ZM16.9572 4.30922C16.9572 5.50703 16.5999 6.62288 15.9732 7.55051C15.9087 7.64597 15.966 7.77476 16.0797 7.79457C16.2364 7.82159 16.3985 7.8369 16.5632 7.8414C18.2063 7.88463 19.681 6.82102 20.0884 5.21974C20.6919 2.84123 18.9199 0.705895 16.6635 0.705895C16.4182 0.705895 16.1836 0.732013 15.9552 0.778844C15.9239 0.786049 15.8908 0.800459 15.8729 0.828377C15.8514 0.862601 15.8675 0.908531 15.889 0.938251C16.5668 1.8938 16.9572 3.05918 16.9572 4.30922ZM19.6784 9.51257C20.7825 9.72962 21.5086 10.1727 21.8095 10.8166C22.0638 11.3453 22.0638 11.9586 21.8095 12.4864C21.3493 13.4851 19.8656 13.8058 19.2889 13.8886C19.1699 13.9066 19.074 13.8031 19.0866 13.6833C19.3812 10.9157 17.0379 9.60353 16.4317 9.30183C16.4057 9.28832 16.4004 9.2676 16.4031 9.255C16.4049 9.24599 16.4156 9.23158 16.4353 9.22888C17.7471 9.20456 19.1573 9.38468 19.6784 9.51257ZM5.43699 7.84131C5.60175 7.83681 5.76292 7.8224 5.92051 7.79448C6.03423 7.77467 6.09153 7.64588 6.02706 7.55042C5.40028 6.62279 5.04302 5.50694 5.04302 4.30913C5.04302 3.05909 5.43341 1.89371 6.11123 0.938161C6.13272 0.908441 6.14794 0.86251 6.12735 0.828287C6.10944 0.801269 6.07541 0.785958 6.04497 0.778754C5.81575 0.731922 5.58115 0.705804 5.33581 0.705804C3.0794 0.705804 1.3074 2.84114 1.91179 5.21965C2.3192 6.82093 3.79393 7.88454 5.43699 7.84131ZM5.59694 9.25445C5.59962 9.26796 5.59425 9.28778 5.56918 9.30219C4.9621 9.60389 2.61883 10.9161 2.91342 13.6827C2.92595 13.8034 2.83104 13.9061 2.71195 13.889C2.13531 13.8061 0.651629 13.4855 0.191392 12.4867C-0.0637974 11.9581 -0.0637974 11.3457 0.191392 10.817C0.492248 10.1731 1.21752 9.72997 2.32156 9.51203C2.84358 9.38504 4.25294 9.20492 5.5656 9.22924C5.5853 9.23194 5.59515 9.24635 5.59694 9.25445Z"
+                                        fill="#124814" />
+                                </svg>
+
+                            </div>
+                        </div>
+                        <div class="col-8 schedule">
+                            <p class="m-0 p-0" style="font-size: 1vw;">{{this.group}} </p>
+                            <span class="time-schedule m-0 p-0">{{this.start_time}} - {{this.end_time}} on
+                                ZOOM</span>
+                        </div>
+                    </div>
+                    {{/each}}
+                    {{/if}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    const publish = document.getElementById("publish")
+    const saveas = document.getElementById("saveasbtn")
+    const save = document.getElementById("savebtn")
+    const eventForm = document.getElementById("eventform")
+
+    save.addEventListener('click', () => {
+        publish.value = save.innerText;
+        evenForm.submit()
+    })
+    saveas.addEventListener('click', () => {
+        publish.value = save.innerText;
+        evenForm.submit()
+    })
+
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2({
+            dropdownParent: $('#yes')
+        });
+    });
+</script>

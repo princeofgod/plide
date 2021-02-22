@@ -342,7 +342,14 @@ exports.getOneById = async id => {
     return user
 } 
 
-
+exports.getAllNoPagination = async () => {
+    const users = await User.find({}).then( user => {
+        return user;
+    }).catch(err => {
+        console.log(err)
+    })
+    return users;
+}
 // Authorization check if the user have rights to do this action
 // exports.restrictTo = (...permission) => {
 //     return (req, res, next) => {

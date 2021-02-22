@@ -118,7 +118,8 @@ router.post('/registerMember', registerValidation, async (req, res, next) => {
 			req.body.permission = 'user'
 			req.body.firstname = body["fullname"].split(" ")[0];
 			req.body.lastname = body["fullname"].split(" ")[1];
-			req.body = body
+			req.body = body;
+			body.profile_pic = "default.svg";
 			const registerMember = await userController.signup(req.body);
 			res.render('register',{success:"Registration Successful, A mail has been sent to the provided email address."});
 		}

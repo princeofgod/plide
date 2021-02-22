@@ -1,22 +1,23 @@
 <div class="row" style="height:100vh;">
     <div class="col-md-2 p-0 m-0 h-100" id="menu-bar">
-        {{>userMenu}}
+        {{>adminMenu}}
     </div>
     <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden">
         <div class="row" #>
             <div class="col-12">
-                {{>topnav}}
+                {{>adminTop}}
             </div>
         </div>
         <div class="row">
             <div class="col-12">
-                <h4 class="font-weight-bold p-0 ml-3" style="font-size:1.3vw;">{{course.name}}</h4>
+                <h4 class="font-weight-bold p-0 ml-3" style="font-size:1.3vw;">{{cause.name}}</h4>
             </div>
         </div>
         <div class="row">
             <div class="col-6 px-5">
-                <div class="row org-img my-3" style="background-image:url(" ../logo/npm.png")">
-
+                <div class="row org-img my-3 p-5"
+                    style="background-image:url('../../cause/{{cause.image}}');background-repeat:no-repeat;background-positon:50%;background-size:cover">
+                    {{!-- <img src="../../cause/{{cause.image}}" alt="" class="w-100 h-100"> --}}
                 </div>
                 {{!-- <div class="row my-4">
                     <div class="col-4 ">
@@ -34,7 +35,7 @@
                     <div class="col-5">
                         <div class="about" style="">
                             <p class="text-center pt-2" style="font-size:.9vw;color: rgba(18, 72, 20, 0.5);">Created
-                                {{course.date}}</p>
+                                {{cause.date}}</p>
                         </div>
                     </div>
                     {{!-- <div class="col-4">
@@ -53,20 +54,20 @@
                 {{!-- --}}
                 <div class="row my-3">
                     <p class="mx-3">
-                        {{course.description}}
+                        {{cause.description}}
                     </p>
                 </div>
                 <h4 class="font-weight-bold px-0" style="font-size:1vw;">Organizer</h4>
                 <div class="d-flex flex-row align-items-center justify-content-between">
-                    <p class="" style="font-size:.8vw;width:50%;">{{course.organiserId.firstname}} and his team.</p>
-                    <input type="text" name="" id="phone_course" value="{{course.phone}}"
+                    <p class="" style="font-size:.8vw;width:50%;">{{cause.organiserId.firstname}} and his team.</p>
+                    <input type="text" name="" id="phone_course" value="{{cause.phone}}"
                         style="display:none;color:#124814;font-size:1.5vw">
                     <button class="mb-1 border-rounded w-25" id="contact-btn">Contact</button>
                 </div>
             </div>
             <div class="col-5 py-3 px-5" id="donation-info" style="height:650px;">
                 <div class="" style="">
-                    <p class="font-weight-bold"> # {{paymentStat.totalDonation}} raised of #{{course.amount_needed}}</p>
+                    <p class="font-weight-bold"> # {{paymentStat.totalDonation}} raised of #{{cause.amount_needed}}</p>
                     <div class="" style="height: 5px;width:100%;background-color:#EFEFFA;border-radius:16px;">
                         <div class=""
                             style="height: 5px;width:{{paymentStat.percentagePaid}}%;background-color:#34CF4D;border-radius:16px;">
@@ -78,10 +79,10 @@
                             <p class="font-weight-bold my-0">{{donor}}</p>
                             <p class="" style="rgba(18, 72, 20, 0.5);">donors</p>
                         </div>
-                        <div class="mx-2">
+                        {{!-- <div class="mx-2">
                             <p class="font-weight-bold my-0">{{course.shares}}</p>
                             <p class="" style="rgba(18, 72, 20, 0.5);">shares</p>
-                        </div>
+                        </div> --}}
 
                     </div>
                     {{!-- --}}
@@ -213,8 +214,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="donator-icon d-flex align-items-center justify-content-center"
-                                    style="background-image:url("
-                                    ../avatar/{{this.userId.profile_pic}}");background-position:50%;background-size:contain">
+                                    style="background-image:url('../avatar/{{this.userId.profile_pic}}');">
 
                                     {{!-- <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -288,12 +288,75 @@
                         </div> --}}
                     </div>
 
-                    <div class="my-4 d-flex justify-content-between">
-                        <button class="see-all ml-3">See all</button>
-                        <div class="more-donations d-flex align-items-center justify-content-center mr-3"><a href=""
-                                class="">See top donations</a></div>
-                    </div>
+                    <p class="mt-2">Recent donors</p>
 
+                    <div class="mt-1 mb-4 d-flex justify-content-between">
+                        <!-- Modal -->
+                        <div class="modal fade" id="all-donors" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {{#if paymentStat.all}}
+                                        {{#each paymentStat.all}}
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <div class="donator-icon d-flex align-items-center justify-content-center"
+                                                    style="background-image:url('../avatar/{{this.userId.profile_pic}}');background-position:50%;background-size:contain">
+
+                                                    {{!-- <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796"
+                                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
+                                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round" />
+                                                    </svg> --}}
+
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <p class="font-weight-bold m-0 p-0">{{this.userId.firstname}}
+                                                    {{this.userId.lastname}}
+                                                </p>
+                                                <p class="font-weight-bold"># {{this.amount}} <span class=""
+                                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot
+                                                        8
+                                                        mos</span></p>
+                                            </div>
+                                        </div>
+                                        {{/each}}
+                                        {{else}}
+                                        <p>No funding to display!</p>
+                                        {{/if}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Button trigger modal -->
+                        {{#if recent}}
+                        <button type="button" class="see-all ml-3" data-toggle="modal" data-target="#all-donors">
+                            See all
+                        </button>
+                        {{else}}
+                        <p class="">No donors yet!! You can be the first.</p>
+                        {{/if}}
+                        {{!-- <div class="more-donations d-flex align-items-center justify-content-center mr-3"><a
+                                href="" class="">See top donations</a></div> --}}
+                    </div>
                 </div>
             </div>
         </div>

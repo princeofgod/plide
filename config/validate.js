@@ -62,15 +62,6 @@ const loginValidation = [
 ]
 
 
-// const result = (req,res,next) => {
-//     const result = validationResult(req)
-
-//     if(!result.isEmpty()){
-//         const error = result()[0].msg 
-//         console.log(error)
-//     }
-//     next();
-// }
 
 /**
  * Group validation
@@ -109,19 +100,19 @@ const eventValidation = [
 ]
 
 /**
- * Category validation
- * Validates the form that adds category
+ * Cause validation
+ * Validates the form that adds cause
  */
 const categoryValidation = [
-    check("category_name").notEmpty().withMessage("Category name can't be left empty").custom(async value => {
+    check("cause_name").not().isEmpty().withMessage("Cause name can't be left empty").custom(async value => {
         await Cause.findOne({name:value})
             .then(course => {
                 if(course){
-                    throw new Error("Category with name already exists!");
+                    throw new Error("Cause with name already exists!");
                 }
             })
     }),
-    check("category_description").notEmpty().withMessage("Category description can't be left empty"),
+    check("cause_description").notEmpty().withMessage("Cause description can't be left empty"),
 ]
 
 /**

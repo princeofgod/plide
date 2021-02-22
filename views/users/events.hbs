@@ -8,15 +8,15 @@
                 {{>topnav}}
             </div>
         </div>
-        <div class="row">
-            <div class="col-9">
+        <div class="row mt-1">
+            <div class="col-9  mt-3">
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-10 d-flex flex-row">
                         {{#if events}}
                         {{#each events}}
                         <div class="col-4 pr-0 d-flex flex-row justify-content-center align-items-center" style="">
 
-                            <div class="event-name mx-2 w-100 py-2 pl-1 pr-1">
+                            <div class="event-name mx-2 w-100 py-2 pl-1 pr-1 pb-5 ">
 
                                 <h3 class=" event-head pt-3 font-weight-bold text-center">
                                     {{!-- ENTREPRENEURSHIP SESSION --}}{{this.event_title}}</h3>
@@ -25,28 +25,26 @@
                                 <div class="row pl-1 pr-4 event-managers">
                                     <div
                                         class="col-12 pr-0 d-flex flex-column justify-content-center align-items-center">
-                                        {{#image this.user.profile_pic}}
+                                        {{!-- {{#image this.user.profile_pic}} --}}
                                         <div class="name"
-                                            style="background-image:url('../avatar/{{this.users.profile_pic}}')">
+                                            style="background-image:url('../avatar/{{this.event_manager.profile_pic}}');background-repeat:no-repeat;">
                                         </div>
-                                        {{else}}
-                                        <div class="name">
+                                        {{!-- {{else}} --}}
+                                        {{!-- <div class="name">
                                             <img src="../../all-img.svg" alt="" class="">
                                         </div>
 
 
-                                        {{/image}}
+                                        {{/image}} --}}
 
                                         <div class="">
                                             <p class="mb-0 mt-1" style="font-size:.7vw">
-                                                {{this.users.firstname}} {{this.users.lastname}}</p>
-                                            <span class="my-0 wrap-text align-self-center" style="font-size:.7vw">Team
-                                                Leader</span>
+                                                {{this.event_manager.firstname}} {{this.event_manager.lastname}}</p>
                                         </div>
                                     </div>
                                     {{!-- --}}
                                 </div>
-                                <label class="event-label ml-2 mt-3">Event Population:</label>
+                                {{!-- <label class="event-label ml-2 mt-3">Event Population:</label>
                                 <div class="d-flex justify-content-center align-items-center">
                                     <svg width="74" height="86" viewBox="0 0 74 86" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -55,7 +53,7 @@
                                             fill="#124814" stroke="#124814" stroke-width="2.45464" />
                                     </svg>
 
-                                </div>
+                                </div> --}}
                             </div>
 
 
@@ -65,26 +63,27 @@
                         {{/if}}
                     </div>
 
-                    <div class="col-2 d-flex flex-column align-items-center"
-                        style="width:60%px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;">
-                        <div class="mr-2" style="font-size:.7vw;cursor:pointer" id="add-group-btn"
-                            onclick="window.location.href='addevents'">
-                            <h3 class="font-weight-bold" style="font-size:1vw;">ADD EVENT</h3>
-                            <p class="">Create new events and customize it with your priority</p>
-                            <div class="d-flex flex-row align-items-center justify-content-between">
+                    <div class="col-2 d-flex py-0 px-0 flex-column align-items-center" style="">
+                        <div class="mr-2 w-100"
+                            style="font-size:.7vw;cursor:pointer;width:60%px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;"
+                            id="add-group-btn" onclick="window.location.href='addevents'">
+                            <h3 class="font-weight-bold mx-1" style="font-size:1vw;">ADD EVENT</h3>
+                            <p class="mx-1">Create new events and customize it with your priority</p>
+                            <div class="d-flex flex-row align-items-center justify-content-around">
                                 <div class="d-flex align-items-center justify-content-center" id="add-div">
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+                                    <svg class="ml-2" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <path
                                             d="M15.375 7.375H8.625V0.625C8.625 0.279813 8.34519 0 8 0C7.65481 0 7.375 0.279813 7.375 0.625V7.375H0.625C0.279813 7.375 0 7.65481 0 8C0 8.34519 0.279813 8.625 0.625 8.625H7.375V15.375C7.375 15.7202 7.65481 16 8 16C8.34519 16 8.625 15.7202 8.625 15.375V8.625H15.375C15.7202 8.625 16 8.34519 16 8C16 7.65481 15.7202 7.375 15.375 7.375Z"
                                             fill="#124814" />
                                     </svg>
                                 </div>
-                                <p class="font-weight-bold mt-3">Create New Event</p>
+                                <p class="font-weight-bold mt-3 mr-4">Create New Event</p>
                             </div>
                         </div>
-                        <div class="">
-                            <button class="show-more" onclick="window.location.href='../event/viewevents'">
+
+                        <div class="my-0 mt-2 w-100">
+                            <button class="show-more w-100" onclick="window.location.href='../event/viewevents'">
                                 Show more
                             </button>
                         </div>
@@ -117,10 +116,7 @@
                                     </div>
                                 </div>
                             </th>
-                            <th class="p-0 text-center " style="height:50px;">
-                                <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">ACTIONS
-                                </div>
-                            </th>
+
                         </tr>
                         {{#if events}}
                         {{#each events}}
@@ -129,11 +125,7 @@
                             <td class="text-center py-3" id="">{{this.date}}</td>
                             <td class="text-center py-3" id="">{{this.event_manager.firstname}}
                                 {{this.event_manager.lastname}}</td>
-                            <td class=>
-                                <button type="button" class="event-update-btn w-75" data-toggle="modal"
-                                    data-target="#exampleModalCenter">Register</button>
-                                {{!-- <button type="submit" class="event-delete-btn text-center">Delete</button> --}}
-                            </td>
+
                         </tr>
                         {{/each}}
                         {{/if}}
