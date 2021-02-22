@@ -8,6 +8,7 @@ const { validationResult } = require('express-validator');
 const moment = require("moment");
 const helper = require('../config/helpers');
 var multer  = require('multer');
+const Payment = require('../model/payment');
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 	  cb(null, __dirname + '/../images/cause')
@@ -52,6 +53,8 @@ router.post('/addCause', upload.single('image'), categoryValidation, async (req,
 		body.image = req.file.filename;
 		await causeController.createOne(body)
 
+		page.title = 'PACES Causes',
+		page.pageTitle = 'Cause'
 		// res.redirect('../cause/causes')
 		res.render("./admin/add-cause", {success: `New cause ${body.name} has been created`})
     }
@@ -101,11 +104,37 @@ router.get('/funding', async (req, res, next) => {
 
 		const causes = await causeController.getFundableCourses()
 		console.log("ggggggg==", causes)
-		const payment = helper.recentCauses()
+		const payment = await helper.recentCauses()
+		console.log("new Causes============", payment)
+		console.log("Looking for name========", payment[0][0].name)
+
+		const newPayment = []
+		for(let x= 0;x<payment.length;x++){
+			newPayment.push(payment[x][0])
+		}
+		
+		console.log("new Payment ==========", newPayment)
+
+		const percent=[]
+		for(let i=0;i<newPayment.length;i++){
+			await Payment.findOne({narration:newPayment[i].name}, (err, result) => {
+				if(err) console.log(err)
+				if(result) {
+					percent.push(result)
+				}
+			});
+			// payment.push(newPayment[i].name)
+		}
+
+		// console.log("new Payment ==========", percent)
+		// for(let x=0;x<percent.length;x++){
+		// 	percent[x].
+		// }
+
 		if(user.role === '1'){
-			res.render('./admin/adminfundACause', {user:user, page:page,causes:causes,paymentStat:payment})
+			res.render('./admin/adminfundACause', {user:user, page:page,causes:causes,payment:newPayment})
 		} else {
-			res.render('./users/fundACause', {user:user, page:page,causes:causes, paymentStat:payment});
+			res.render('./users/fundACause', {user:user, page:page,causes:causes, paymenT:newPayment});
 		}
 	 }
 });

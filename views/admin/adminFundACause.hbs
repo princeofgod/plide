@@ -44,24 +44,26 @@
             </div>
             <div class="row mt-4">
                 <div class="col-12">
-                    <p class="">Recent funds</p>
+                    <p class="">Recently funded</p>
                     <div class="row">
                         <div class="col-10 mb-3">
                             <div class="row px-2">
-                                {{#if paymentStat}}
-                                {{#each paymentStat}}
+                                {{#if payment}}
+                                {{#each payment}}
 
                                 <div class="col-3 ">
                                     <div class="px-0 org-div pb-2" style="">
                                         <div class="organisation-img"
-                                            style="background-image:url(ypp.png);width:inherit;height:150px;">
+                                            style="background-image:url('../../cause/{{this.image}}');width:inherit;height:150px;">
 
                                         </div>
-                                        <h3 class="font-weight-bold m-2 " style="font-size:1vw;">Youth Political Party
+                                        <h3 class="font-weight-bold m-2 " style="font-size:1vw;">
+                                            {{this.name}}
                                         </h3>
-                                        <p class="m-2" style="color:rgba(18, 72, 20, 0.5);font-size:.8vw;">
+                                        <p class="m-2 text-truncate"
+                                            style="color:rgba(18, 72, 20, 0.5);font-size:.8vw;">
                                             {{this.description}}</p>
-                                        <div class="">
+                                        {{!-- <div class="">
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h4 class="m-2 font-weight-bold" style="font-size:1vw;">Funds raised
                                                 </h4>
@@ -73,7 +75,7 @@
                                                     style="width:65%;height:5px;background-color:#34CF4D;border-radius:16px;">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 {{/each}}
@@ -81,11 +83,7 @@
 
                             </div>
                         </div>
-                        <div class="col-2 d-flex align-items-center justify-content-center">
-                            <div class="d-flex align-items-center justify-content-center div">
-                                <a href="" class="" style="font-size: 1vw;">SHOW MORE</a>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
