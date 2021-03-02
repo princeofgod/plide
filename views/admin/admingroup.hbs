@@ -1,5 +1,5 @@
 <div class="row" style="height:100vh">
-    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar">
         {{>adminMenu}}
     </div>
     <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
@@ -17,9 +17,9 @@
                         {{#each randomGroups}}
                         <div class="col-4 d-flex flex-row justify-content-center align-items-center px-2" style="">
 
-                            <div class="event-name mx-2 py-2 pl-1 pr-1">
+                            <div class="event-name mx-2 py-2 px-1 pb-4">
 
-                                <h3 class=" event-head pt-3 font-weight-bold text-center">
+                                <h3 class=" event-head pt-3 font-weight-bold text-center text-wrap">
                                     {{!-- ENTREPRENEURSHIP SESSION --}}{{this.name}}</h3>
                                 </h4>
                                 <label class="event-label ml-2">Group members:</label>
@@ -45,12 +45,12 @@
                                             <p class="mb-0 mt-1" style="font-size:.7vw">
                                                 {{this.secretary.0.firstname}} {{this.secretary.0.lastname}}</p>
                                             <span class="my-0 wrap-text align-self-center" style="font-size:.7vw">Team
-                                                Leader</span>
+                                                secretary</span>
                                         </div>
                                     </div>
                                     {{!-- --}}
                                 </div>
-                                <label class="event-label ml-2 mt-3">Event Population:</label>
+                                {{!-- <label class="event-label ml-2 mt-3">Event Population:</label>
                                 <div class="d-flex justify-content-center align-items-center">
                                     <svg width="74" height="86" viewBox="0 0 74 86" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -59,7 +59,7 @@
                                             fill="#124814" stroke="#124814" stroke-width="2.45464" />
                                     </svg>
 
-                                </div>
+                                </div> --}}
                             </div>
 
 
@@ -69,10 +69,10 @@
                         {{/if}}
                     </div>
 
-                    <div class="col-2 d-flex flex-column px-1">
-                        <div class="d-flex align-items-center w-100"
+                    <div class="col-2 d-flex flex-column px-1 mt-4">
+                        <div class="d-flex align-items-center w-100 mt-2"
                             style="width:60%px;height:50%;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;">
-                            <div class="" style="font-size:.7vw;cursor:pointer" id="add-group-btn"
+                            <div class="mx-1" style="font-size:.7vw;cursor:pointer" id="add-group-btn"
                                 onclick="window.location.href='addGroup'">
                                 <h3 class="font-weight-bold" style="font-size:1vw;">ADD GROUP</h3>
                                 <p class="">Create new groups and customize it with your priority</p>
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="show-more" onclick="window.location.href='../group/viewgroups'">
+                        <button class="show-more mt-4" onclick="window.location.href='../group/viewgroups'">
                             Show more
                         </button>
                     </div>
@@ -99,7 +99,7 @@
 
                     <table class="w-100 mx-4 my-0">
                         <tr>
-                            <th class="p-0 text-center " style="height:50px;">
+                            <th class="p-0 text-center " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
                                         UPCOMING
@@ -107,21 +107,21 @@
                                     </div>
                                 </div>
                             </th>
-                            <th class="p-0 text-center " style="height:50px;">
+                            <th class="p-0 text-center " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
                                         CREATED
                                     </div>
                                 </div>
                             </th>
-                            <th class="p-0 text-center  " style="height:50px;">
+                            <th class="p-0 text-center  " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
                                         LEADER
                                     </div>
                                 </div>
                             </th>
-                            <th class="p-0 text-center " style="height:50px;">
+                            <th class="p-0 text-center " style="height:50px;border:none">
                                 <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">ACTIONS
                                 </div>
                             </th>
@@ -133,7 +133,7 @@
                             <td class="text-center py-3">{{this.date}}</td>
                             <td class="text-center py-3">{{this.leader.firstname}} {{this.leader.lastname}}</td>
                             <td class=>
-                                <button type="submit" class="event-update-btn text-center w-75">Register</button>
+                                <button type="submit" class="event-update-btn text-center w-75">view</button>
                                 {{!-- <button type="submit" class="event-delete-btn text-center">Delete</button> --}}
                             </td>
                         </tr>
@@ -177,7 +177,13 @@
 
                     </div>
                 </div>
-
+                <div class="pt-4 px-3">
+                    <p class="mx-2">
+                        You have 20 pending request to be approved
+                    </p>
+                    <button class="w-50 btn-green" style="font-size:1.2vw"
+                        onclick="window.location.href='./approverequest'">Check</button>
+                </div>
             </div>
         </div>
     </div>

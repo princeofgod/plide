@@ -36,7 +36,22 @@ const groupSchema = new mongoose.Schema({
         type: Mongoose.ObjectId,
         ref: 'User'
     },
-    members :[],
+    members :[
+        {
+            firstname : {
+                type: String
+            },
+            lastname : {
+                type: String
+            },
+            phone : {
+                type: String
+            },
+            email : {
+                type: String
+            },
+        }
+    ],
     
 },{
     timestamps: { createdAt: true, updatedAt: false }

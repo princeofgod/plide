@@ -29,35 +29,32 @@
             </div>
             {{/if}}
 
-
-            {{#if events}}
+            {{#if groups}}
             <div class="w-100">
-                <p class="" id="">Showing results {{events.pagingCounter}} - {{#estimate estimate
-                    events.totalDocs}}{{/estimate}} of {{events.totalDocs}}
+                <p class="" id="">Showing results {{groups.pagingCounter}} - {{#estimate estimate
+                    groups.totalDocs}}{{/estimate}} of {{groups.totalDocs}}
                 </p>
 
                 <table id="members-list" class="mt-3">
                     <tr>
-                        <th class="text-center" style="width:15%">Name</th>
-                        <th class="text-center" style="width:35%">Description</th>
-                        <th class="text-center" style="width:15%">Organiser's Name</th>
-                        <th class="text-center" style="width:10%">Phone</th>
+                        <th class="text-center" style="width:15%">Group Name</th>
+                        <th class="text-center" style="width:35%">Group Description</th>
+                        <th class="text-center" style="width:15%">Group leader</th>
+                        <th class="text-center" style="width:10%">Group Secretary</th>
                         <th class="text-center" style="width:25%">ACTION</th>
                     </tr>
-                    {{#each events.docs}}
+                    {{#each groups.docs}}
                     <tr>
 
-                        <td>{{this.event_title}}</td>
-                        <td>{{this.event_description}}</td>
-                        <td>{{this.event_manager.firstname}} {{this.event_manager.lastname}}</td>
-                        <td>{{this.phone}}</td>
+                        <td>{{this.name}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.leader.firstname}} {{this.leader.lastname}}</td>
+                        <td>{{this.secretary.firstname}} {{this.secretary.lastname}}</td>
                         <td>
                             {{!-- Unseen form for delete event function --}}
                             <form action="delete" method="POST" style="display:none" id="{{this._id}}-delete_form">
-                                <input type="text" name="event_title" id="" value="{{this.event_title}}"
-                                    style="display:none">
-                                {{!-- <input type="text" name="event_title" id="" value="{{this.event_title}}"
-                                    style="display:none"> --}}
+                                <input type="text" name="group_name" id="" value="{{this._id}}" style="display:none">
+
                             </form>
 
                             <!-- Modal for update -->
@@ -73,31 +70,29 @@
                                         </div>
                                         <div class="modal-body">
                                             <form action="update" method="post" id="{{this._id}}-update_form">
-                                                <input type="text" name="old_title" id="" value="{{this.event_title}}"
+                                                <input type="text" name="old_title" id="" value="{{this.name}}"
                                                     style="display:none;">
                                                 <div class="mx-5 px-2 my-3">
-                                                    <label for="event_title" class="">Event Title</label>
-                                                    <input class="form-control" type="text" name="event_title" id=""
-                                                        autocomplete="off" value="{{this.event_title}}" required>
+                                                    <label for="name" class="">Group Name</label>
+                                                    <input class="form-control" type="text" name="name" id=""
+                                                        autocomplete="off" value="{{this.name}}" required>
                                                 </div>
                                                 {{!-- --}}
                                                 <div class="mx-5 px-2 my-3">
-                                                    <label for="event_description" class="">Description</label>
+                                                    <label for="description" class="">Description</label>
 
-                                                    <textarea class="form-control" name="event_description" id=""
-                                                        cols="30" rows="5" style="resize: none;"
-                                                        value="{{this.event_description}}"
-                                                        required>{{this.event_description}}</textarea>
+                                                    <textarea class="form-control" name="description" id="" cols="30"
+                                                        rows="5" style="resize: none;" value="{{this.description}}"
+                                                        required>{{this.description}}</textarea>
                                                 </div>
                                                 {{!-- --}}
                                                 <div class="mx-5 px-2 my-3">
-                                                    <label for="event-manager" class="">Event Manager</label>
+                                                    <label for="event-manager" class="">Leader</label>
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <input list="event_manager" name="event_manager"
-                                                                class="form-control"
-                                                                value="{{this.event_manager.firstname}} {{this.event_manager.lastname}} ({{this.event_manager.email}})">
-                                                            <datalist id="event_manager">
+                                                            <input list="leader" name="leader" class="form-control"
+                                                                value="{{this.leader.firstname}} {{this.leader.lastname}} ({{this.leader.email}})">
+                                                            <datalist id="leader">
                                                                 {{#if users}}
                                                                 {{#each users}}
                                                                 <option value="{{this}}"></option>
@@ -109,19 +104,24 @@
                                                 </div>
                                                 {{!-- --}}
                                                 <div class="mx-5 px-2 my-3">
+                                                    <label for="secretary" class="">Secretary</label>
                                                     <div class="row">
-                                                        <div class="col-6">
-                                                            <label for="start-date" class="">Start date</label>
-                                                            <input class="form-control" type="date" name="start_date"
-                                                                id="" value="{{this.start_date}}" required>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <label for="end-date" class="">End date</label>
-                                                            <input class="form-control" type="date" name="end_date"
-                                                                id="" value="{{this.end_date}}" required>
+                                                        <div class="col-12">
+                                                            <input list="secretary" name="secretary"
+                                                                class="form-control"
+                                                                value="{{this.secretary.firstname}} {{this.secretary.lastname}} ({{this.secretary.email}})">
+                                                            <datalist id="leader">
+                                                                {{#if users}}
+                                                                {{#each users}}
+                                                                <option value="{{this}}"></option>
+                                                                {{/each}}
+                                                                {{/if}}
+                                                            </datalist>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                {{!-- --}}
+
                                                 {{!-- --}}
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -151,9 +151,9 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+                                                data-dismiss="modal">Cancel</button>
                                             <button type="button" class="btn btn-primary"
-                                                onclick="document.getElementById('{{this._id}}-delete_form').submit()">Delete</button>
+                                                onclick="document.location.href='../group/delete?id={{this._id}}'">Delete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -161,7 +161,7 @@
 
 
 
-                            <!-- Modal -->
+                            <!--View  Modal -->
                             <div class="modal fade" id="view-{{this._id}}" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -174,9 +174,9 @@
                                         </div>
                                         <div class="modal-body">
                                             <form action="addnominee" method="post" id="addnominees">
-                                                <label for="event_title">Event Title</label><br>
-                                                <input class="form-control" type="text" name="event_title" id=""
-                                                    value="{{this.event_title}}" disabled><br>
+                                                <label for="name">Group Name</label><br>
+                                                <input class="form-control" type="text" name="name" id=""
+                                                    value="{{this.name}}" disabled><br>
                                                 <label for="user">Select Nominees</label><br>
                                                 <input list="user" class="form-control" name="user" id=""
                                                     autocomplete="off" required>
@@ -206,7 +206,7 @@
 
                             <!-- Button trigger modal -->
                             <button type="button" class="event-x btn btn-primary"
-                                onclick="document.location.href='../event/view-event-info?id={{this._id}}'">
+                                onclick="document.location.href='../group/view-group-info?id={{this._id}}'">
                                 View
                             </button>
                             {{!-- <button type="button" class="event-x btn btn-primary" data-toggle="modal"
@@ -225,16 +225,16 @@
 
                 <nav aria-label="..." class="mt-3 mx-auto">
                     <ul class="pagination pagination-sm justify-content-center">
-                        {{#previous events.page}}
+                        {{#previous groups.page}}
                         <li class="page-item disabled">
                             <a class="page-link"
-                                href="/event/viewevents?limit={{events.limit}}&page={{events.prevPage}}"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{else}}
                         <li class="page-item">
                             <a class="page-link"
-                                href="/event/viewevents?limit={{events.limit}}&page={{events.prevPage}}"
+                                href="/group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{/previous}}
@@ -244,24 +244,24 @@
                                 tabindex="-1">Previous</a>
                         </li> --}}
 
-                        {{#if events}}
-                        {{#loop 1 events.totalPages 1}}
+                        {{#if groups}}
+                        {{#loop 1 groups.totalPages 1}}
                         <li class="page-item">
                             <a class="page-link"
-                                href="../event/viewevents?limit={{events.limit}}&page={{this}}">{{this}}
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{this}}">{{this}}
                             </a>
                         </li>
                         {{/loop}}
 
-                        {{#next events.hasNextPage}}
+                        {{#next groups.hasNextPage}}
                         <li class="page-item disabled">
                             <a class="page-link"
-                                href="../event/viewevents?limit={{events.limit}}&page={{events.nextPage}}">Next</a>
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}}">Next</a>
                         </li>
                         {{else}}
                         <li class="page-item ">
                             <a class="page-link"
-                                href="../event/viewevents?limit={{events.limit}}&page={{events.nextPage}}">Next</a>
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}}">Next</a>
                         </li>
                         {{/next}}
                     </ul>
@@ -269,11 +269,108 @@
 
             </div>
             {{/if}}
+            {{#if groups}}
+            <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
+                <p class="" id="">Showing results {{groups.pagingCounter}} - {{#estimate estimate
+                    groups.totalDocs}}{{/estimate}} of {{groups.totalDocs}}
+                </p>
+                <table id="members-list">
+                    <tr>
+                        <th style="width:10%">Group Name</th>
+                        <th style="width:40%">Group Description</th>
+                        <th style="width:10%">Group Leader</th>
+                        <th style="width:10%">Group Secretary</th>
+                        <th style="width:20%">Action</th>
+                    </tr>
+
+                    {{#each groups.docs}}
+
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.description}}</td>
+                        <td>{{this.leader.firstname}} {{this.leader.lastname}}</td>
+                        <td>{{this.secretary.firstname}} {{this.secretary.lastname}}</td>
+                    </tr>
+
+
+                    {{/each}}
+
+                </table>
+                {{!-- <table id="groups-list">
+                    <tr>
+                        <th>Firstname</th>
+                        <th>Lastname</th>
+                        <th>Email Address</th>
+                        <th>Phone number</th>
+                        <th>Location</th>
+                        <th></th>
+                    </tr>
+                    {{#if groups}}
+                    {{#each groups.docs}}
+                    <tr>
+                        <td>{{this.firstname}}</td>
+                        <td>{{this.lastname}}</td>
+                        <td>{{this.email}}</td>
+                        <td>{{this.phone}}</td>
+                        <td>{{this.address}}</td>
+                        <td>
+                            <form action="viewUser" method="get" id="viewForm">
+                                <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
+                            </form>
+                            <button type="button" class="btn btn-primary" id="{{this._id}}"
+                                onclick='//window.location.href="/users/viewUser?id={{this._id}}"'>
+                                View
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{/if}}
+                </table> --}}
+                <nav aria-label="..." class="mt-3">
+                    <ul class="pagination pagination-sm justify-content-center">
+                        {{#previous groups.page}}
+                        <li class="page-item disabled">
+                            <a class="page-link"
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item">
+                            <a class="page-link"
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li>
+                        {{/previous}}
+
+                        {{!-- <li class="page-item">
+                            <a class="page-link" href="/users/groups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                tabindex="-1">Previous</a>
+                        </li> --}}
+
+
+                        {{#loop 1 groups.totalPages 1}}
+                        <li class="page-item"><a class="page-link"
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{this}}">{{this}}
+                            </a>
+                        </li>
+                        {{/loop}}
+
+                        {{#next groups.hasNextPage}}
+                        <li class="page-item disabled">
+                            <a class="page-link"
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}}">Next</a>
+                        </li>
+                        {{else}}
+                        <li class="page-item ">
+                            <a class="page-link"
+                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}}">Next</a>
+                        </li>
+                        {{/next}}
+                    </ul>
+                </nav>
+                {{/if}}
+
+            </div>
         </div>
     </div>
 </div>
-</div>
-
-<script>
-
-</script>

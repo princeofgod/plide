@@ -217,12 +217,7 @@
             </div>
         </div>
     </div>
-    {{!-- <form action="savePayment" method="POST" class="" id="flutter_response">
-        <input type="text" id="amount" style="display: none;">
-        <input type="text" id="flw_ref" style="display: none;">
-        <input type="text" id="tx_ref" style="display: none;">
-        <input type="text" id="transaction_id" style="display: none;">
-    </form> --}}
+
     <input type="text" id="UserId" style="display: none;" value="{{user._id}}">
 
 </div>
@@ -238,28 +233,6 @@
     const userId = document.getElementById('UserId').value;
     let transferRef = "subscribe-"
 
-    /*async function checkResult = result => {
-         const data = await axios.get("http://127.0.0.1:3002/payments/getPayments").then((err,res) => {
-            if(err){
-                console.log(err)
-            }
-            data.forEach(el => {
-                if(result === data.)
-            })
-            return res
-        })
-        if()
-    }*/
-
-    /*function generateRef() {
-        let prefix = "hooli-tx-"
-
-        const count = 9;
-        for (let i = 0; i < count; i++) {
-            const possibleLetters = "abcdefghijklmnopqstuvwxyz1234567890"
-            prefix += possibleLetters.charAt(Math.floor(Math.random() * possibleLetters.length));
-        }
-    }*/
 
     let massPopChart = new Chart(myChart, {
         type: 'line',

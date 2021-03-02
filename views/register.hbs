@@ -76,7 +76,9 @@
     terms.addEventListener("change", () => {
         if (terms.checked == false) {
             //signupbtn.setAttribute("disabled", true)
-            signupbtn.toggleAttribute("disabled", true)
+            signupbtn.toggleAttribute("disabled", true);
+            signupbtn.style.pointerEvents = 'none';
+
         } else {
             signupbtn.toggleAttribute("disabled", false)
         }

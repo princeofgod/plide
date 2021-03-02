@@ -30,10 +30,10 @@ const eventSchema = new mongoose.Schema({
     },
     nominees: [
         {
-            id:{
-                type: Mongoose.ObjectId,
-                ref: 'User'
-            },
+            // id:{
+            //     type: Mongoose.ObjectId,
+            //     ref: 'User'
+            // },
             firstname : {
                 type: String
             },

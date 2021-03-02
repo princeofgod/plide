@@ -260,7 +260,7 @@ border-radius: 35px;
 .event-head{
     font-size:1vw;
     color:#124814;
-
+    word-break:break-word;
 }
 .event-label{
     font-size:.8vw;

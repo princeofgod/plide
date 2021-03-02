@@ -1,12 +1,16 @@
 const Event = require('../../model/event');
 exports.deleteOne =  async (eventTitle) => {
 
-    await Event.findOneAndDelete({event_title: eventTitle},(err, res) => {
-        if(err) {
-            console.log(err)
-        }
-        return res
-    })
+    const deleted = await Event.deleteOne({event_title:eventTitle}).then(event => { 
+        return event
+    }).catch( err => console.log(err))
+    // await Event.findOneAndDelete({event_title: eventTitle},(err, res) => {
+    //     if(err) {
+    //         console.log(err)
+    //     }
+    //     return res
+    // })
+    return deleted;
 };
 
 exports.updateOne =  async (event) => {
@@ -33,9 +37,8 @@ exports.createOne =  async (event) => {
 exports.getOne = async (name) => {
     const event = await Event.findOne({event_title: name}, (err, res) => {
         if (err) console.log(err);
-        console.log("res from controller=============", res)
+
     })
-    console.log("event from controller=============", event)
 
     return event;
 }
@@ -58,27 +61,15 @@ exports.getAll =  async () => {
 };
 
 exports.getRandom = async () => {
+    let publishedEvents = await Event.find({published:true}).limit(4).populate('event_manager', "firstname lastname profile_pic").then(events => {
+        return events;
+    }).catch(err=> console.log(err))
     
-    const publishedEvents = await Event.find({published:true},{},(err, events) =>{
-        if (err){
-            console.log("Events encountered an error", err)
-        }
-        return events
-    }).populate('event_manager', "firstname lastname profile_pic")
-    publishedEvents.forEach(el => {
-        el.users = Object.assign({},el.users)
-        el.users = el.users["0"]
-    })
     return publishedEvents;
 }
 
 exports.updateNominee = async (name,obj) => {
-    const updatedNominee = await Event.updateOne({event_title:name}, {$push: {nominees:obj}}, (err, nominee) => {
-        if(err) console.log(err);
-        if (nominee) {
-            return nominee
-        }
-    })
+    const updatedNominee = await Event.updateOne({event_title:name}, {$push: {nominees:obj}})
     return updatedNominee;
 }
 
@@ -101,6 +92,5 @@ exports.getOneById = async (id) => {
         }
     }).populate('event_manager nominees');
 
-    console.log("received events==============", receivedEvent)
     return receivedEvent;
 }

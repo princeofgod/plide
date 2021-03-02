@@ -78,13 +78,6 @@ app.engine(
       return opts.inverse(this)
     }
   },
-  'image' : function(a,opts){
-    if( a =='' || a == undefined || a == null || !a ){
-      return opts.fn(this)
-    } else {
-      return opts.inverse(this)
-    }
-  }
   }})
 );
 // Handlebars.registerHelper('paginate', require('handlebars-paginate'));

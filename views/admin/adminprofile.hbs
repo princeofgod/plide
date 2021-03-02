@@ -1,5 +1,5 @@
 <div class="row" style="height:100vh;">
-    <div class="col-2 p-0 m-0" style="border:solid 1px black;">
+    <div class="col-2 p-0 m-0">
         {{>adminMenu}}
     </div>
     {{!-- --}}
@@ -28,8 +28,9 @@
                             </p>
                         </div>
                         <div class="" id="" style="margin-left:70px;margin-top:100px;">
-                            <form action="avatar" class="" method="POST" enctype="multipart/form-data">
-                                <button id="edit-btn" class="" type="submit">Edit data</button>
+                            <form action="avatar" class="" id="upload_image" method="POST"
+                                enctype="multipart/form-data">
+                                {{!-- <button id="edit-btn" class="" type="submit">Edit data</button> --}}
                                 <input id="file" type="file" name="picture" style="display: none;" />
                             </form>
                         </div>
@@ -206,6 +207,11 @@
     const tab = document.getElementById("profile-tab")
     const tabContent = document.getElementById("profile")
 
+    const uploadForm = document.getElementById("upload_image")
+
+    avatarField.addEventListener("change", () => {
+        uploadForm.submit()
+    })
     //Opens the dialog to select avatar.
     avatarbox.addEventListener("click", () => {
         avatarField.click();

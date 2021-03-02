@@ -37,7 +37,7 @@ router.get('/groups', async (req,res,next) => {
 				el.date = moment(groups.createdAt).format("D MMM, YYYY")
 			})
 		}
-		console.log("list of groups ========", groups[0])
+		
 		// --------------------------------------------
 		const randomGroups = await groupController.getRandom()
 
@@ -47,7 +47,7 @@ router.get('/groups', async (req,res,next) => {
 		})
 
 
-		console.log("User in groups = ",randomGroups)
+		
 	  	if(req.session.user.role !== "1"){
 			page.title = 'PACES Admin Group';
 			res.render('./users/usergroups', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule})
@@ -108,7 +108,6 @@ router.post('/addgroup', groupValidation, async (req,res) => {
 		}
 
 		let group = await groupController.createOne(body)
-		console.log("GROUP ========", group)
 		// Add the secretary and the leader to the User group with position
 
 		let usersToBeAdded = [leader, sec]
@@ -148,7 +147,7 @@ router.post('/usergroup',userGroupValidator, async (req,res) => {
 
 		// Get the email of the user from the string in the group field
 			email = req.body.fullname.split(" ")[2].replace(")","").replace("(","")
-			// console.log("Full name", fullname)
+			
 		const user = await userController.getOneByEmail(email);
 
 		// const newUpdate = await Group.findOneAndUpdate({name:req.body["group_name"]},{$push:{members:user._id}},{
@@ -177,23 +176,257 @@ router.post('/usergroup',userGroupValidator, async (req,res) => {
 })
 router.get('/viewgroups', async (req, res) => {
 	if(!req.session.user){
+		res.redirect('../users/login')
+	} else {
+		const limit = req.query.limit || 10;
+		const page = req.query.page || 1;
+		// const displayGroups = Group.paginate({}, {page:page, limit:limit,pagination:true,sort:{name:1}, populate: 'leader secretary', })
+		const displayGRoups = await Group.paginate({'members.email': {$ne :req.session.user.email}}, {page:page, limit:limit,pagination:true,sort: {name:1},populate: 'leader secretary'}).then(items => {
+			console.log("items==============",items)
+			return items;
+		})
+		
+		if(req.session.user.role === '1'){
+			res.render('./admin/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+		} else {
+			res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+		}
+		
+	}
+	
+	if(!req.session.user){
     	res.redirect('/users/login')
   	}else{
 		const displayGRoups = await groupController.getAllPaginate(req);
 
 		page.title = "PACES Group"
 		page.pageTitle = "Group"
-		console.log(displayGRoups)
-
+ console.log(displayGRoups.docs)
 		if(req.session.user.role === '1'){
-			res.render('./admin/adminviewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+			res.render('./admin/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
 		} else {
 			res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
 		}
 	}
 
 })
+
+/**
+ * Handles all group view
+ */
+router.get('/view-group-info', async (req, res) => {
+	console.log(req.query.id)
+
+	if(!req.session.user){
+		res.redirect('../users/login')
+	} else {
+		const groups = await groupController.getOneById(req.query.id)
+		const users = await userController.getAllNoPagination()
+		// console.log(groups.createdAt)
+		groups.date = moment(groups.createdAt).format("DD, MMMM YYYY")
+
+		const members =[]
+		users.forEach( el=> {
+			members.push(`${el.firstname} ${el.lastname} (${el.email})`);
+		})
+		const schedule = await Schedule.find({},{}, (err, res) => {
+			return res
+		})
+		if(req.session.user.role == '1'){
+			res.render('./admin/full-info-group', {user:req.session.user, page:page, group: groups, users: members, schedule:schedule})
+		} else {
+			res.render('./users/full-info-group', {user:req.session.user, page:page, group: groups, users: members, schedule:schedule})
+		}
+	}
+})
+/**
+ * 
+ */
+router.get('/approverequest', async (req,res) => {
+	const awaitingApproval = await groupController.getUnapproved(req)
+	
+	
+	res.render('./admin/approvepage', {awaitingApproval : awaitingApproval,estimate: awaitingApproval.page * awaitingApproval.limit })
+})
+
+/**
+ * Handles user's request to join a group
+ */
+router.get('/join', async (req,res) => {
+	
+	console.log("Requesting to join group",req.query);
+	
+	const newUserGroup = new UserGroup({
+		user_id : req.session.user._id,
+		group_id : req.query.id,
+		approved : false,
+		position : 'member'
+	});
+
+	newUserGroup.save().then( item => {
+		console.log(item)
+	}).catch(err => console.log(err));
+
+	
+	// body = {
+	// 	id : req.session.user._id,
+	// 	firstname : req.session.user.firstname,
+	// 	lastname : req.session.user.lastname,
+	// 	email : req.session.user.email,
+	// 	phone : req.session.user.phone,
+	// 	approved : false
+	// }
+	
+	// console.log("body ======= ",body);
+	// const group = await groupController.getOneById(req.query.id);
+	// console.log("group ========", group);
+	// const request = await groupController.updateMember(group.name, body);
+
+	// console.log("request =========", request);
+	res.redirect('./groups');
+
+})
+
+router.get('/approve', async (req, res) => {
+	console.log(req.query)
+	
+	const t = await UserGroup.findOneAndUpdate({$and :[{user_id : req.query.user},{group_id : req.query.group}]},{$set : {approved : true}},{new:true}, (err, item) => {
+		if(err) console.log(err);
+		if(item) {
+			return item
+		}
+	})
+	const user = {};
+	await User.findOne({_id:req.query.user}).then(item => {
+		// user = {
+			user._id = item._id;
+			user.firstname = item.firstname;
+			user.lastname = item.lastname;
+			user.phone = item.phone;
+			user.email = item.email;	
+		// }
+		return item;
+	}).catch(err => console.log(err))
+
+	// Send the users info to the group.members
+	await Group.findOneAndUpdate({_id:req.query.group}, {$push:{members: user}}, {new:true})
+
+	res.redirect('approverequest');
+})
+/**
+ * Handles admin adding members to a group
+ */
+router.post('/add-member', async (req, res) => {
+	// Save to member field in the events table
+	// and save with both event id and user id in the usergroups table
+console.log(req.body)
+	req.body.member = req.body.member.split(",");
+	const candidates =[];
+
+	// Save to the events field in the events model
+	for(let i = 1;i <= req.body.member.length; i++){
+		let email = req.body.member[i].split(" ")[2].replace(")","").replace("(","");
+		let candidate = await userController.getOneByEmail(email);
+
+		candidates.push({
+			_id:candidate._id,
+			firstname:candidate.firstname,
+			lastname:candidate.lastname,
+			phone:candidate.phone,
+			email:candidate.email,
+			approved : true
+		});
+		console.log(`Candidats ====== ${req.body.member[i]}`)
+	}
+
+	for(let i = 0;i < candidates.length; i++){
+	console.log(`candidates ========== ${candidates[i]}`)
+		const contest = await groupController.updateMember(req.body.group,candidates[i]);
+	}
+	
+	// Save to the usergroup model
+	const group = await groupController.getOne(req.body["group"]);
+	console.log(group)
+	for(let i = 0; i < candidates.length; i++){
+		const newGroupMembers = new UserGroup({
+			user_id: candidates[i].id,
+			group_id: group._id,
+			// position: 'member'
+		});
+
+		newGroupMembers.save().then( response => {
+			if(response){
+				console.log(response);
+			};
+		});
+	};
+
+	res.redirect('./viewgroups');
+})
+
+/**
+ * Handles deleting of groups from the database
+ */
+router.get('/delete', async (req, res) => {
+	if(!req.session.user){
+		res.redirect('../users/login')
+	} else {
+		if(req.session.user.role !== '1') {
+			res.redirect('../users/home')
+		} else {
+			const deletedGroup = await groupController.deleteOne(req.query.id)
+			// if(!deletedEvent || deletedEvent == undefined){
+				res.redirect('./viewgroups')
+			// }
+		}
+	}
+})
+router.post('/update', async (req, res) => {
+	email1 = req.body["leader"].split(" ")[2].replace(")","").replace("(","")
+	email2 = req.body["secretary"].split(" ")[2].replace(")","").replace("(","")
+	const leader = await userController.getOneByEmail(email1)
+	const secretary = await userController.getOneByEmail(email2)
+
+	const body = {
+		old_title : req.body["old_title"],
+		leader : leader._id,
+		secretary : secretary._id,
+		name: req.body["name"],
+		description: req.body["description"],
+	};
+	const updatedGroup = await groupController.updateOne(body);
+	
+	res.redirect('./viewgroups')
+
+})
+
 router.get('/logout', (req,res) => {
 	res.redirect('../users/logout')
+})
+
+router.get('/usersgroup', async (req, res) => {
+	if(!req.session.user){
+		res.redirect('../users/login')
+	} else {
+		const limit = req.query.limit || 10;
+		const page = req.query.page || 1;
+		// const displayGroups = Group.paginate({}, {page:page, limit:limit,pagination:true,sort:{name:1}, populate: 'leader secretary', })
+		const usersgroup = await Group.paginate({'members.email': req.session.user.email}, {page:page, limit:limit,pagination:true,sort: {name:1},populate: 'leader secretary'}).then(items => {
+			console.log("items==============",items)
+			return items;
+		})
+		if(req.session.user.role == '1'){
+			res.render('./admin/usersgroup', {user:req.session.user, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
+		} else {
+			res.render('./users/usersgroup', {user:req.session.user, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
+		}
+		
+	}
+})
+
+router.post('/leave-group', async (req, res) => {
+	console.log(req.body);
+	const deleted = await Group.updateOne({_id:req.body.id}, {$pull: {"members":{"email":req.session.user.email}}})
+	res.redirect('usersgroup');
 })
 module.exports = router;

@@ -11,9 +11,12 @@ const userGroupSchema = new mongoose.Schema({
         type: Mongoose.ObjectId,
         ref: 'Group'
     },
-    position:{
+    position: {
         type : String,
         default:'member'
+    },
+    approved: {
+        type : Boolean
     }
     
 });

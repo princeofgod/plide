@@ -1,48 +1,22 @@
 const Group = require('../../model/group');
+const UserGroup = require('../../model/userGroup');
 exports.deleteOne = async (id) => {
-    const errors = validationResult(req);
+    
+    const deleted = await Group.deleteOne({_id:id}).then(group => { 
+        return group
+    }).catch( err => console.log(err))
 
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    try {
-        const data = await Group.findByIdAndDelete({_id: id});
-        if (!data) {
-            return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
-
-        return data
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+    return deleted;
 };
 
-exports.updateOne = async (id, body) => {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    }
-    try {
-
-        if(id !== body._id) {
-            return next(new AppError(404, 'fail', 'The id provided doesn\'t match the user id you are trying to access'), req, res, next);
-        }; 
-
-        const data = await Group.findByIdAndUpdate(id, {$set: req.body}, {
-            new: true,
-            runValidators: true,
-        });
-        if (!data) {
-            return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
-        };
-
-        return data;
-
-    } catch (error) {
-        throw new Error("Internal ServerError")
-    };
+exports.updateOne = async (body) => {
+    const newGroup = await Group.findOneAndUpdate({name:body.old_title},{$set:body},{runValidators:true,new:true}, (err,group) => {
+        if (err) {
+            console.log(err)
+        }
+        return group;
+    });
+    return newGroup;
 };
 
 exports.createOne = async (body) => {
@@ -60,19 +34,20 @@ exports.createOne = async (body) => {
 };
 
 exports.getOne = async (query) => {
-    return group = await Group.findOne({name:query},(err, info) => {
+    const group = await Group.findOne({name:query},(err, info) => {
         if(err) console.log("Couldn't get data!")
     })
+    return group;
 };
 exports.getById = async (id) => {
     const group = await Group.findOne({_id:id},( err, res) => {
         if (err) console.log(err)
         if(res){
-            console.log("returned res====", res)
+            
             return res
         }
     });
-    console.log("group in webcontrollers === ", group)
+    
     return group;
 }
 
@@ -101,7 +76,7 @@ exports.getRandom = async () => {
     
     getRandom[0].leader = Object.assign({},getRandom[0].leader)
     getRandom[0].secretary = Object.assign({},getRandom[0].secretary)
-    console.log(getRandom[0])
+    // console.log(getRandom[0])
     return getRandom;
 // })
 }
@@ -113,25 +88,33 @@ exports.getAllPaginate = async (req) => {
     return displayGroups;
 }
 
+exports.getOneById = async (id) => {
+    const receivedGroup = await Group.findOne({_id:id}, (err, res) => {
+        if(err) {
+            console.log(err);
+        }
+        if (res) {
+            return res;
+        }
+    }).populate('leader secretary members');
 
-// exports.Search = async (firstname, lastname) => {
-//     try {
-//         var page = 1;
-//         var perPage = 10;
-//         var query = {firstname: firstname, lastname: lastname}
+    return receivedGroup;
+}
 
-//         var options = {
-//             populate: populateOption.populate,      
-//             lean: true,
-//             page: page, 
-//             limit: perPage
-//         };
-        
-//         const data = await User.paginate(query, options); 
+exports.updateMember = async (name,obj) => {
+    const updatedMember = await Group.updateOne({name:name}, {$push: {members:obj}});
+    return updatedMember;
+}
 
-//         return data;
-
-//     } catch (error) {
-//         throw new Error("Internal ServerError")
-//     };
-// };
+exports.getUnapproved = async (req) => {
+    const option = {
+        limit : req.query.limit || 10,
+        page : req.query.page || 1,
+        paginate : true,
+        sort : {firstname : 1},
+        populate : 'user_id group_id'
+    }
+    const usersRequest = await UserGroup.paginate({approved:false}, option)
+    
+    return usersRequest;
+}

@@ -29,10 +29,10 @@
             </div>
             {{/if}}
 
-            {{#if groups}}
+            {{#if usersgroup}}
             <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
-                <p class="" id="">Showing results {{groups.pagingCounter}} - {{#estimate estimate
-                    groups.totalDocs}}{{/estimate}} of {{groups.totalDocs}}
+                <p class="" id="">Showing results {{usersgroup.pagingCounter}} - {{#estimate estimate
+                    usersgroup.totalDocs}}{{/estimate}} of {{usersgroup.totalDocs}}
                 </p>
                 <table id="members-list">
                     <tr>
@@ -43,7 +43,7 @@
                         <th class="text-center" style="width:15%">ACTION</th>
                     </tr>
 
-                    {{#each groups.docs}}
+                    {{#each usersgroup.docs}}
 
                     <tr>
                         <td>{{this.name}}</td>
@@ -51,13 +51,16 @@
                         <td>{{this.leader.firstname}} {{this.leader.lastname}}</td>
                         <td>{{this.secretary.firstname}} {{this.secretary.lastname}}</td>
                         <td>
+                            <!-- Button trigger modal -->
+                            {{!-- <button type="button" class="btn btn-primary" data-toggle="modal"
+                                data-target="#groupjoinrequest" style="font-size:1vw">
+                                Request to join
+                            </button> --}}
 
-                            <button type="button" class="btn btn-primary" style="font-size:1vw;"
-                                onclick="window.location.href='./join?id={{this._id}}'">Request to
-                                join</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="window.location.href='./view-group-info?id={{this._id}}'">View</button>
 
                             <!-- Modal -->
-
                             <div class="modal fade" id="groupjoinrequest" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -88,7 +91,7 @@
                     {{/each}}
 
                 </table>
-                {{!-- <table id="groups-list">
+                {{!-- <table id="usersgroup-list">
                     <tr>
                         <th>Firstname</th>
                         <th>Lastname</th>
@@ -97,8 +100,8 @@
                         <th>Location</th>
                         <th></th>
                     </tr>
-                    {{#if groups}}
-                    {{#each groups.docs}}
+                    {{#if usersgroup}}
+                    {{#each usersgroup.docs}}
                     <tr>
                         <td>{{this.firstname}}</td>
                         <td>{{this.lastname}}</td>
@@ -120,42 +123,36 @@
                 </table> --}}
                 <nav aria-label="..." class="mt-3">
                     <ul class="pagination pagination-sm justify-content-center">
-                        {{#previous groups.page}}
+                        {{#previous usersgroup.page}}
                         <li class="page-item disabled">
                             <a class="page-link"
-                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                href="../group/usersgroup?limit={{usersgroup.limit}}&page={{usersgroup.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{else}}
                         <li class="page-item">
                             <a class="page-link"
-                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.prevPage}}"
+                                href="../group/usersgroup?limit={{usersgroup.limit}}&page={{usersgroup.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{/previous}}
 
-                        {{!-- <li class="page-item">
-                            <a class="page-link" href="/users/groups?limit={{groups.limit}}&page={{groups.prevPage}}"
-                                tabindex="-1">Previous</a>
-                        </li> --}}
-
-
-                        {{#loop 1 groups.totalPages 1}}
+                        {{#loop 1 usersgroup.totalPages 1}}
                         <li class="page-item"><a class="page-link"
-                                href="../group/viewgroups?limit={{groups.limit}}&page={{this}}">{{this}}
+                                href="../group/usersgroup?limit={{usersgroup.limit}}&page={{this}}">{{this}}
                             </a>
                         </li>
                         {{/loop}}
 
-                        {{#next groups.hasNextPage}}
+                        {{#next usersgroup.hasNextPage}}
                         <li class="page-item disabled">
                             <a class="page-link"
-                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}}">Next</a>
+                                href="../group/viewusersgroup?limit={{usersgroup.limit}}&page={{usersgroup.nextPage}}">Next</a>
                         </li>
                         {{else}}
                         <li class="page-item ">
                             <a class="page-link"
-                                href="../group/viewgroups?limit={{groups.limit}}&page={{groups.nextPage}}">Next</a>
+                                href="../group/viewusersgroup?limit={{usersgroup.limit}}&page={{usersgroup.nextPage}}">Next</a>
                         </li>
                         {{/next}}
                     </ul>

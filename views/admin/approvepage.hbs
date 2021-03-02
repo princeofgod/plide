@@ -28,53 +28,52 @@
                 </button>
             </div>
             {{/if}}
-
+            {{#if awaitingApproval}}
             <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
-                <p class="" id="">Showing results {{members.pagingCounter}} - {{#estimate estimate
-                    members.totalDocs}}{{/estimate}} of {{members.totalDocs}}
+                <p class="" id="">Showing results {{awaitingApproval.pagingCounter}} - {{#estimate estimate
+                    awaitingApproval.totalDocs}}{{/estimate}} of {{awaitingApproval.totalDocs}}
                 </p>
                 <div class="card d-flex flex-row w-100 member-card-header" style="">
 
                     <ul class="list-group list-group-flush d-flex flex-row  w-100 h-100" style="border:none;">
                         {{!-- <li class="list-group-item text-center px-1 m-0" style="width:10%">FirstName</li> --}}
-                        <li class="list-group-item text-center px-0 m-0" style="width:10%;border:none;">FirstName</li>
-                        <li class="list-group-item text-center px-0 m-o" style="width:10%;border:none;">LastName</li>
-                        <li class="list-group-item text-center px-0" style="width:30%;border:none;">EmailAddress</li>
+                        <li class="list-group-item text-center px-0 m-0" style="width:13%;border:none;">FirstName</li>
+                        <li class="list-group-item text-center px-0 m-o" style="width:13%;border:none;">LastName</li>
+                        <li class="list-group-item text-center px-0" style="width:25%;border:none;">EmailAddress</li>
                         <li class="list-group-item text-center px-0" style="width:13%;border:none;">Phone</li>
-                        <li class="list-group-item text-center px-0" style="width:29%;border:none;">Location</li>
+                        <li class="list-group-item text-center px-0" style="width:24%;border:none;">Groups</li>
                         <li class="list-group-item text-center px-0"
-                            style="width:8%;border:none;float:right;clear:both">View</li>
+                            style="width:17%;border:none;float:right;clear:both">Action
+                            <input type="checkbox" name="" id="">
+                        </li>
                     </ul>
                 </div>
-                {{#if members}}
-                {{#each members.docs}}
+
+                {{#each awaitingApproval.docs}}
                 <div class="card d-flex flex-row align-items-center w-100 mt-2 member-card pl-2" style="">
-                    {{!-- <div class="member-card-header"
-                        style="background-image: url('../avatar/{{this.profile_pic}}');">
 
-                    </div> --}}
-                    {{!-- <div class="member-card-image"
-                        style="width:3vw;height:3vw;background-image: url('../avatar/{{this.profile_pic}}')">
-
-                    </div> --}}
                     <ul class="list-group list-group-flush d-flex flex-row w-100">
-                        {{!-- <li class="list-group-item text-center px-1" style="width:10%;border:none">
-                            {{this.profile_pic}} --}}
-                        <li class="list-group-item text-center px-0" style="width:10%;border:none">{{this.firstname}}
+                        <li class="list-group-item text-center px-0" style="width:13%;border:none">
+                            {{this.user_id.firstname}}
                         </li>
-                        <li class="list-group-item text-center px-0" style="width:10%;border:none;">{{this.lastname}}
+                        <li class="list-group-item text-center px-0" style="width:13%;border:none;">
+                            {{this.user_id.lastname}}
                         </li>
-                        <li class="list-group-item text-center px-0" style="width:30%;border:none;">{{this.email}}</li>
-                        <li class="list-group-item text-center px-0 " style="width:13%;border:none;">{{this.phone}}</li>
-                        <li class="list-group-item text-center px-0 " style="width:28%;border:none;">{{this.address}}
+                        <li class="list-group-item text-center px-0" style="width:25%;border:none;">
+                            {{this.user_id.email}}</li>
+                        <li class="list-group-item text-center px-0 " style="width:13%;border:none;">
+                            {{this.user_id.phone}}</li>
+                        <li class="list-group-item text-center px-0 " style="width:24%;border:none;">
+                            {{this.group_id.name}}
+
                         </li>
-                        <li class="list-group-item text-center px-0" style="width: 9%;border:none;">
+                        <li class="list-group-item text-center px-0" style="width: 17%;border:none;">
                             <form action="viewUser" method="get" id="viewForm">
                                 <input type="text" name="" id="" value="{{this._id}}" style="display: none;">
                             </form>
                             <button type="button" class="btn btn-primary" id="{{this._id}}"
-                                onclick='window.location.href="/users/viewUser?id={{this._id}}"'>
-                                View
+                                onclick='window.location.href="/group/approve?group={{this.group_id._id}}&user={{this.user_id._id}}"'>
+                                Approve
                             </button>
                         </li>
                     </ul>
@@ -84,36 +83,38 @@
 
                 <nav aria-label="..." class="mt-3">
                     <ul class="pagination pagination-sm justify-content-center">
-                        {{#previous members.page}}
+                        {{#previous awaitingApproval.page}}
                         <li class="page-item disabled">
-                            <a class="page-link" href="/users/members?limit={{members.limit}}&page={{members.prevPage}}"
+                            <a class="page-link"
+                                href="/group/awaitingApproval?limit={{awaitingApproval.limit}}&page={{awaitingApproval.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{else}}
                         <li class="page-item">
-                            <a class="page-link" href="/users/members?limit={{members.limit}}&page={{members.prevPage}}"
+                            <a class="page-link"
+                                href="/group/awaitingApproval?limit={{awaitingApproval.limit}}&page={{awaitingApproval.prevPage}}"
                                 tabindex="-1">Previous</a>
                         </li>
                         {{/previous}}
 
 
-                        {{#if members}}
-                        {{#loop 1 members.totalPages 1}}
+                        {{#if awaitingApproval}}
+                        {{#loop 1 awaitingApproval.totalPages 1}}
                         <li class="page-item"><a class="page-link"
-                                href="/users/members?limit={{members.limit}}&page={{this}}">{{this}}
+                                href="/group/awaitingApproval?limit={{awaitingApproval.limit}}&page={{this}}">{{this}}
                             </a>
                         </li>
                         {{/loop}}
 
-                        {{#next members.hasNextPage}}
+                        {{#next awaitingApproval.hasNextPage}}
                         <li class="page-item disabled">
                             <a class="page-link"
-                                href="../users/members?limit={{members.limit}}&page={{members.nextPage}}">Next</a>
+                                href="../group/awaitingApproval?limit={{awaitingApproval.limit}}&page={{awaitingApproval.nextPage}}">Next</a>
                         </li>
                         {{else}}
                         <li class="page-item ">
                             <a class="page-link"
-                                href="../users/members?limit={{members.limit}}&page={{members.nextPage}}">Next</a>
+                                href="../group/awaitingApproval?limit={{awaitingApproval.limit}}&page={{awaitingApproval.nextPage}}">Next</a>
                         </li>
                         {{/next}}
                         {{!-- {{/if}} --}}

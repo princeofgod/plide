@@ -311,15 +311,39 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mt-4">
+                            <form>
+
+                                <input type="text" class="" style="display:none" value="{{user.email}}" id="email">
+                                <input type="text" class="" style="display:none" value="{{user.phone}}" id="phone">
+                                <input type="text" class="" style="display:none"
+                                    value="{{user.firstname}} {{user.lastname}}" id="fullname">
+
+                                <button class="btn-white-1" type="button" onClick="makePayment();"
+                                    style="height:40px;width:vw;font-size:1vw;background: #eeea15;color:#000;border:none">Pay
+                                    Membership
+                                    Subscription</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <input type="text" id="UserId" style="display: none;" value="{{user._id}}">
 </div>
 
 <script>
     let myChart = document.getElementById('myChart');
+    const email = document.getElementById('email').value;
+    const fullname = document.getElementById('fullname').value;
+    const phone = document.getElementById('phone').value;
+    const userId = document.getElementById('UserId').value;
+    let transferRef = "subscribe-"
+
+    let generated = generateRandomCharacter(20);
 
     let massPopChart = new Chart(myChart, {
         type: 'line',
@@ -357,4 +381,50 @@
     menu.addEventListener('click', (e) => {
 
     })
+
+
+    function makePayment() {
+        //console.log("transferRef === ", transferRef)
+        FlutterwaveCheckout({
+            public_key: "FLWPUBK_TEST-ca0523b9912952630c7ac39073a8b0e6-X",
+            tx_ref: 'subscribe-' + generated,
+            amount: 2000,
+            currency: "NGN",
+            country: "NG",
+            payment_options: "card, ussd",
+            redirect_url: // specified redirect URL
+                "http://127.0.0.1:3002/payment/savePayment",
+            meta: {
+                consumer_id: userId,
+                //consumer_mac: "92a3-912ba-1192a",
+            },
+            customer: {
+                email: email,
+                phone_number: phone,
+                name: fullname,
+            },
+            callback: function (data) {
+                //console.log(data);
+            },
+            onclose: function () {
+                // console.log("I am data = ", data)
+            },
+            customizations: {
+                title: "My store",
+                description: "Payment for items in cart",
+                logo: "https://assets.piedpiper.com/logo.png",
+            },
+        });
+    }
+
+    function generateRandomCharacter(length) {
+        var result = '';
+        var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        //var charactersLength = characters.length;
+
+        for (var i = 0; i < length; i++) {
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+        return result;
+    }
 </script>

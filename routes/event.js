@@ -19,7 +19,6 @@ let page = {
     title : 'PACES Events',
 	pageTitle : 'Events'
 }
-// const eventController = require('../controllers/webControllers/event');
 
 /**
  * Get the add events page
@@ -54,15 +53,14 @@ router.get('/addevents', async (req,res,next) => {
  * Add events router
  */
 router.post('/addevents',eventValidation, async (req,res,next) => {
-	console.log("............")
     const result = validationResult(req)
 
     if(!result.isEmpty()){
         const error = result.array()[0].msg
         res.render('./admin/addevents', {error:error})
     } else {
-		console.log("here")
-		console.log("req.body ======", req.body)
+
+
 		if(req.body.button === "Save"){
 			req.body.published = "true"
 		} else {
@@ -79,7 +77,7 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
 		for(let i = 0;i < nominees.length; i++){
 			let email = nominees[i].split(" ")[2].replace(")","").replace("(","");
 			let candidate = await userController.getOneByEmail(email);
-			console.log("Candidate to push -----------",candidate);
+	
 
 			candidates.push({
 				id:candidate._id,
@@ -89,38 +87,15 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
 				email:candidate.email,
 			});
 		}
-
-		console.log("NOMINEEES -------------- ", nominees)
-		// console.log("NOMINEEES -------------- ", nnominees)
-		console.log("Canddidates gotten from DB -----------", candidates)
 		// --------------------------------------------------------------------
-		
-		
-		
-		console.log("managerId == ",managerId)
+
 		req.body["event_manager"] = managerId._id
-		console.log("------------- ", req.body["event_manager"] )
+
 		req.body.nominees = candidates;
 		await eventController.createOne(req.body)
-		console.log("New req ==", req.body)
-		req.session.candidates = candidates
-		// // Saving to the event nominee table
-		// // _______________________________________
-		// const event = await eventController.getOne(req.body["event_title"]);
-		// for(let i = 0; i < candidates.length; i++){
-		// 	const newEventNominees = new EventNominee({
-		// 		userID: candidates[i].id,
-		// 		eventID: event._id
-		// 	})
 
-		// 	newEventNominees.save().then( response => {
-		// 		if(response){
-		// 			console.log(response)
-		// 		}
-		// 	})
-		// }
-		// // _______________________________________
-        // res.render('./admin/addevents', {success : `Event has been created.`, page:page, user:req.session.user})                
+		req.session.candidates = candidates
+
 	}
 	next()
 })
@@ -147,9 +122,6 @@ router.post('/addevents', async (req, res) => {
         res.render('./admin/addevents', {success : `Event has been created.`, page:page, user:req.session.user})  
 })
 
-
-
-
 router.get('/events',async (req,res) => {
 	if(!req.session.user){
 		res.redirect("../users/login")
@@ -159,7 +131,6 @@ router.get('/events',async (req,res) => {
 		const events = await Event.find({},{},{limit:3, sort:{start_date:1}},(err,result) => {
 
 		}).populate('event_manager')
-		// console
 		// --------------------------------------------------
 		if(events.length <= 0){
 
@@ -168,7 +139,6 @@ router.get('/events',async (req,res) => {
 				el.date = moment(el["start_date"]).format("D MMM, YYYY")
 			})
 		}
-		console.log("events--------", events[0])
 		// --------------------------------------------------
 
 		const schedule = await Schedule.find({},{}, (err, res) => {
@@ -176,7 +146,6 @@ router.get('/events',async (req,res) => {
 		})
 
 		const publishedEvents = await eventController.getRandom()
-		console.log("publishedEvents--------------",publishedEvents)
 
 		if(user.role !== "1"){
 			
@@ -198,10 +167,18 @@ router.get('/logout', (req,res) => {
 })
 
 router.post('/delete', async (req, res) => {
-	// console.log(req.body)
-	const deletedEvent = await eventController.deleteOne(req.body["event_title"])
-	if(!deletedEvent || deletedEvent == undefined){
-		res.redirect('events')
+	if(!req.session.user){
+		res.redirect('../users/login')
+	} else {
+		if(req.session.user.role !== '1') {
+			res.redirect('../users/home')
+		} else {
+			console.log(req.body)
+			const deletedEvent = await eventController.deleteOne(req.body["event_title"])
+			// if(!deletedEvent || deletedEvent == undefined){
+				res.redirect('./viewevents')
+			// }
+		}
 	}
 })
 
@@ -226,11 +203,11 @@ router.post("/addschedule", scheduleVerification, async (req, res) => {
 		const error = result.array()[0].msg
 		res.send(error)
 	} else {
-		console.log("Schedule ==== ", req.body)
+
 		const body = await helper.setScheduleTime(req.body)
 		await Schedule.create(body)
 		.then(value => {
-			console.log("Schedule saved ")
+	
 		})
 		res.redirect("./events")
 	}
@@ -248,10 +225,9 @@ router.post('/update', async (req, res) => {
 			event_description: req.body["event_description"],
 			start_date: req.body["start_date"],
 			end_date: req.body["end_date"]
-		}
-		console.log("New event details sent to the controller to be inputed", body)
-		const updatedEvent = await eventController.updateOne(body)
-		console.log("New event received back at the route", updatedEvent)
+		};
+
+		const updatedEvent = await eventController.updateOne(body);
 		
         res.render('./admin/addevents', {success : `Group has been created.`, page:page, user:req.session.user})
 	
@@ -270,37 +246,27 @@ router.get('/viewevents', async (req, res) => {
 					}
 				})
 
-		console.log("JAVJvaxjvX = ==== = = ", users)
-		
-		// page.pageTitle = 'Event'
-
 		if(req.session.user.role === '1'){
 			page.title = 'PACES Admin Events'
-			console.log("Expected nominees ====== ", users)
 			res.render('./admin/viewevents', {user:req.session.user, page:page, events:events, estimate:events.page * events.limit, users:users})
 		} else {
 			page.title = 'PACES Events'
 			res.render('./users/viewevents', {user:req.session.user, page:page, events:events, estimate:events.page * events.limit})
-		}
-	}
-})
+		};
+	};
+});
 
 router.post('/addnominee', async (req, res) => {
 	if(!req.session.user){
 		res.redirect('../users/login')
 	} else {
-		console.log("vskdvksdk=============",req.body);
 	const data = req.body;
 
 	// Get the id of the person added
-	console.log("daaaaaaaaaaa---", data)
 	const email = data.users.split(" ")[2].replace("(","").replace(")", "")
-	console.log("Emial extracted =========== ", email)
 	const nominee = await userController.getOneByEmail(email);
-	console.log("nominee returned =========== ", nominee)
 	// Get the event Id
 	const event = await eventController.getOne(data.event_title);
-	console.log("Event extracted =========== ", event)
 
 	// Get the other data 
 	const newNominee = {
@@ -310,12 +276,10 @@ router.post('/addnominee', async (req, res) => {
 		email : nominee.email
 	}
 
-	console.log("new Nominee generated =========== ", newNominee)
 	const body = {
 		userID : nominee._id,
 		eventID : event._id
 	}
-	console.log("body generated =========== ", body)
 
 	const newNomine = new EventNominee(body)
 	newNomine.save()
@@ -334,11 +298,8 @@ router.get('/view-event-info', async (req,res) => {
 		if(req.session.user.role !== '1'){
 			res.redirect('../users/home')
 		} else {
-			console.log(req.query)
-
 			const events = await eventController.getOneById(req.query.id)
 			const users = await userController.getAllNoPagination()
-			// console.log("event kjkjdkjf==========", event)
 			console.log(events.createdAt)
 			events.date = moment(events.createdAt).format("DD, MMMM YYYY")
 			console.log(users)
@@ -346,8 +307,6 @@ router.get('/view-event-info', async (req,res) => {
 			users.forEach( el=> {
 				nominees.push(`${el.firstname} ${el.lastname} (${el.email})`);
 			})
-			console.log("Nominees achieved -----------------", nominees)
-
 			const schedule = await Schedule.find({},{}, (err, res) => {
 				return res
 			})
@@ -356,26 +315,16 @@ router.get('/view-event-info', async (req,res) => {
 	}
 })
 router.post('/add-nominee', async (req, res) => {
-	console.log(req.body);
 	// Save to nominee field in the events table
 	// and save with both event id and user id in the event nominee table
 
-	/**To continue here */
 	req.body.nominee = req.body.nominee.split(",");
-	console.log("kjshdfkjskjdhk= ",req.body.nominee);
-	const nominees =[];
 	const candidates =[];
 
-	// for(let i = 0; i<req.body.nominee.length; i++){
-	// 	nominees.push(req.body.nominee[i].split(' ')[2].replace("(","").replace(")",""));
-	// }
-	
 	// Save to the events field in the events model
 	for(let i = 0;i < req.body.nominee.length; i++){
 		let email = req.body.nominee[i].split(" ")[2].replace(")","").replace("(","");
-		console.log(`${i} = ${email}`)
 		let candidate = await userController.getOneByEmail(email);
-		console.log("Candidate to push -----------",candidate);
 
 		candidates.push({
 			id:candidate._id,
@@ -385,11 +334,9 @@ router.post('/add-nominee', async (req, res) => {
 			email:candidate.email,
 		});
 	}
-	console.log("nominees in array ---------------", candidates);
 
 	for(let i = 0;i < candidates.length; i++){
 		const contest = await eventController.updateNominee(req.body.event,candidates[i]);
-		console.log("Candidate updated to db", contest);
 	}
 	
 	// Save to the event nominee model
@@ -406,7 +353,6 @@ router.post('/add-nominee', async (req, res) => {
 			};
 		});
 	};
-	// req.session.candidates = '';
 
 	res.end("Success !!!");
 })

@@ -1,5 +1,5 @@
 <div class="row" style="height:100vh">
-    <div class="col-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+    <div class="col-2 p-0 m-0 h-100" id="menu-bar">
         {{>userMenu}}
     </div>
     <div class="col-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
@@ -12,16 +12,16 @@
             <div class="col-9  mt-3">
                 <div class="row d-flex justify-content-between pb-5">
                     <div class="col-10 d-flex flex-row">
-                        {{#if events}}
-                        {{#each events}}
-                        <div class="col-4 pr-0 d-flex flex-row justify-content-center align-items-center" style="">
+                        {{#if publishedEvents}}
+                        {{#each publishedEvents}}
+                        <div class="col-3 px-0 d-flex flex-row justify-content-center align-items-center" style="">
 
-                            <div class="event-name mx-2 w-100 py-2 pl-1 pr-1 pb-5 ">
+                            <div class="event-name mx-2 w-100 py-2 pl-1 pr-1 pb-5 d-flex flex-column">
 
                                 <h3 class=" event-head pt-3 font-weight-bold text-center">
                                     {{!-- ENTREPRENEURSHIP SESSION --}}{{this.event_title}}</h3>
                                 </h4>
-                                <label class="event-label ml-2">Event Manager:</label>
+                                <label class="event-label mx-auto">Event Manager:</label>
                                 <div class="row pl-1 pr-4 event-managers">
                                     <div
                                         class="col-12 pr-0 d-flex flex-column justify-content-center align-items-center">
@@ -29,14 +29,6 @@
                                         <div class="name"
                                             style="background-image:url('../avatar/{{this.event_manager.profile_pic}}');background-repeat:no-repeat;">
                                         </div>
-                                        {{!-- {{else}} --}}
-                                        {{!-- <div class="name">
-                                            <img src="../../all-img.svg" alt="" class="">
-                                        </div>
-
-
-                                        {{/image}} --}}
-
                                         <div class="">
                                             <p class="mb-0 mt-1" style="font-size:.7vw">
                                                 {{this.event_manager.firstname}} {{this.event_manager.lastname}}</p>
@@ -55,16 +47,14 @@
 
                                 </div> --}}
                             </div>
-
-
-                            {{!-- <div class="progress"></div> --}}
                         </div>
                         {{/each}}
                         {{/if}}
                     </div>
 
-                    <div class="col-2 d-flex py-0 px-0 flex-column align-items-center" style="">
-                        <div class="mr-2 w-100"
+
+                    <div class="col-2 d-flex py-0 px-0 flex-column align-items-center my-auto" style="">
+                        {{!-- <div class="mr-2 w-100"
                             style="font-size:.7vw;cursor:pointer;width:60%px;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;"
                             id="add-group-btn" onclick="window.location.href='addevents'">
                             <h3 class="font-weight-bold mx-1" style="font-size:1vw;">ADD EVENT</h3>
@@ -80,9 +70,9 @@
                                 </div>
                                 <p class="font-weight-bold mt-3 mr-4">Create New Event</p>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="my-0 mt-2 w-100">
+                        <div class="my-0 mx-2 mt-2 w-75">
                             <button class="show-more w-100" onclick="window.location.href='../event/viewevents'">
                                 Show more
                             </button>
@@ -92,9 +82,9 @@
                 <div class="row">
                     {{!-- WRITE HERE --}}
 
-                    <table class="w-100 mx-4 my-0">
+                    <table class="w-100 mx-4 my-2">
                         <tr>
-                            <th class="p-0 text-center " style="height:50px;">
+                            <th class="p-0 text-center " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
                                         UPCOMING
@@ -102,14 +92,14 @@
                                     </div>
                                 </div>
                             </th>
-                            <th class="p-0 text-center " style="height:50px;">
+                            <th class="p-0 text-center " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
                                         DATE
                                     </div>
                                 </div>
                             </th>
-                            <th class="p-0 text-center  " style="height:50px;">
+                            <th class="p-0 text-center  " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
                                         MANAGER
@@ -136,8 +126,8 @@
                 {{!-- <div class="row">
 
                 </div> --}}
-                <div class="row my-4">
-                    <div class="col-11 schedule pb-3" style="border:solid 1px black">
+                <div class="row my-3">
+                    <div class="col-11 schedule pb-3">
                         <div class="row p-3  schedule">
                             {{!-- CONTINUE HERE TOMORROW --}}
                             <h3 class="schedule">Today's schedule</h3>
