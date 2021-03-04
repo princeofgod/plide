@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
-// const Candidates = require('../model/candidates');
-// const candidateController = require('../controllers/webControllers/candidate');
 
 /**
  * Post router to add candidates
  * Only available to the admin
  */
 router.post('/add-candidates', (req,res, next) => {
-    // let body = req.body;
-    // body.name = req.body.candidate_name;
-    // body.description = req.body.candidate_description;
 
 })
 

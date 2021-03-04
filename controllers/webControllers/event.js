@@ -51,20 +51,16 @@ exports.getAll =  async () => {
     };
     try {
         const data = await Event.find();
-
         return data;
-
     } catch (error) {
         throw new Error("Internal ServerError")
     };
-
 };
 
 exports.getRandom = async () => {
     let publishedEvents = await Event.find({published:true}).limit(4).populate('event_manager', "firstname lastname profile_pic").then(events => {
         return events;
     }).catch(err=> console.log(err))
-    
     return publishedEvents;
 }
 

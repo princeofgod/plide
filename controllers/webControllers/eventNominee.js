@@ -10,9 +10,7 @@ exports.deleteOne = async (id) => {
         if (!data) {
             return next(new AppError(404, 'fail', 'No document found with that id'), req, res, next);
         };
-
         return data
-
     } catch (error) {
         throw new Error("Internal ServerError")
     };

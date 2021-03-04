@@ -9,6 +9,15 @@ exports.deleteOne = async (id) => {
     return deleted;
 };
 
+exports.deleteManyUserGroups = async (id) => {
+    
+    const deleted = await UserGroup.deleteMany({group_id:id}).then(group => { 
+        return group
+    }).catch( err => console.log(err))
+
+    return deleted;
+};
+
 exports.updateOne = async (body) => {
     const newGroup = await Group.findOneAndUpdate({name:body.old_title},{$set:body},{runValidators:true,new:true}, (err,group) => {
         if (err) {
@@ -102,7 +111,9 @@ exports.getOneById = async (id) => {
 }
 
 exports.updateMember = async (name,obj) => {
+    console.log("in the controller")
     const updatedMember = await Group.updateOne({name:name}, {$push: {members:obj}});
+    console.log("++++++++++++++++", updatedMember)
     return updatedMember;
 }
 
@@ -117,4 +128,17 @@ exports.getUnapproved = async (req) => {
     const usersRequest = await UserGroup.paginate({approved:false}, option)
     
     return usersRequest;
+}
+
+exports.getUnapprovedCount = async (req) => {
+    const unapprovedCount = await UserGroup.find({approved:false}).countDocuments((err,count) => {
+        if(err) {
+            console.log(err);
+        }
+        if(count) {
+            return count;
+        }
+    })
+    
+    return unapprovedCount;
 }

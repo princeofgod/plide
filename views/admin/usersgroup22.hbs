@@ -1,16 +1,14 @@
 <div class="row" style="height:100vh">
-    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar">
-        {{>adminMenu}}
+    <div class="col-md-2 p-0 m-0 h-100" id="menu-bar" style="border:solid 1px black">
+        {{>userMenu}}
     </div>
     <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden;">
         <div class="row ">
             <div class="col-12" style="">
-                {{>adminTop}}
+                {{>topnav}}
             </div>
         </div>
         <div class="row px-4 pl-4">
-
-
             {{#if error}}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 {{success}}
@@ -29,7 +27,7 @@
             </div>
             {{/if}}
 
-            {{#if usersgroup.docs}}
+            {{#if usersgroup}}
             <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
                 <p class="" id="">Showing results {{usersgroup.pagingCounter}} - {{#estimate estimate
                     usersgroup.totalDocs}}{{/estimate}} of {{usersgroup.totalDocs}}
@@ -50,21 +48,22 @@
                         <td>{{this.group_id.description}}</td>
                         <td>{{this.group_id.leader.firstname}} {{this.group_id.leader.lastname}}</td>
                         <td>{{this.group_id.secretary.firstname}} {{this.group_id.secretary.lastname}}</td>
-                        <td class="mx-auto">
+                        <td>
                             <!-- Button trigger modal -->
                             {{!-- <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#groupjoinrequest" style="font-size:1vw">
                                 Request to join
                             </button> --}}
-                            {{#ifEquals this.approved isTrue}}
-                            {{this.approved}}
-                            <button type="button" class="btn btn-primary w-75"
-                                onclick="window.location.href='./view-group-info?id={{this._id}}'"
-                                style="font-size:1vw">View</button>
+                            {{#ifequals this.approved true}}
+                            <button type="button" class="btn btn-primary" id="{{this.approved}}"
+                                onclick="window.location.href='./view-group-info?id={{this._id}}'">View</button>
                             {{else}}
-                            {{this.approved}}
-                            <p class="">Pending approval...</p>
-                            {{/ifEquals}}
+                            <button type="button" class="btn btn-primary " id="{{this.approved}}"
+                                onclick="window.location.href='./view-group-info?id={{this._id}}'">Pending
+                                Approval</button>
+                            {{/ifequals}}
+
+
                             <!-- Modal -->
                             <div class="modal fade" id="groupjoinrequest" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -142,12 +141,12 @@
                         </li>
                         {{/previous}}
 
-                        {{!-- {{#loop 1 usersgroup.totalPages 1}}
+                        {{#loop 1 usersgroup.totalPages 1}}
                         <li class="page-item"><a class="page-link"
                                 href="../group/usersgroup?limit={{usersgroup.limit}}&page={{this}}">{{this}}
                             </a>
                         </li>
-                        {{/loop}} --}}
+                        {{/loop}}
 
                         {{#next usersgroup.hasNextPage}}
                         <li class="page-item disabled">
@@ -162,13 +161,6 @@
                         {{/next}}
                     </ul>
                 </nav>
-                {{else}}
-                <div class="d-flex flex-column justify-content-center align-items-center w-100">
-                    <p class="text-center font-italic">You do not belong to any group now..</p>
-                    <button class="btn green-btn" onclick="window.location.href='../group/viewgroups'"
-                        style="font-size:1.1vw">See
-                        groups</button>
-                </div>
                 {{/if}}
 
             </div>

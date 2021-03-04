@@ -110,13 +110,7 @@ exports.getById = async id => {
     }).catch( err => {
         console.log(err)
     })
-    // const usersGroup = await UserGroup.find({user_id: id}, ((err, res) => {
-    //     if(err) console.log(err)
-    //     else {
-    //         return res
-    //     }
-    //     console.log("here too ")
-    // })).populate('group_id', 'name');
+    
     console.log("populated userGroup", usersGroup)
     return usersGroup;
 }

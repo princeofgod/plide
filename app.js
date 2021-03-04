@@ -78,6 +78,14 @@ app.engine(
       return opts.inverse(this)
     }
   },
+  'ifEquals' : (a,b = true,opts) => {
+    // b = true;
+    return (a == b) ? opts.fn(this) : opts.inverse(this);
+  },
+  'sn' : function(a,b,c){
+    return (a * (b-1)) + c + 1;
+    // (ITEMS_PER_PAGE * (CURRENT_PAGE-1)) + $index+1
+  }
   }})
 );
 // Handlebars.registerHelper('paginate', require('handlebars-paginate'));

@@ -72,66 +72,6 @@ exports.verifyPayment = async (data) => {
         })
 
         return s
-        // const nnn = await axios(options, async (error, response) => {
-        //     console.log("Staerting")
-        //     if (error) throw new Error(error);
-        // if(response){
-        //     receivedData = JSON.parse(response.body).data
-        // console.log("Data inside dthe await ==", JSON.parse(response.body))
-
-
-        // const user = await User.findOne({email:receivedData.customer.email}, async (err,user) => {
-        //     if (err) console.log(err)
-        //     return user
-        // })
-
-        // console.log("New session added ============ ", user)
-        // var paymentData = {
-        //     userId : user._id,
-        //     trx_ref : receivedData['tx_ref'],
-        //     payment_date : receivedData['created_at'],
-        //     amount : receivedData['amount'],
-        //     narration : 'Monthly',
-        //     purpose: 'membership'
-        // }
-        // console.log("Payment data to be stored", paymentData)
-
-        // const returnedData = await exports.createOne(paymentData)
-        // const obj = [returnedData, user];
-        // console.log("objectssssss ----", obj)
-        // return obj
-        // }
-        
-        // })
-
-        // -----------------------------------------------------------------------
-        // request(options, async function (error, response) { 
-        //     if (error) throw new Error(error);
-        
-        // receivedData = JSON.parse(response.body).data
-        // console.log("Data inside dthe await ==", JSON.parse(response.body))
-
-
-        // const user = await User.findOne({email:receivedData.customer.email}, async (err,user) => {
-        //     if (err) console.log(err)
-        //     return user
-        // })
-
-        // console.log("New session added ============ ", user)
-        // var paymentData = {
-        //     userId : user._id,
-        //     trx_ref : receivedData['tx_ref'],
-        //     payment_date : receivedData['created_at'],
-        //     amount : receivedData['amount'],
-        //     narration : 'Monthly',
-        //     purpose: 'membership'
-        // }
-        // console.log("Payment data to be stored", paymentData)
-
-        // const returnedData = await exports.createOne(paymentData)
-        // const obj = [returnedData, user];
-        // return obj
-        // });
     }
 }
 
@@ -146,6 +86,12 @@ exports.getAll = async (data) => {
         pagination :true,
       };
     const payments = await Payment.paginate({}, options/*, select: "firstname lastname email phone address"*/)
+    // console.log(payments);
 
+     
+    //   console.log(payments.docs[3])
+    //   payments.forEach(element => {
+    //       element.date = moment(payment_date).format("DD, MMMM YYYY");
+    //   });
     return payments;
 }

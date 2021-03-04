@@ -121,10 +121,6 @@ exports.confirm_account = async(random_character) => {
 };
 
 exports.forgot_password = async (body) =>{
-    // const errors = validationResult(body);
-    // if (!errors.isEmpty()) {
-    //   return res.status(422).json({ errors: errors.array() });
-    // }
     try{
         const random_character = await generateToken();
         await User.findOneAndUpdate({email:body.email}, {$set: {remember_token: random_character}}, {
@@ -142,59 +138,23 @@ exports.forgot_password = async (body) =>{
         return user;
         });
 
-        // if(!user){
-        //     return 'The email does not exist'
-        // };
-        
-        
-
     }catch(error){
         throw error;
     }
 };
 
 exports.reset_password = async (password, random_character) =>{
-    // const errors = validationResult(req);
-
-    // if(!errors.isEmpty()) {
-    //   return res.status(422).json({ errors: errors.array() });
-    // };
-    console.log("I just entered the controller")
     try{
-        console.log("I just entered the try statement")
-console.log("token = ", random_character)
         await User.findOne({remember_token: random_character})
             .then(async (user)=> {
                 console.log("Old password = ", user.password)
                 console.log("new password entered = ",password)
         const hash = await utility.hashPassword(password);
         console.log("new hash = ",hash)
-        // console.log("req body in reset controller = ", req.body)
 
         User.findOneAndUpdate({remember_token:random_character}, {$set:{password:hash}}, {new:true},(err,user) => {
             console.log("new pass in db = ", user)
-        })
-// console.log("new pass in db = ", data)
-        })
-        // const data = await User.findOneAndUpdate({remember_token: random_character}, {$set: {password: hash}}, {
-        //     new: true,
-        //     runValidators: true,
-        // });
-
-        // console.log("data = ", data)
-        // console.log("data = ", data.password)
-
-        // console.log("Was here")
-        // // ------------------------------------------------
-        
-        
-        
-        // // -------------------------------------------------
-        // console.log("Was here too")
-        // User.findOne({remember_token: req.params.random_character})
-        //     .then(user=> {
-        //         console.log("new password = ", user.password)
-        //     })
+        })})
 
         return errors,data
         
@@ -350,14 +310,3 @@ exports.getAllNoPagination = async () => {
     })
     return users;
 }
-// Authorization check if the user have rights to do this action
-// exports.restrictTo = (...permission) => {
-//     return (req, res, next) => {
-//         let result = req.user.permission.some(i => permission.includes(i));
-
-//         if (!result) {
-//             return next(new AppError(403, 'fail', 'You are not allowed to do this action'), req, res, next);
-//         }
-//         next();
-//     };
-// };

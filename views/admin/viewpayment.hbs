@@ -35,7 +35,7 @@
                 </p>
                 <table id="members-list">
                     <tr>
-                        {{!-- <th>S/N</th> --}}
+                        <th>S/N</th>
                         <th>Username</th>
                         <th>Transaction ref</th>
                         <th>Transaction_id</th>
@@ -47,11 +47,13 @@
                     {{#if payment}}
                     {{#each payment.docs}}
                     <tr>
-                        {{!-- <td></td> --}}
+                        <td>{{#sn ../payment.limit ../payment.page @index}}
+                            {{/sn}}
+                        </td>
                         <td>{{this.userId.firstname}} {{this.userId.lastname}}</td>
                         <td>{{this.trx_ref}}</td>
                         <td>{{this.transaction_id}}</td>
-                        <td>{{this.payment_date}}</td>
+                        <td>{{this.date}}</td>
                         <td>{{this.amount}}</td>
                         <td>{{this.purpose}}</td>
                         <td>{{this.narration}}</td>
@@ -79,12 +81,12 @@
 
 
                         {{#if payment}}
-                        {{#loop 1 payment.totalPages 1}}
+                        {{!-- {{#loop 1 payment.totalPages 1}}
                         <li class="page-item"><a class="page-link"
                                 href="/payment/getpayments?limit={{payment.limit}}&page={{this}}">{{this}}
                                 {{payment.limit}}</a>
                         </li>
-                        {{/loop}}
+                        {{/loop}} --}}
 
 
                         {{#next payment.hasNextPage}}
