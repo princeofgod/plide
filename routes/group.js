@@ -184,9 +184,11 @@ router.post('/addgroup', async (req,res) => {
 
 			console.log("UPDATED MEMBER +++++++++++++++++++++ ,", updatemember);
 		}
+		res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
+} else {
+	res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
 
 };
-		res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
 
 })
 
