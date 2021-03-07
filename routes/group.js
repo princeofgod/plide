@@ -152,6 +152,9 @@ router.post('/addgroup', groupValidation, async (req,res,next) => {
 router.post('/addgroup', async (req,res) => {
 	// Adding the members
 	const data = req.session.members;
+
+	console.log("dtata sent from the previous middleware +++++++++++++++", data);
+
 	if(data["group_members"]){
 		console.log("i am here ooooooooooo")
 		let members = data["group_members"].split(",");
@@ -160,7 +163,9 @@ router.post('/addgroup', async (req,res) => {
 	for(let i = 0;i < members.length; i++){
 		let email = members[i].split(" ")[2].replace(")","").replace("(","");
 		let candidate = await userController.getOneByEmail(email);
-		
+
+		console.log("candidate from email +++++++++++",candidate);
+
 		candidates.push({
 			_id:candidate._id,
 			firstname:candidate.firstname,
@@ -169,12 +174,15 @@ router.post('/addgroup', async (req,res) => {
 			email:candidate.email,
 			approved : true
 		})
-		console.log(candidates[i])
 	}
+	
+	console.log("Stored up candidates ++++++++++++++++++",candidates);
 
 	for(let i = 0;i < candidates.length; i++){
 		console.log(`candidates ========== ${candidates[i]}`)
-			const contest = await groupController.updateMember(data.group,candidates[i]);
+			const updatemember = await groupController.updateMember(data.title,candidates[i]);
+
+			console.log("UPDATED MEMBER +++++++++++++++++++++ ,", updatemember);
 		}
 
 };
