@@ -16,7 +16,6 @@
     "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "~1.4.4",
     "cookie-session": "^1.4.0",
-    "darkroom": "^2.0.0",
     "debug": "~2.6.9",
     "dialog": "^0.3.1",
     "dotenv": "^8.2.0",
