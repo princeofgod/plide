@@ -23,7 +23,7 @@ const MongoStore = require('connect-mongodb-session')(session);
 // const loop = require("handlebars-loop")
 // const {total} = require('../config/helpers');
 const store = new MongoStore({
-	uri: 'mongodb://localhost:27017/MVC1',
+	uri: process.env.DATABASEE,
 	collection: 'sessions'
   });
 
