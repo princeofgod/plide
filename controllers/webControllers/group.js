@@ -83,11 +83,14 @@ exports.getRandom = async () => {
         return res
     })
     
-    getRandom[0].leader = Object.assign({},getRandom[0].leader)
-    getRandom[0].secretary = Object.assign({},getRandom[0].secretary)
-    // console.log(getRandom[0])
-    return getRandom;
-// })
+    if (getRandom.length <= 0){
+
+    } else {
+
+        getRandom[0].leader = Object.assign({},getRandom[0].leader)
+        getRandom[0].secretary = Object.assign({},getRandom[0].secretary)
+        return getRandom;
+    }
 }
 
 exports.getAllPaginate = async (req) => {
