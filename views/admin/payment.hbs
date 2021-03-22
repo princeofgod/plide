@@ -178,30 +178,15 @@
                             <span>Share </span>
 
                             <iframe class="mx-2"
-                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A3002%2Fcourse%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button_count&size=small&width=78&height=20&appId"
+                                src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fplide.herokuapp.com%2Fcourse%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button_count&size=small&width=78&height=20&appId"
                                 width="78" height="20" style="border:none;overflow:hidden" scrolling="no"
                                 frameborder="0" allowfullscreen="true"
                                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             <a class="twitter-share-button mx-2 "
-                                href="https://twitter.com/intent/tweet?text=http://127.0.0.1:3002/course/payment?id={{course._id}}"
+                                href="https://twitter.com/intent/tweet?text=https://plide.herokuapp.com/course/payment?id={{course._id}}"
                                 data-size="large" id="tweet">
                                 <i class="fab fa-twitter-square fa-2x" style="color:#1c9cea"></i></a>
-                            {{!-- <a class="facebook-share-button mx-2"
-                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A3002%2Fcourse%2Fpayment%3Fid%3D{{course_id}}&amp;src=sdkpreparse"
-                                data-layout="button" data-size="large" id="facebook">
-                                <i class="fab fa-facebook-square fa-2x"></i></a> --}}
 
-                            {{!-- <iframe
-                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A3002%2Fcourse%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button&size=large&width=78&height=28&appId"
-                                width="78" height="28" style="border:none;overflow:hidden" scrolling="no"
-                                frameborder="0" allowfullscreen="true"
-                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-
-                            <div class="fb-share-button"
-                                data-href="http://127.0.0.1:3002/course/payment?id=6017fe62d360513fd0ce3055"
-                                data-layout="button" data-size="large"><a target="_blank"
-                                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A3002%2Fcourse%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&amp;src=sdkpreparse"
-                                    class="fb-xfbml-parse-ignore">Share</a></div> --}}
                         </div>
                     </div>
 
@@ -407,7 +392,7 @@
             "country": "NG",
             "payment_options": "card, ussd",
             redirect_url: // specified redirect URL --}}
-                "http://127.0.0.1:3002/payment/savePayment",
+                "https://plide.herokuapp.com/payment/savePayment",
             meta: {
                 group_id: document.getElementById('courseId').value,
                 //consumer_mac: "92a3-912ba-1192a",

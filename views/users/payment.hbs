@@ -178,30 +178,15 @@
                             <span>Share </span>
 
                             <iframe class="mx-2"
-                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button_count&size=small&width=78&height=20&appId"
+                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2Fplide.herokuapp.com%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button_count&size=small&width=78&height=20&appId"
                                 width="78" height="20" style="border:none;overflow:hidden" scrolling="no"
                                 frameborder="0" allowfullscreen="true"
                                 allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                             <a class="twitter-share-button mx-2 "
-                                href="https://twitter.com/intent/tweet?text=http://127.0.0.1:3002/cause/payment?id={{cause._id}}"
+                                href="https://twitter.com/intent/tweet?text=https://plide.herokuapp.com/cause/payment?id={{cause._id}}"
                                 data-size="large" id="tweet">
                                 <i class="fab fa-twitter-square fa-2x" style="color:#1c9cea"></i></a>
-                            {{!-- <a class="facebook-share-button mx-2"
-                                href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D{{cause_id}}&amp;src=sdkpreparse"
-                                data-layout="button" data-size="large" id="facebook">
-                                <i class="fab fa-facebook-square fa-2x"></i></a> --}}
 
-                            {{!-- <iframe
-                                src="https://www.facebook.com/plugins/share_button.php?href=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&layout=button&size=large&width=78&height=28&appId"
-                                width="78" height="28" style="border:none;overflow:hidden" scrolling="no"
-                                frameborder="0" allowfullscreen="true"
-                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-
-                            <div class="fb-share-button"
-                                data-href="http://127.0.0.1:3002/cause/payment?id=6017fe62d360513fd0ce3055"
-                                data-layout="button" data-size="large"><a target="_blank"
-                                    href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A3002%2Fcause%2Fpayment%3Fid%3D6017fe62d360513fd0ce3055&amp;src=sdkpreparse"
-                                    class="fb-xfbml-parse-ignore">Share</a></div> --}}
                         </div>
                     </div>
 
@@ -215,17 +200,6 @@
                             <div class="col-2">
                                 <div class="donator-icon d-flex align-items-center justify-content-center"
                                     style="background-image:url('../avatar/{{this.userId.profile_pic}}');background-position:50%;background-size:contain">
-
-                                    {{!-- <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
-                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg> --}}
-
                                 </div>
                             </div>
                             <div class="col-8">
@@ -239,50 +213,7 @@
                         {{/each}}
                         {{/if}}
 
-                        {{!-- <div class="row">
-                            <div class="col-2">
-                                <div class="donator-icon d-flex align-items-center justify-content-center" style="">
-                                    <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
-                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
 
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <p class="font-weight-bold">Gabriel Esan</p>
-                                <p class="font-weight-bold"># 35,000 <span class=""
-                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
-                                        mos</span></p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-2">
-                                <div class="donator-icon d-flex align-items-center justify-content-center" style="">
-                                    <svg width="25" height="30" viewBox="0 0 25 30" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="12.5519" cy="8.11381" rx="6.96796" ry="6.96796" stroke="#124814"
-                                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M1.50002 24.7729C1.49815 24.283 1.6077 23.7992 1.82039 23.3579C2.48782 22.023 4.36997 21.3156 5.93175 20.9952C7.05811 20.7548 8.20003 20.5943 9.34899 20.5147C11.4762 20.3278 13.6157 20.3278 15.743 20.5147C16.8918 20.5952 18.0337 20.7557 19.1602 20.9952C20.722 21.3156 22.6041 21.9563 23.2716 23.3579C23.6993 24.2574 23.6993 25.3017 23.2716 26.2012C22.6041 27.6028 20.722 28.2435 19.1602 28.5505C18.0352 28.8008 16.8928 28.9659 15.743 29.0444C14.0116 29.1912 12.2721 29.2179 10.537 29.1245C10.1366 29.1245 9.74945 29.1245 9.34899 29.0444C8.20342 28.9669 7.06546 28.8018 5.9451 28.5505C4.36997 28.2435 2.50117 27.6028 1.82039 26.2012C1.60879 25.7548 1.49935 25.2668 1.50002 24.7729Z"
-                                            stroke="#124814" stroke-width="1.5" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <p class="font-weight-bold">Gabriel Esan</p>
-                                <p class="font-weight-bold"># 35,000 <span class=""
-                                        style="font-weight:normal;color: rgba(18, 72, 20, 0.5);">&middot 8
-                                        mos</span></p>
-                            </div>
-                        </div> --}}
                     </div>
                     <p class="mt-2">Recent donors</p>
 
@@ -402,7 +333,7 @@
             "country": "NG",
             "payment_options": "card, ussd",
             redirect_url: // specified redirect URL --}}
-                "http://127.0.0.1:3002/payment/savePayment",
+                "https://plide.herokuapp.com/payment/savePayment",
             meta: {
                 group_id: document.getElementById('causeId').value,
                 //consumer_mac: "92a3-912ba-1192a",
