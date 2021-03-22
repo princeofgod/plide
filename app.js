@@ -44,7 +44,7 @@ const app = express();
 // Passport config
 require('./config/passport')(passport)
 
-const IN_PROD = process.env.NODE_ENV === 'development'
+const IN_PROD = process.env.NODE_ENV === 'production'
 
 app.engine(
   "hbs",
