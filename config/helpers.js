@@ -38,7 +38,7 @@ exports.getStatistics = async () => {
 		
 		total.percentageRegisteredCurrentMonth = Math.ceil((total.registeredThisMonth/total.registered) * 100)
         total.percentageFunded = isNaN((total.fundedThisMonth/total.fundedCourse) * 100) ? 0 : (total.fundedThisMonth/total.fundedCourse) * 100
-		total.percentageEventCurrentMonth = (total.eventsThisMonth/total.events) * 100
+		total.percentageEventCurrentMonth = isNaN((total.eventsThisMonth/total.events) * 100) ? 0 : (total.eventsThisMonth/total.events) * 100
 		
         isNaN(total.percentageFunded) ? 0 : total.percentageFunded
         return total
