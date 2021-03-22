@@ -14,13 +14,14 @@ dotenv.config({
   path: './config.env'
 });
 
-let database = process.env.DATABASEE;
+// let database = process.env.DATABASEE;
 // Connect the database
-mongoose.connect(database, {
+mongoose.connect(process.env.DATABASEE, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useMongoClient:true
 }).then(con => {
   console.log('DB connection Successful!');
 });

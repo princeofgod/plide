@@ -27,9 +27,9 @@ const passport = require("passport");
 const MongoDBStore = require('connect-mongodb-session')
 const mongoose = require('mongoose');
 const { v4 } = require('uuid');
-const url = process.env.DATABASEE
+// const url = process.env.DATABASEE
 const store = exports = new MongoStore({
-  uri: url,
+  uri: process.env.DATABASEE,
   // databaseName:'MVC1',
   collection: 'sessions'
 });
