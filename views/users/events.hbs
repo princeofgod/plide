@@ -49,9 +49,9 @@
                             </div>
                         </div>
                         {{/each}}
-                        <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                        {{!-- <div class="d-flex flex-column justify-content-center align-items-center w-100">
                             <p class="text-center font-italic">No event is currently published..</p>
-                        </div>
+                        </div> --}}
                         {{/if}}
                     </div>
 
@@ -84,7 +84,7 @@
                 </div>
                 <div class="row">
                     {{!-- WRITE HERE --}}
-
+                    {{#if events}}
                     <table class="w-100 mx-4 my-2">
                         <tr>
                             <th class="p-0 text-center " style="height:50px;border:none">
@@ -111,7 +111,7 @@
                             </th>
 
                         </tr>
-                        {{#if events}}
+
                         {{#each events}}
                         <tr>
                             <td class="text-center py-3" id="{{this.event_title}}">{{this.event_title}}</td>

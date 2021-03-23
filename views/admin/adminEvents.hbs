@@ -83,7 +83,7 @@
                 </div>
                 <div class="row">
                     {{!-- WRITE HERE --}}
-
+                    {{#if events}}
                     <table class="w-100 mx-4 my-0">
                         <tr>
                             <th class="p-0 text-center " style="height:50px;border:none">
@@ -113,7 +113,7 @@
                                 </div>
                             </th>
                         </tr>
-                        {{#if events}}
+
                         {{#each events}}
                         <tr>
                             <form action="delete" method="post" style="display:none"
@@ -272,7 +272,7 @@
                         </div>
                         {{/each}}
                         {{else}}
-                        <div class="d-flex flex-row justify-contents-center" style="height:215px">
+                        <div class="d-flex flex-row justify-content-center" style="height:215px">
                             <p class="text-center font-italic">No upcoming schedule...</p>
                         </div>
                         {{/if}}
