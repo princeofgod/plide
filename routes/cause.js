@@ -52,7 +52,8 @@ router.post('/addCause', upload.single('image'), categoryValidation, async (req,
 
 		page.title = 'PACES Causes',
 		page.pageTitle = 'Cause'
-		res.render("./admin/add-cause", {success: `New cause ${body.name} has been created`})
+		res.redirect('/success');
+		// res.render("./admin/add-cause", {success: `New cause ${body.name} has been created`})
     }
 })
 

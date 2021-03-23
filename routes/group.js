@@ -12,7 +12,7 @@ const UserGroup = require('../model/userGroup');
 const Schedule =require('../model/schedule');
 const { populate } = require('../model/group');
 
-let page ={
+let pages = {
 	title : 'PACES Groups',
 	pageTitle : 'Group',
 	newDate : moment().format("DD, MMMM YYYY")
@@ -50,10 +50,10 @@ router.get('/groups', async (req,res,next) => {
 
 	  	if(req.session.user.role !== "1"){
 			page.title = 'PACES Admin Group';
-			res.render('./users/usergroups', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule})
+			res.render('./users/usergroups', {user:user,page:pages,randomGroups:randomGroups,groups:groups,schedule:schedule})
 		}else{
 			page.title = 'PACES Group';
-			res.render('./admin/admingroup', {user:user,page:page,randomGroups:randomGroups,groups:groups,schedule:schedule, unapprovedCount:unapprovedCount})
+			res.render('./admin/admingroup', {user:user,page:pages,randomGroups:randomGroups,groups:groups,schedule:schedule, unapprovedCount:unapprovedCount})
 		}
 	}
 })
@@ -81,7 +81,7 @@ router.get('/addgroup', async (req,res) => {
 			})
 
 			page.title = 'PACES Admin Group';
-			res.render('./admin/addgroup', {user:req.session.user, page:page, users:users, groups:groups,schedule:schedule})
+			res.render('./admin/addgroup', {user:req.session.user, page:pages, users:users, groups:groups,schedule:schedule})
 		}
 	}
 })
@@ -238,28 +238,13 @@ router.get('/viewgroups', async (req, res) => {
 		
 		if(req.session.user.role === '1'){
 			page.title = "PACES Admin Group"
-			res.render('./admin/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+			res.render('./admin/viewgroups', {user:req.session.user, groups:displayGRoups, page:pages,estimate: displayGRoups.page * displayGRoups.limit})
 		} else {
 			page.title = "PACES Group"
-			res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
+			res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:pages,estimate: displayGRoups.page * displayGRoups.limit})
 		}
 		
 	}
-	
-	// if(!req.session.user){
-    // 	res.redirect('/users/login')
-  	// }else{
-	// 	const displayGRoups = await groupController.getAllPaginate(req);
-
-	// 	if(req.session.user.role === '1'){
-	// 		page.title = "PACES Admin Group"
-			
-	// 		res.render('./admin/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
-	// 	} else {
-	// 		page.title = "PACES Admin Group"
-	// 		res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:page,estimate: displayGRoups.page * displayGRoups.limit})
-	// 	}
-	// }
 
 })
 
@@ -287,10 +272,10 @@ router.get('/view-group-info', async (req, res) => {
 		if(req.session.user.role == '1'){
 			page.title = "PACES Admin Group"
 			
-			res.render('./admin/full-info-group', {user:req.session.user, page:page, group: groups, users: members, schedule:schedule})
+			res.render('./admin/full-info-group', {user:req.session.user, page:pages, group: groups, users: members, schedule:schedule})
 		} else {
 			page.title = "PACES Group"
-			res.render('./users/full-info-group', {user:req.session.user, page:page, group: groups, users: members, schedule:schedule})
+			res.render('./users/full-info-group', {user:req.session.user, page:pages, group: groups, users: members, schedule:schedule})
 		}
 	}
 })
@@ -300,7 +285,7 @@ router.get('/view-group-info', async (req, res) => {
 router.get('/approverequest', async (req,res) => {
 	const awaitingApproval = await groupController.getUnapproved(req)
 	
-	res.render('./admin/approvepage', {awaitingApproval : awaitingApproval,estimate: awaitingApproval.page * awaitingApproval.limit })
+	res.render('./admin/approvepage', {user:req.session.user, page:pages, awaitingApproval : awaitingApproval,estimate: awaitingApproval.page * awaitingApproval.limit })
 })
 
 /**
@@ -357,7 +342,7 @@ router.get('/approve', async (req, res) => {
 router.post('/add-member', async (req, res) => {
 	// Save to member field in the events table
 	// and save with both event id and user id in the usergroups table
-console.log(req.body)
+// console.log(req.body)
 	req.body.member = req.body.member.split(",");
 	const candidates =[];
 
@@ -374,17 +359,17 @@ console.log(req.body)
 			email:candidate.email,
 			approved : true
 		});
-		console.log(`Candidats ====== ${req.body.member[i]}`)
+		// console.log(`Candidats ====== ${req.body.member[i]}`)
 	}
 
 	for(let i = 0;i < candidates.length; i++){
-	console.log(`candidates ========== ${candidates[i]}`)
+	// console.log(`candidates ========== ${candidates[i]}`)
 		const contest = await groupController.updateMember(req.body.group,candidates[i]);
 	}
 	
 	// Save to the usergroup model
 	const group = await groupController.getOne(req.body["group"]);
-	console.log(group)
+	// console.log(group)
 	for(let i = 0; i < candidates.length; i++){
 		const newGroupMembers = new UserGroup({
 			user_id: candidates[i].id,
@@ -458,8 +443,8 @@ router.get('/usersgroup', async (req, res) => {
 
 		const limit = req.query.limit || 10;
 		const page = req.query.page || 1;
-		console.log(req.session.user)
-		console.log('nbwd s===============')
+		// console.log(req.session.user)
+		// console.log('nbwd s===============')
 		const usersgroup =await UserGroup.paginate({user_id : req.session.user._id}, {page:page, limit:limit,pagination:true,sort: {name:1},populate :[{path: 'group_id',select: '', populate :[{path : 'leader'}, {path:'secretary'}]}]}).then(items => {
 			
 			// console.log("items==============",items);
@@ -470,12 +455,13 @@ router.get('/usersgroup', async (req, res) => {
 			// console.log("I am here")
 			page.title = 'PACES Admin Fund a Cause';
 			page.pageTitle = 'Fund a cause' ;
-			res.render('./admin/usersgroup', {user:req.session.user, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
+			res.render('./admin/usersgroup', {user:req.session.user, page:pages, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
 		} else {
 			// console.log("I am here")
-			page.title = 'PACES Fund a Cause';
-			page.pageTitle = 'Fund a cause' ;
-			res.render('./users/usersgroup', {user:req.session.user, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
+			page.title = 'PACES group';
+			page.pageTitle = 'Group' ;
+			console.log("PAge ", page)
+			res.render('./users/usersgroup', {user:req.session.user, page:pages, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
 		}
 		
 	}
@@ -495,7 +481,7 @@ router.get('/success', (req, res) => {
 		console.log("REQUEST=================",req.rawHeaders[11].split("/")[req.rawHeaders[11].split("/").length-1])
 		// if(req.session.redirecter == "/addgro")
 		const success = "Group saved successfully!"
-		res.render("./admin/successful-payment", {user:req.session.user, page:page,success:success});
+		res.render("./admin/successful-payment", {user:req.session.user, page:pages,success:success});
 	}
 })
 
