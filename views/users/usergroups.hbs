@@ -91,7 +91,7 @@
                 </div>
                 <div class="row">
                     {{!-- WRITE HERE --}}
-
+                    {{#if groups}}
                     <table class="w-100 mx-4 my-0">
                         <tr>
                             <th class="p-0 text-center " style="height:50px;border:none;">
@@ -117,7 +117,7 @@
                             </th>
 
                         </tr>
-                        {{#if groups}}
+
                         {{#each groups}}
                         <tr>
                             <td class="text-center py-3">{{this.name}}</td>
@@ -127,9 +127,9 @@
                         </tr>
                         {{/each}}
                         {{else}}
-                        {{!-- <div class="d-flex flex-column justify-content-center w-100">
+                        <div class="d-flex flex-column justify-content-center w-100">
                             <p class="text-center font-italic">No group to display..</p>
-                        </div> --}}
+                        </div>
                         {{/if}}
 
                     </table>
