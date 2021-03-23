@@ -19,12 +19,12 @@ const User = require('../model/user');
 } */
 
 exports.hashPassword = async (password) => {
-  console.log("In the hash function")
+  // console.log("In the hash function")
   // generate a salt
   const salt = await bcrypt.genSalt(10);
   // hash the password along with our new salt
   const hash = await bcrypt.hash(password, salt);
-console.log("Through with hashing, back to user.")
+// console.log("Through with hashing, back to user.")
   return hash;
 }
 

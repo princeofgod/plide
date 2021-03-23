@@ -29,7 +29,7 @@
             </div>
             {{/if}}
 
-            {{#if groups}}
+            {{#if groups.docs}}
             <div class="col-12 m-0 p-0 w-100" id="{{!-- form-add --}}" style="background:#FAFFF9;">
                 <p class="" id="">Showing results {{groups.pagingCounter}} - {{#estimate estimate
                     groups.totalDocs}}{{/estimate}} of {{groups.totalDocs}}
@@ -160,6 +160,11 @@
                         {{/next}}
                     </ul>
                 </nav>
+
+                {{else}}
+                <div class="">
+                    <p class="">No groups to view curremntly...</p>
+                </div>
                 {{/if}}
 
             </div>

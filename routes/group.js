@@ -153,10 +153,10 @@ router.post('/addgroup', async (req,res) => {
 	// Adding the members
 	const data = req.session.members;
 
-	console.log("dtata sent from the previous middleware +++++++++++++++", data);
+	// console.log("dtata sent from the previous middleware +++++++++++++++", data);
 
 	if(data["group_members"]){
-		console.log("i am here ooooooooooo")
+		// console.log("i am here ooooooooooo")
 		let members = data["group_members"].split(",");
 	const candidates = [];
 
@@ -164,7 +164,7 @@ router.post('/addgroup', async (req,res) => {
 		let email = members[i].split(" ")[2].replace(")","").replace("(","");
 		let candidate = await userController.getOneByEmail(email);
 
-		console.log("candidate from email +++++++++++",candidate);
+		// console.log("candidate from email +++++++++++",candidate);
 
 		candidates.push({
 			_id:candidate._id,
@@ -176,13 +176,13 @@ router.post('/addgroup', async (req,res) => {
 		})
 	}
 	
-	console.log("Stored up candidates ++++++++++++++++++",candidates);
+	// console.log("Stored up candidates ++++++++++++++++++",candidates);
 
 	for(let i = 0;i < candidates.length; i++){
 		console.log(`candidates ========== ${candidates[i]}`)
 			const updatemember = await groupController.updateMember(data.title,candidates[i]);
 
-			console.log("UPDATED MEMBER +++++++++++++++++++++ ,", updatemember);
+			// console.log("UPDATED MEMBER +++++++++++++++++++++ ,", updatemember);
 		}
 		res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
 } else {
@@ -229,7 +229,7 @@ router.get('/viewgroups', async (req, res) => {
 		const page = req.query.page || 1;
 		// const displayGroups = Group.paginate({}, {page:page, limit:limit,pagination:true,sort:{name:1}, populate: 'leader secretary', })
 		const displayGRoups = await Group.paginate({'members.email': {$ne :req.session.user.email}}, {page:page, limit:limit,pagination:true,sort: {name:1},populate: 'leader secretary'}).then(items => {
-			console.log("items==============",items)
+			// console.log("items==============",items)
 			return items;
 		})
 		
@@ -305,7 +305,7 @@ router.get('/approverequest', async (req,res) => {
  */
 router.get('/join', async (req,res) => {
 	
-	console.log("Requesting to join group",req.query);
+	// console.log("Requesting to join group",req.query);
 	
 	const newUserGroup = new UserGroup({
 		user_id : req.session.user._id,
@@ -459,17 +459,17 @@ router.get('/usersgroup', async (req, res) => {
 		console.log('nbwd s===============')
 		const usersgroup =await UserGroup.paginate({user_id : req.session.user._id}, {page:page, limit:limit,pagination:true,sort: {name:1},populate :[{path: 'group_id',select: '', populate :[{path : 'leader'}, {path:'secretary'}]}]}).then(items => {
 			
-			console.log("items==============",items);
+			// console.log("items==============",items);
 			return items
 		});
 
 		if(req.session.user.role == '1'){
-			console.log("I am here")
+			// console.log("I am here")
 			page.title = 'PACES Admin Fund a Cause';
 			page.pageTitle = 'Fund a cause' ;
 			res.render('./admin/usersgroup', {user:req.session.user, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
 		} else {
-			console.log("I am here")
+			// console.log("I am here")
 			page.title = 'PACES Fund a Cause';
 			page.pageTitle = 'Fund a cause' ;
 			res.render('./users/usersgroup', {user:req.session.user, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })

@@ -147,13 +147,13 @@ exports.reset_password = async (password, random_character) =>{
     try{
         await User.findOne({remember_token: random_character})
             .then(async (user)=> {
-                console.log("Old password = ", user.password)
-                console.log("new password entered = ",password)
+                // console.log("Old password = ", user.password)
+                // console.log("new password entered = ",password)
         const hash = await utility.hashPassword(password);
-        console.log("new hash = ",hash)
+        // console.log("new hash = ",hash)
 
         User.findOneAndUpdate({remember_token:random_character}, {$set:{password:hash}}, {new:true},(err,user) => {
-            console.log("new pass in db = ", user)
+            // console.log("new pass in db = ", user)
         })})
 
         return errors,data

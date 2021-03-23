@@ -30,7 +30,7 @@
             {{/if}}
 
 
-            {{#if cause}}
+            {{#if cause.docs}}
 
 
             <div class="w-100">
@@ -146,6 +146,10 @@
                     </ul>
                 </nav>
 
+            </div>
+            {{else}}
+            <div class="d-flex align-items-center justify-content-center">
+                <p class="text-center font-italics">No causes to view currently...</p>
             </div>
             {{/if}}
         </div>

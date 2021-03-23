@@ -245,7 +245,7 @@ router.post('/avatar', upload.single("picture"), async (req, res, next) => {
 		if(!req.file){
 			res.redirect("profile")
 		} else {
-			console.log("Request file = ", req.file.path)
+			// console.log("Request file = ", req.file.path)
 			let user = req.session.user
 			await User.findOneAndUpdate({_id:user._id},{$set:{profile_pic:req.file.filename}}, {new:true}, (err, user) => {
 			if(err){
@@ -291,7 +291,7 @@ router.get('/home', async function(req, res) {
 // Routing for the logout page
 router.get('/logout', (req, res, next) => {
 	if(req.session){
-		console.log("Id before logout",req.sessionID)
+		// console.log("Id before logout",req.sessionID)
 		req.logout()
 		req.session.destroy((error)=> {
 			if(error){

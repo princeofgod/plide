@@ -16,11 +16,11 @@ router.get("/savePayment", async (req, res) => {
     
     const returnedData = await paymentController.verifyPayment(req.query)
 
-    console.log("Returned data == ", returnedData)
+    // console.log("Returned data == ", returnedData)
     // const [user] = returnedData;
-    console.log("req.session.user before assigning user", req.session.user)
+    // console.log("req.session.user before assigning user", req.session.user)
     req.session.user = returnedData[1]
-    console.log("req.session.user after assigning user", req.session.user)
+    // console.log("req.session.user after assigning user", req.session.user)
 
     res.redirect('../users/home')
   

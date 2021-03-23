@@ -114,9 +114,9 @@ exports.getOneById = async (id) => {
 }
 
 exports.updateMember = async (name,obj) => {
-    console.log("in the controller")
+    // console.log("in the controller")
     const updatedMember = await Group.updateOne({name:name}, {$push: {members:obj}});
-    console.log("++++++++++++++++", updatedMember)
+    // console.log("++++++++++++++++", updatedMember)
     return updatedMember;
 }
 

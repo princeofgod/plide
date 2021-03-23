@@ -7,7 +7,7 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain, host: "api
  
 exports.sendMail = (to, subject, emailBody, attachment=null) => {    
   const data = {
-      from: 'P.L.A.C.E <noreply@plide.ng>',
+      from: 'P.A.C.E.S <noreply@plide.ng>',
       to: to,         // List of recipients
       subject: subject, // Subject line
       html: emailBody //HTML Body
@@ -18,7 +18,7 @@ exports.sendMail = (to, subject, emailBody, attachment=null) => {
   }
 
   mailgun.messages().send(data, function (error, body) {
-    console.log("error",error);
+    // console.log("error",error);
     console.log(body);
   });
        

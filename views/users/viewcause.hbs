@@ -30,7 +30,7 @@
             {{/if}}
 
 
-            {{#if cause}}
+            {{#if cause.docs}}
 
             <div class="w-100">
                 <p class="" id="">Showing results {{cause.pagingCounter}} - {{#estimate estimate
@@ -55,7 +55,7 @@
                     </tr>
                     {{/each}}
                 </table>
-                {{/if}}
+                {{!-- {{/if}} --}}
 
                 <nav aria-label="..." class="mt-3 mx-auto">
                     <ul class="pagination pagination-sm justify-content-center">
@@ -76,7 +76,7 @@
                                 tabindex="-1">Previous</a>
                         </li> --}}
 
-                        {{#if cause}}
+                        {{!-- {{#if cause}} --}}
                         {{#loop 1 cause.totalPages 1}}
                         <li class="page-item">
                             <a class="page-link" href="../cause/viewcauses?limit={{cause.limit}}&page={{this}}">{{this}}
@@ -110,6 +110,11 @@
 
                     </ul>
                 </nav>
+            </div>
+
+            {{else}}
+            <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                <p class="text-center font-italic">No cause to view currently...</p>
             </div>
             {{/if}}
         </div>

@@ -16,8 +16,8 @@
                 </div>
                 <div class="category-options d-flex flex-row my-3">
                     {{!-- <div class=""> --}}
-                        {{#if causes}}
-                        {{#each causes}}
+                        {{#if causes.docs}}
+                        {{#each causes.docs}}
                         <div class=" cat p-3  mx-2 d-flex flex-column align-items-center">
                             <svg width="69" height="69" viewBox="0 0 69 69" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -34,6 +34,10 @@
                                 onclick="window.location.href='payment?id={{this._id}}'">Fund</button>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                            <p class="text-center font-italic">No cause to be funded yet...</p>
+                        </div>
                         {{/if}}
                         {{!-- --}}
                     </div>

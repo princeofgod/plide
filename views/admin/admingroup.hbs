@@ -66,6 +66,10 @@
                             {{!-- <div class="progress"></div> --}}
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="d-flex flex-row align-items-center justify-contents-center">
+                            <p class="text-center font-italics">No groups to display...</p>
+                        </div>
                         {{/if}}
                     </div>
 
@@ -91,8 +95,7 @@
                             <th class="p-0 text-center " style="height:50px;border:none">
                                 <div class="d-flex justify-content-center">
                                     <div class="th-div font-weight-normal py-3" style="width:70%;height:100%;">
-                                        UPCOMING
-                                        EVENTS
+                                        POPUlAR GROUPS
                                     </div>
                                 </div>
                             </th>
@@ -127,6 +130,10 @@
                             </td>
                         </tr>
                         {{/each}}
+                        {{else}}
+                        <div class="d-flex flex-row align-items-center justify-contents-center">
+                            <p class="text-center font-italics">No group to display...</p>
+                        </div>
                         {{/if}}
 
                     </table>
@@ -162,6 +169,10 @@
                             </div>
                         </div>
                         {{/each}}
+                        {{else}}
+                        <div class="d-flex flex-row align-items-center justify-contents-center">
+                            <p class="text-center font-italics">No upcoming schedules...</p>
+                        </div>
                         {{/if}}
 
                     </div>

@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-6 px-5">
                 <div class="row org-img my-3"
-                    style="background-image:url('../../cause/{{cause.image}}');background-repeat:no-repeat;background-positon:50%;background-size:contain">
+                    style="background-image:url('../../cause/{{cause.image}}');background-repeat:no-repeat;background-position:50%;background-size:contain">
                     {{!-- <img src="../../cause/default.svg" alt="" class="w-100 h-100"> --}}
                 </div>
                 {{!-- <div class="row my-4">
@@ -199,7 +199,7 @@
                         <div class="row">
                             <div class="col-2">
                                 <div class="donator-icon d-flex align-items-center justify-content-center"
-                                    style="background-image:url('../avatar/{{this.userId.profile_pic}}');background-position:50%;background-size:contain">
+                                    style="background-image:url('../avatar/{{this.userId.profile_pic}}');background-position:50%;background-size:cover;background-repeat:no-repeat;">
                                 </div>
                             </div>
                             <div class="col-8">
@@ -224,7 +224,7 @@
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <h5 class="modal-title" id="exampleModalLongTitle">All donations</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -268,7 +268,6 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
                                     </div>
                                 </div>
                             </div>
@@ -308,6 +307,9 @@
     contactBtn.addEventListener('click', (e) => {
         e.preventDefault();
         contactBtn.innerText = document.getElementById('phone_cause').value;
+        if (contactBtn.innerText.length <= 0) {
+            contactBtn.innerText = "No contact"
+        }
     })
 
     function generateRandomCharacter(length) {
@@ -324,7 +326,7 @@
     let generated = generateRandomCharacter(24);
 
     function makePayment() {
-        console.log("got here");
+        //console.log("got here");
         FlutterwaveCheckout({
             "public_key": "FLWPUBK_TEST-ca0523b9912952630c7ac39073a8b0e6-X",
             "tx_ref": transferRef + generated,

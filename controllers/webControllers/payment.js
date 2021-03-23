@@ -12,7 +12,7 @@ exports.createOne = async (paymentData) => {
 }
 
 exports.verifyPayment = async (data) => {
-    console.log("Entered here o")
+    // console.log("Entered here o")
     if(data.status == "successful") {
         var options = {
         'method': 'GET',
@@ -22,10 +22,10 @@ exports.verifyPayment = async (data) => {
             'Authorization': 'Bearer FLWSECK_TEST-879312b513e407c7d1a7ab757d84932f-X'
         }
         };
-        console.log("inside here",options)
+        // console.log("inside here",options)
         
         const s = await axios(options).then(async response => {
-            console.log("hereee");
+            // console.log("hereee");
             
             if(response){
                 console.log(response.data);
@@ -34,8 +34,8 @@ exports.verifyPayment = async (data) => {
                         if (err) console.log(err)
                         return user
                 })
-                console.log("New session added ============ ", user)
-                console.log("received data from flutterwave", receivedData)
+                // console.log("New session added ============ ", user)
+                // console.log("received data from flutterwave", receivedData)
 
                 var paymentData = {
                     userId : user._id,
@@ -46,24 +46,24 @@ exports.verifyPayment = async (data) => {
                     narration : '',
                     purpose: ''
                 }
-                console.log(" sdmnsbdmbvmsbdmvmsbdvmnsbdvm", paymentData)
+                // console.log(" sdmnsbdmbvmsbdmvmsbdvmnsbdvm", paymentData)
 
                 if(paymentData.trx_ref.includes("cause")){
                     paymentData.purpose = 'cause'
-                    console.log("group id--------------",receivedData.meta['group_id'])
+                    // console.log("group id--------------",receivedData.meta['group_id'])
                     const cause = await causeController.getById(receivedData.meta['group_id'])
-                    console.log("Returned group ====", cause)
+                    // console.log("Returned group ====", cause)
                     paymentData.narration = cause.name
 
                 } else if(paymentData.trx_ref.includes("subscribe")){
                     paymentData.purpose = 'membership'
                     paymentData.narration = 'Monthly subscription'
                 }
-                console.log("Payment data to be stored", paymentData)
+                // console.log("Payment data to be stored", paymentData)
 
                 const returnedData = await exports.createOne(paymentData)
                 const obj = [returnedData, user];
-                console.log("objectssssss ----", obj)
+                // console.log("objectssssss ----", obj)
                 return obj
             }
 
