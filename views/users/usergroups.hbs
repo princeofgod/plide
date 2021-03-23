@@ -68,6 +68,12 @@
 
                             {{!-- <div class="progress"></div> --}}
                         </div>
+                        {{/each}}
+                        {{else}}
+                        <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                            <p class="text-center font-italic">No group to display...</p>
+                        </div>
+                        {{/if}}
                     </div>
 
                     <div class="col-2 d-flex flex-column align-items-center px-2 py-5" style="width:60%px;">
@@ -82,13 +88,6 @@
                             {{!--
                         </div> --}}
                     </div>
-                    {{/each}}
-                    {{else}}
-                    <div class="d-flex flex-column justify-content-center align-items-center w-100">
-                        <p class="text-center font-italic">No group to display...</p>
-                    </div>
-                    {{/if}}
-
                 </div>
                 <div class="row">
                     {{!-- WRITE HERE --}}
