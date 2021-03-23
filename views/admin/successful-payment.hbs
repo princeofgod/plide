@@ -1,11 +1,11 @@
 <div class="row" style="height:100vh;">
     <div class="col-md-2 p-0 m-0 h-100" id="menu-bar">
-        {{>userMenu}}
+        {{>adminMenu}}
     </div>
     <div class="col-md-10 " id="main" style="overflow-y:scroll;overflow-x:hidden">
         <div class="row" #>
             <div class="col-12">
-                {{>topnav}}
+                {{>adminTop}}
             </div>
         </div>
         {{!-- --}}
@@ -22,7 +22,7 @@
                     </div>
                     <p class="my-2 font-weight-bold" style="font-size:1.5vw;">Success!</p>
                     <p class="mb-5">{{success}}</p>
-                    <button class="my-5" id="done-btn" onclick="window.location.href='payment'">Done</button>
+                    <button class="my-5" id="done-btn" onclick="window.location.href='../users/home'">Done</button>
                 </div>
             </div>
             {{!-- Right panel --}}

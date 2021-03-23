@@ -9,6 +9,7 @@ const moment = require("moment");
 const helper = require('../config/helpers');
 var multer  = require('multer');
 const Payment = require('../model/payment');
+const User = require("../model/user")
 var storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 	  cb(null, __dirname + '/../images/cause')
@@ -35,7 +36,7 @@ router.post('/addCause', upload.single('image'), categoryValidation, async (req,
 		  const error = result.array()[0].msg
       	res.render('./admin/add-cause', { error:error })
     } else {
-
+		console.log("Cause ======", req.body)
 		if (req.body['needs-fund'] === "true") {
 			req.body['need_funds'] = true
 		} else {
@@ -74,16 +75,23 @@ router.get('/causes', async (req,res,next) => {
 	}
 })
 
-router.get('/add-cause', (req,res) => {
+router.get('/add-cause', async (req,res) => {
 	
     if(!req.session.user){
-      res.render('../users/login')
+      res.redirect('../users/login')
     }else{
       if(req.session.user.role !== '1' ){
       // let error = 
       res.render('login', {error:"You do not have enough privilege to access the requested page"})
       } else {
-      res.render('./admin/add-cause',{page:page, user:req.session.user})
+		let users = []
+			await User.find({},{},{sort:{timestamp: -1}})
+				.then( user => {
+					for(let i = 0; i < user.length; i++){
+						users.push(`${user[i].firstname} ${user[i].lastname} (${user[i].email})`)
+					}
+				})
+      	res.render('./admin/add-cause',{page:page, user:req.session.user, users:users})
       }
     }
 })
@@ -183,5 +191,17 @@ router.get('/viewcauses', async (req,res) => {
 router.post('/delete', async (req, res) => {
 	const del = await causeController.deleteOne(req.body['cause_name'])
 	res.redirect('../cause/viewcauses')
+})
+
+router.get('/success', (req, res) => {
+	console.log("Url that redirected here----------", req.url)
+	if(!req.session.user){
+		res.redirect("../users/home")
+	} else {
+		console.log("REQUEST=================",req.rawHeaders[11].split("/")[req.rawHeaders[11].split("/").length-1])
+		// if(req.session.redirecter == "/addgro")
+		const success = "Cause has been add successfully."
+		res.render("./admin/successful-payment", {user:req.session.user, page:page,success:success});
+	}
 })
   module.exports = router; 

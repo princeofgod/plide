@@ -66,7 +66,7 @@
                             {{!-- <div class="progress"></div> --}}
                         </div>
                         {{/each}}
-                        {{else}}
+
                         {{!-- <div class="d-flex flex-row justify-contents-center" style="height:175px">
                             <p class="text-center font-italic">No groups to display...</p>
                         </div> --}}
@@ -182,7 +182,7 @@
                         <p class="w-100 p-2" style="background: orange;color:#FAFFF9">
                             You have {{unapprovedCount}} pending request to approve
                         </p>
-                        {{disablebtn unapprovedCount 0}}
+                        {{#disablebtn unapprovedCount 0}}
                         <button class="w-50 btn-green " style="font-size:1.2vw"
                             onclick="window.location.href='./approverequest'" disabled>View requests</button>
                         {{else}}

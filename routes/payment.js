@@ -47,4 +47,15 @@ router.get('/getPayments', async (req, res) => {
 	}
 })
 
+router.get('/success', (req, res) => {
+	console.log("Url that redirected here----------", req.url)
+	if(!req.session.user){
+		res.redirect("../users/home")
+	} else {
+		console.log("REQUEST=================",req.rawHeaders[11].split("/")[req.rawHeaders[11].split("/").length-1])
+		// if(req.session.redirecter == "/addgro")
+		const success = "The donation has been made successfully."
+		res.render("./admin/successful-payment", {user:req.session.user, page:page,success:success});
+	}
+})
 module.exports = router;

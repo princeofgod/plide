@@ -184,9 +184,12 @@ router.post('/addgroup', async (req,res) => {
 
 			// console.log("UPDATED MEMBER +++++++++++++++++++++ ,", updatemember);
 		}
-		res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
+		req.session.redirecter = req.url
+		// res.render("./users/successful-payment", {user:req.session.user, page:page,success:"Group saved"});
+		res.redirect("./success")
 } else {
-	res.render("./admin/addgroup", {user:req.session.user, page:page,success:"Group saved"});
+	res.redirect("./success")
+	// res.render("./users/successful-payment", {user:req.session.user, page:page,success:"Group saved"});
 
 };
 
@@ -483,4 +486,17 @@ router.post('/leave-group', async (req, res) => {
 	const deleted = await Group.updateOne({_id:req.body.id}, {$pull: {"members":{"email":req.session.user.email}}})
 	res.redirect('usersgroup');
 })
+
+router.get('/success', (req, res) => {
+	console.log("Url that redirected here----------", req.url)
+	if(!req.session.user){
+		res.redirect("../users/home")
+	} else {
+		console.log("REQUEST=================",req.rawHeaders[11].split("/")[req.rawHeaders[11].split("/").length-1])
+		// if(req.session.redirecter == "/addgro")
+		const success = "Group saved successfully!"
+		res.render("./admin/successful-payment", {user:req.session.user, page:page,success:success});
+	}
+})
+
 module.exports = router;

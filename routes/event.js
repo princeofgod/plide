@@ -60,7 +60,7 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
         res.render('./admin/addevents', {error:error})
     } else {
 
-
+		console.log("req................", req.body)
 		if(req.body.button === "Save"){
 			req.body.published = "true"
 		} else {
@@ -68,12 +68,12 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
 		}
 		email = req.body["event_manager"].split(" ")[2].replace(")","").replace("(","")
 
+		const candidates = [];
 		const managerId = await userController.getOneByEmail(email)
 		// --------------------------------------------------------------------
-		if (req.body["event_nominees"] != ''){
+		if (req.body["event_nominee"] != ''){
 			let nominees = req.body["event_nominee"].split(",")
 			
-			const candidates = [];
 	
 			for(let i = 0;i < nominees.length; i++){
 				let email = nominees[i].split(" ")[2].replace(")","").replace("(","");
@@ -97,12 +97,12 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
 
 		await eventController.createOne(req.body)
 		
-	}
-	if (candidates.length <= 0){
-		res.render('./admin/addevents', {success : `Event has been created.`, page:page, user:req.session.user})  
-	} else {
-		req.session.candidates = candidates
-		next()
+		if (candidates.length <= 0){
+			res.render('./admin/addevents', {success : `Event has been created.`, page:page, user:req.session.user})  
+		} else {
+			req.session.candidates = candidates
+			next()
+		}
 	}
 })
 
@@ -363,4 +363,14 @@ router.post('/add-nominee', async (req, res) => {
 	res.end("Success !!!");
 })
   
+router.get('/success', (req, res) => {
+	
+	if(!req.session.user){
+		res.redirect("../users/home")
+	} else {
+		// if(req.session.redirecter == "/addgro")
+		const success = "Event created successfully!"
+		res.render("./admin/successful-payment", {user:req.session.user, page:page,success:success});
+	}
+})
 module.exports = router; 

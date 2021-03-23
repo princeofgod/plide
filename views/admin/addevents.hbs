@@ -17,19 +17,22 @@
                             <form action="addevents" class="" method="POST" id="eventform">
                                 <input type="text" name="button" id="publish" style="display:none">
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="event_title" class="">Event Title</label>
+                                    <label for="event_title" class="">Event Title <span
+                                            style="color:red">*</span></label>
                                     <input class="form-control" type="text" name="event_title" id="" autocomplete="off"
                                         required>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="event_description" class="">Description</label>
+                                    <label for="event_description" class="">Description <span
+                                            style="color:red">*</span></label>
                                     <textarea class="form-control" name="event_description" id="" cols="30" rows="5"
                                         style="resize: none;" required></textarea>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="event-manager" class="">Event Manager</label>
+                                    <label for="event-manager" class="">Event Manager <span
+                                            style="color:red">*</span></label>
                                     <div class="row">
                                         <div class="col-12">
                                             <input list="event_manager" name="event_manager" class="form-control">
@@ -67,11 +70,13 @@
                                 <div class="mx-5 px-2 my-3">
                                     <div class="row">
                                         <div class="col-6">
-                                            <label for="start-date" class="">Start date</label>
+                                            <label for="start-date" class="">Start date <span
+                                                    style="color:red">*</span></label>
                                             <input class="form-control" type="date" name="start_date" id="" required>
                                         </div>
                                         <div class="col-6">
-                                            <label for="end-date" class="">End date</label>
+                                            <label for="end-date" class="">End date <span
+                                                    style="color:red">*</span></label>
                                             <input class="form-control" type="date" name="end_date" id="" required>
                                         </div>
                                     </div>

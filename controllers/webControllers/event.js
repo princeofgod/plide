@@ -37,7 +37,7 @@ exports.createOne =  async (event) => {
 exports.getOne = async (name) => {
     const event = await Event.findOne({event_title: name}, (err, res) => {
         if (err) console.log(err);
-
+        return res;
     })
 
     return event;

@@ -59,18 +59,19 @@
                             <form action="addgroup" class="" method="POST">
                                 <div class="mx-5 px-2 my-3">
                                     {{>messages}}
-                                    <label for="title" class="">Group Title</label>
+                                    <label for="title" class="">Group Title <span style="color:red">*</span></label>
                                     <input class="form-control" type="text" name="title" id="" required>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="" class="">Description</label>
+                                    <label for="" class="">Description <span style="color:red">*</span></label>
                                     <textarea class="form-control" name="description" id="" cols="30" rows="5"
                                         style="resize: none;" required></textarea>
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="group-excos" class="">Group Leader</label>
+                                    <label for="group-excos" class="">Group Leader <span
+                                            style="color:red">*</span></label>
                                     <input list="group-leader" name="group_leader" class="form-control"
                                         autocomplete="off" required>
                                     <datalist id="group-leader">
@@ -83,7 +84,8 @@
                                 </div>
                                 {{!-- --}}
                                 <div class="mx-5 px-2 my-3">
-                                    <label for="group-sec" class="">Group Secretary</label>
+                                    <label for="group-sec" class="">Group Secretary <span
+                                            style="color:red">*</span></label>
                                     <input list="group-sec" name="group_sec" class="form-control"
                                         placeholder="Search..." autocomplete="off" required>
                                     <datalist id="group-sec">
