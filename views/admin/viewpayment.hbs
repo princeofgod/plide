@@ -29,6 +29,7 @@
             </div>
             {{/if}}
 
+            {{#if payment}}
             <div class="col-11 m-4" id="{{!-- form-add --}}">
                 <p class="" id="">Showing results {{payment.pagingCounter}} - {{#estimate estimate
                     payment.totalDocs}}{{/estimate}} of {{payment.totalDocs}}
@@ -44,7 +45,7 @@
                         <th>Narration</th>
                         <th>Purpose</th>
                     </tr>
-                    {{#if payment}}
+
                     {{#each payment.docs}}
                     <tr>
                         <td>{{#sn ../payment.limit ../payment.page @index}}
@@ -100,7 +101,10 @@
                                 href="../payment/getPayments?limit={{payment.limit}}&page={{payment.nextPage}}">Next</a>
                         </li>
                         {{/next}}
-
+                        {{else}}
+                        <div class="d-flex flex-row justify-contents-center" style="height:175px">
+                            <p class="text-center font-italic">No payments have been made...</p>
+                        </div>
 
                         {{!-- {{/if}} --}}
                         {{/if}}

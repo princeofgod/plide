@@ -137,7 +137,7 @@
                     <div class="col-11 schedule pb-3">
                         <div class="row p-3  schedule">
                             {{!-- CONTINUE HERE TOMORROW --}}
-                            <h3 class="schedule">Today's schedule</h3>
+                            <h3 class="schedule font-weight-bold">Today's schedule</h3>
                         </div>
                         {{#if schedule}}
                         {{#each schedule}}
@@ -161,16 +161,18 @@
                             </div>
                         </div>
                         {{/each}}
-                        <div class="d-flex flex-column justify-content-center align-items-center w-100"
-                            style="height:215px;">
+                        {{else}}
+                        <div class="d-flex flex-row justify-content-center">
+
                             <p class="text-center font-italic">No upcoming schedules...</p>
                         </div>
-                        {{/if}}
 
+                        {{/if}}
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 </div>
