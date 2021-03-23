@@ -14,11 +14,11 @@ exports.getById = async (id) => {
     const course = await Cause.findOne({_id:id},( err, res) => {
         if (err) console.log(err)
         if(res){
-            console.log("returned res====", res)
+            // console.log("returned res====", res)
             return res
         }
     });
-    console.log("group in webcontrollers === ", course)
+    // console.log("group in webcontrollers === ", course)
     return course;
 }
 
@@ -52,7 +52,7 @@ exports.updateOne = async (id, body) => {
 
 exports.createOne = async (body) => {
 
-    console.log("body in controller ===== ", body)
+    // console.log("body in controller ===== ", body)
     // if (!errors.isEmpty()) {
     //   return res.status(422).json({ errors: errors.array() });
     // };

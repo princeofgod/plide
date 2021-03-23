@@ -110,7 +110,7 @@ let courseAmount = 0
 exports.recentCauses = async () => {
 // const details = [];
 	const recentlyFunded = await Payment.find({purpose:'course'}).limit(4).sort({payment_date:-1}).then(async item => {
-		console.log("item", item)
+		// console.log("item", item)
 		const causes=[];
 
 		for(let i = 0 ; i < item.length ; i++){
@@ -121,7 +121,7 @@ exports.recentCauses = async () => {
 			})
 			causes.push(newItem);
 		}
-		console.log("causes-----------", causes)
+		// console.log("causes-----------", causes)
 		return causes
 	}).catch(err => console.log(err))
 

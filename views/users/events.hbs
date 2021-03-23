@@ -119,8 +119,9 @@
                         </tr>
                         {{/each}}
                         {{else}}
-                        <div class="d-flex flex-row align-items-center justify-contents-center">
-                            <p class="text-center font-italics">No upcoming events...</p>
+                        <div class="d-flex flex-column justify-content-center align-items-center w-100"
+                            style="height: 175px">
+                            <p class="text-center font-italic">No upcoming events...</p>
                         </div>
                         {{/if}}
                     </table>
@@ -158,6 +159,10 @@
                             </div>
                         </div>
                         {{/each}}
+                        <div class="d-flex flex-column justify-content-center align-items-center w-100"
+                            style="height:215px;">
+                            <p class="text-center font-italic">No upcoming schedules...</p>
+                        </div>
                         {{/if}}
 
                     </div>

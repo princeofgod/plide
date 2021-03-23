@@ -189,7 +189,7 @@ const userGroupValidator =[
 const scheduleVerification = [
     check("group").notEmpty().withMessage("All fields are required!"),
     check("start_time").custom((value,{req}) => {
-        console.log("I am here---")
+        // console.log("I am here---")
         console.log(value)
         // let t = "08:30"; // hh:mm
         let start_ms = Number(value.split(':')[0]) * 60 * 60 * 1000 + Number(value.split(':')[1]) * 60 * 1000;
