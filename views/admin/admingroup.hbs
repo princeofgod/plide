@@ -131,7 +131,7 @@
                         </tr>
                         {{/each}}
                         {{else}}
-                        <div class="d-flex flex-row justify-contents-center">
+                        <div class="d-flex flex-row justify-content-center">
                             <p class="text-center font-italic">No group to display...</p>
                         </div>
                         {{/if}}
@@ -170,7 +170,7 @@
                         </div>
                         {{/each}}
                         {{else}}
-                        <div class="d-flex flex-row justify-contents-center w-100">
+                        <div class="d-flex flex-row justify-contents-center w-100" style="height:215px">
                             <p class="text-center font-italic">No upcoming schedules...</p>
                         </div>
                         {{/if}}
@@ -182,9 +182,13 @@
                         <p class="w-100 p-2" style="background: orange;color:#FAFFF9">
                             You have {{unapprovedCount}} pending request to approve
                         </p>
+                        {{disablebtn unapprovedCount 0}}
+                        <button class="w-50 btn-green " style="font-size:1.2vw"
+                            onclick="window.location.href='./approverequest'" disabled>View requests</button>
+                        {{else}}
                         <button class="w-50 btn-green " style="font-size:1.2vw"
                             onclick="window.location.href='./approverequest'">View requests</button>
-
+                        {{/disablebtn}}
                         <div class="mt-2 d-flex align-items-center w-100 mt-2"
                             style="width:60%px;height:50%;background: #FAFFF9;box-shadow: 0px 2.72839px 27.966px -11.5957px rgba(18, 72, 20, 0.35);border-radius: 6.82099px;">
                             <div class="mx-1 d-flex flex-column justify-content-center align-items-center"

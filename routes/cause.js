@@ -113,7 +113,7 @@ router.get('/funding', async (req, res, next) => {
 			});
 		}
 		if(user.role === '1'){
-			res.render('./admin/adminfundACause', {user:user, page:page,causes:causes,payment:newPayment})
+			res.render('./admin/adminFundACause', {user:user, page:page,causes:causes,payment:newPayment})
 		} else {
 			res.render('./users/fundACause', {user:user, page:page,causes:causes, payment:newPayment});
 		}

@@ -86,6 +86,9 @@ app.engine(
   'sn' : function(a,b,c){
     return (a * (b-1)) + c + 1;
     // (ITEMS_PER_PAGE * (CURRENT_PAGE-1)) + $index+1
+  },
+  'disablebtn' : function(a, b, opts){
+    return (a==b) ? opts.fn(this) : opts.inverse(this)
   }
   }})
 );
