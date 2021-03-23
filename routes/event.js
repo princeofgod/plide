@@ -70,34 +70,40 @@ router.post('/addevents',eventValidation, async (req,res,next) => {
 
 		const managerId = await userController.getOneByEmail(email)
 		// --------------------------------------------------------------------
-		let nominees = req.body["event_nominee"].split(",")
-		// const nnominees = [];
-		const candidates = [];
-
-		for(let i = 0;i < nominees.length; i++){
-			let email = nominees[i].split(" ")[2].replace(")","").replace("(","");
-			let candidate = await userController.getOneByEmail(email);
+		if (req.body["event_nominees"] != ''){
+			let nominees = req.body["event_nominee"].split(",")
+			
+			const candidates = [];
 	
-
-			candidates.push({
-				id:candidate._id,
-				firstname:candidate.firstname,
-				lastname:candidate.lastname,
-				phone:candidate.phone,
-				email:candidate.email,
-			});
+			for(let i = 0;i < nominees.length; i++){
+				let email = nominees[i].split(" ")[2].replace(")","").replace("(","");
+				let candidate = await userController.getOneByEmail(email);
+		
+	
+				candidates.push({
+					id:candidate._id,
+					firstname:candidate.firstname,
+					lastname:candidate.lastname,
+					phone:candidate.phone,
+					email:candidate.email,
+				});
+			}
+			req.body.nominees = candidates;
 		}
+		// const nnominees = [];
 		// --------------------------------------------------------------------
 
 		req.body["event_manager"] = managerId._id
 
-		req.body.nominees = candidates;
 		await eventController.createOne(req.body)
-
-		req.session.candidates = candidates
-
+		
 	}
-	next()
+	if (candidates.length <= 0){
+		res.render('./admin/addevents', {success : `Event has been created.`, page:page, user:req.session.user})  
+	} else {
+		req.session.candidates = candidates
+		next()
+	}
 })
 
 router.post('/addevents', async (req, res) => {
