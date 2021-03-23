@@ -49,10 +49,10 @@ router.get('/groups', async (req,res,next) => {
 		console.log('unapprovedCount=-================', unapprovedCount)
 
 	  	if(req.session.user.role !== "1"){
-			page.title = 'PACES Admin Group';
+			pages.title = 'PACES Admin Group';
 			res.render('./users/usergroups', {user:user,page:pages,randomGroups:randomGroups,groups:groups,schedule:schedule})
 		}else{
-			page.title = 'PACES Group';
+			pages.title = 'PACES Group';
 			res.render('./admin/admingroup', {user:user,page:pages,randomGroups:randomGroups,groups:groups,schedule:schedule, unapprovedCount:unapprovedCount})
 		}
 	}
@@ -80,7 +80,7 @@ router.get('/addgroup', async (req,res) => {
 				return res
 			})
 
-			page.title = 'PACES Admin Group';
+			pages.title = 'PACES Admin Group';
 			res.render('./admin/addgroup', {user:req.session.user, page:pages, users:users, groups:groups,schedule:schedule})
 		}
 	}
@@ -237,10 +237,10 @@ router.get('/viewgroups', async (req, res) => {
 		})
 		
 		if(req.session.user.role === '1'){
-			page.title = "PACES Admin Group"
+			pages.title = "PACES Admin Group"
 			res.render('./admin/viewgroups', {user:req.session.user, groups:displayGRoups, page:pages,estimate: displayGRoups.page * displayGRoups.limit})
 		} else {
-			page.title = "PACES Group"
+			pages.title = "PACES Group"
 			res.render('./users/viewgroups', {user:req.session.user, groups:displayGRoups, page:pages,estimate: displayGRoups.page * displayGRoups.limit})
 		}
 		
@@ -270,11 +270,11 @@ router.get('/view-group-info', async (req, res) => {
 			return res
 		})
 		if(req.session.user.role == '1'){
-			page.title = "PACES Admin Group"
+			pages.title = "PACES Admin Group"
 			
 			res.render('./admin/full-info-group', {user:req.session.user, page:pages, group: groups, users: members, schedule:schedule})
 		} else {
-			page.title = "PACES Group"
+			pages.title = "PACES Group"
 			res.render('./users/full-info-group', {user:req.session.user, page:pages, group: groups, users: members, schedule:schedule})
 		}
 	}
@@ -453,13 +453,13 @@ router.get('/usersgroup', async (req, res) => {
 
 		if(req.session.user.role == '1'){
 			// console.log("I am here")
-			page.title = 'PACES Admin Fund a Cause';
-			page.pageTitle = 'Fund a cause' ;
+			pages.title = 'PACES Admin Fund a Cause';
+			pages.pageTitle = 'Fund a cause' ;
 			res.render('./admin/usersgroup', {user:req.session.user, page:pages, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
 		} else {
 			// console.log("I am here")
-			page.title = 'PACES group';
-			page.pageTitle = 'Group' ;
+			pages.title = 'PACES group';
+			pages.pageTitle = 'Group' ;
 			console.log("PAge ", page)
 			res.render('./users/usersgroup', {user:req.session.user, page:pages, usersgroup: usersgroup,estimate: usersgroup.page * usersgroup.limit })
 		}
