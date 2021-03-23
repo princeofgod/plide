@@ -66,10 +66,10 @@
                             {{!-- <div class="progress"></div> --}}
                         </div>
                         {{/each}}
-
-                        {{!-- <div class="d-flex flex-row justify-contents-center" style="height:175px">
+                        {{else}}
+                        <div class="d-flex flex-row justify-content-center w-100" style="height:175px">
                             <p class="text-center font-italic">No groups to display...</p>
-                        </div> --}}
+                        </div>
                         {{/if}}
                     </div>
 
@@ -130,10 +130,10 @@
                             </td>
                         </tr>
                         {{/each}}
-                        {{else}}
-                        <div class="d-flex flex-row align-item-center justify-content-center w-100">
+                        {{!-- {{else}}
+                        <div class="d-flex flex-row justify-content-center w-100">
                             <p class="text-center font-italic">No group to display...</p>
-                        </div>
+                        </div> --}}
                         {{/if}}
 
                     </table>

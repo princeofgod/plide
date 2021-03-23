@@ -49,8 +49,8 @@
                             {{!-- <div class="progress"></div> --}}
                         </div>
                         {{/each}}
-
-                        <div class="d-flex flex-row justify-contents-center w-100" style="height:175px">
+                        {{else}}
+                        <div class="d-flex flex-row justify-content-center w-100" style="height:175px">
                             <p class="text-center font-italic">No event published yet...</p>
                         </div>
                         {{/if}}
@@ -235,10 +235,10 @@
                             </td>
                         </tr>
                         {{/each}}
-                        {{else}}
+                        {{!-- {{else}}
                         <div class="d-flex flex-row justify-content-center w-100" style="height:175px">
                             <p class="text-center font-italic">No event to display...</p>
-                        </div>
+                        </div> --}}
                         {{/if}}
                     </table>
                 </div>
