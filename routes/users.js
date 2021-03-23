@@ -26,6 +26,7 @@ const store = new MongoStore({
 	uri: process.env.DATABASEE,
 	collection: 'sessions'
   });
+  
 
 const createToken = id => {
 	return jwt.sign({

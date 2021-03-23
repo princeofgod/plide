@@ -131,7 +131,7 @@
                         </tr>
                         {{/each}}
                         {{else}}
-                        <div class="d-flex flex-row justify-content-center">
+                        <div class="d-flex flex-row align-item-center justify-content-center w-100">
                             <p class="text-center font-italic">No group to display...</p>
                         </div>
                         {{/if}}
@@ -183,8 +183,8 @@
                             You have {{unapprovedCount}} pending request to approve
                         </p>
                         {{#disablebtn unapprovedCount 0}}
-                        <button class="w-50 btn-green " style="font-size:1.2vw"
-                            onclick="window.location.href='./approverequest'" disabled>View requests</button>
+                        <button class="w-50 btn" style="font-size:1vw" onclick="window.location.href='./approverequest'"
+                            disabled style="ho">View requests</button>
                         {{else}}
                         <button class="w-50 btn-green " style="font-size:1.2vw"
                             onclick="window.location.href='./approverequest'">View requests</button>
